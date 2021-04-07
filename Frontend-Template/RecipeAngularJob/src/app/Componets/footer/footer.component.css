@@ -1,0 +1,31 @@
+
+.form-control::placeholder {
+  font-size: 0.95rem;
+  color: black;
+  font-style: italic;
+}
+footer{
+  background-color: #121b22;
+  color:#FFF
+}
+i {
+  color: #b94a3e;
+  font-size: large;
+}
+i:hover{
+  color: white;
+}
+
+.form-control.shadow-0:focus {
+  box-shadow: none;
+}
+input{
+  background-color: #204254;
+  color: black;
+}
+.row .col-lg-4 .navbar-brand {
+  color: white;
+  font-size: 40px;
+  font-family: Forte;
+}
+

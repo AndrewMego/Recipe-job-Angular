@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #b94a3e #121b22;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #121b22;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #b94a3e;
+  border-radius: 5px;
+  border: 3px solid #121b22;
+}
