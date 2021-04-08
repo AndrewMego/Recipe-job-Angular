@@ -8,17 +8,26 @@ body {
   margin-top: -250px;
   margin-left: -400px;
 } */
+.btn{
+  color: #b94a3e;
+  border: 1px solid #b94a3e;
+}
+.btn:hover{
+  background-color: #b94a3e;
+  color: white;
+}
 h1
 {
   font-family: 'Dancing Script', cursive;
   text-align: center;
+  color: #121b22;
 }
 .contentHead
 {
   font-family:'Dancing Script', cursive;
   font-size:230px;
   font-weight:500;
-  color: #ffc756;
+  color: #204254;
   /* text-decoration:underline; */
 }
 .message-box {

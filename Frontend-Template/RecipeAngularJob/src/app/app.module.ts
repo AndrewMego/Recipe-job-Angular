@@ -10,6 +10,9 @@ import { ContactUsComponent } from './Componets/contact-us/contact-us.component'
 import { AboutusComponent } from './Componets/aboutus/aboutus.component';
 import { LoginComponent } from './Componets/login/login.component';
 import { RegisterComponent } from './Componets/register/register.component';
+import { JobsComponent } from './Componets/jobs/jobs.component';
+import { JobDetailsComponent } from './Componets/job-details/job-details.component';
+import { UserProfileComponent } from './Componets/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { RegisterComponent } from './Componets/register/register.component';
     ContactUsComponent,
     AboutusComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    JobsComponent,
+    JobDetailsComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule
