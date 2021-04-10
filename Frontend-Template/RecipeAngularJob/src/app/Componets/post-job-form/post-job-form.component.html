@@ -4,108 +4,258 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <div class="apply_job_form white-bg">
-          <h4>Post your job</h4>
-          <form action="#">
-            <div class="row">
-              <div class="col">
-                <div class="input_field">
-                  <input type="text" placeholder="Job title" />
+        <!-- <div class="apply_job_form white-bg"> -->
+        <link
+          href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+          rel="stylesheet"
+        />
+
+        <div class="container apply_job_form">
+          <div class="row">
+            <div class="col">
+              <h4 class="category">Post a job with</h4>
+              <!-- Nav tabs -->
+              <div class="card">
+                <div class="card-header">
+                  <ul
+                    class="nav nav-tabs justify-content-center"
+                    role="tablist"
+                  >
+                    <li class="nav-item">
+                      <a
+                        class="nav-link active"
+                        data-toggle="tab"
+                        href="#home"
+                        role="tab"
+                      >
+                        Form
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        data-toggle="tab"
+                        href="#profile"
+                        role="tab"
+                      >
+                        Email
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-              </div>
-              <div class="col">
-                <div class="input_field">
-                  <input type="text" placeholder="Company location" />
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="row">
-                  <div class="col">
-                    <div class="input_field">
-                      <input type="number" placeholder="Vacancy" min="1" />
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content text-center">
+                    <div class="tab-pane active" id="home" role="tabpanel">
+                      <form action="#">
+                        <div class="row">
+                          <div class="col">
+                            <div class="input_field">
+                              <input type="text" placeholder="Job title" />
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="input_field">
+                              <input
+                                type="text"
+                                placeholder="Company location"
+                              />
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="row">
+                              <div class="col">
+                                <div class="input_field">
+                                  <input
+                                    type="number"
+                                    placeholder="Vacancy"
+                                    min="1"
+                                  />
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="input_field">
+                                  <input
+                                    type="number"
+                                    placeholder="Salary"
+                                    min="1"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="input_field">
+                              <textarea
+                                name="#"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                placeholder="Job description"
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="input_field">
+                              <textarea
+                                name="#"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                placeholder="Responsibility"
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="input_field">
+                              <textarea
+                                name="#"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                placeholder="Qualification"
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="input_field">
+                              <textarea
+                                name="#"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                placeholder="Benefits"
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-group">
+                              <select
+                                class="form-control"
+                                id="exampleFormControlSelect1"
+                              >
+                                <option disabled selected>
+                                  Select job nature
+                                </option>
+                                <option>Part-time</option>
+                                <option>Full-time</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-group">
+                              <select
+                                class="form-control"
+                                id="exampleFormControlSelect1"
+                              >
+                                <option disabled selected>
+                                  Select years of experiences
+                                </option>
+                                <option>Less than 1 year</option>
+                                <option>From 1 to 3 years</option>
+                                <option>From 3 to 5 years</option>
+                                <option>More than 5 years</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="submit_btn">
+                              <button class="boxed-btn3 w-100" type="submit">
+                                Post Now
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="tab-pane" id="profile" role="tabpanel">
+                      <form action="#">
+                        <div class="row">
+                          <div class="col">
+                            <div class="input_field">
+                              <input type="text" placeholder="Job title" />
+                            </div>
+                          </div>
+
+                          <div class="col">
+                            <div class="input_field">
+                              <input
+                                type="number"
+                                placeholder="Vacancy"
+                                min="1"
+                              />
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="input_field">
+                              <input
+                                type="number"
+                                placeholder="Salary"
+                                min="1"
+                              />
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="input_field">
+                              <textarea
+                                name="#"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                placeholder="Job Requirements"
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-group">
+                              <select
+                                class="form-control"
+                                id="exampleFormControlSelect1"
+                              >
+                                <option disabled selected>
+                                  Select job nature
+                                </option>
+                                <option>Part-time</option>
+                                <option>Full-time</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-group">
+                              <select
+                                class="form-control"
+                                id="exampleFormControlSelect1"
+                              >
+                                <option disabled selected>
+                                  Select years of experiences
+                                </option>
+                                <option>Less than 1 year</option>
+                                <option>From 1 to 3 years</option>
+                                <option>From 3 to 5 years</option>
+                                <option>More than 5 years</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="submit_btn">
+                              <button class="boxed-btn3 w-100" type="submit">
+                                Post Now
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
-                  <div class="col">
-                    <div class="input_field">
-                      <input type="number" placeholder="Salary" min="1" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="input_field">
-                  <textarea
-                    name="#"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    placeholder="Job description"
-                  ></textarea>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="input_field">
-                  <textarea
-                    name="#"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    placeholder="Responsibility"
-                  ></textarea>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="input_field">
-                  <textarea
-                    name="#"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    placeholder="Qualification"
-                  ></textarea>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="input_field">
-                  <textarea
-                    name="#"
-                    id=""
-                    cols="30"
-                    rows="10"
-                    placeholder="Benefits"
-                  ></textarea>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option disabled selected>Select job nature</option>
-                    <option>Part-time</option>
-                    <option>Full-time</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="form-group">
-                  <select class="form-control" id="exampleFormControlSelect1">
-                    <option disabled selected>Select years of experiences</option>
-                    <option>Less than 1 year</option>
-                    <option>From 1 to 3 years</option>
-                    <option>From 3 to 5 years</option>
-                    <option>More than 5 years</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="submit_btn">
-                  <button class="boxed-btn3 w-100" type="submit">
-                    Post Now
-                  </button>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
+
+        <!-- <h4>Post your job</h4> -->
+        <!-- </div> -->
       </div>
     </div>
   </div>
