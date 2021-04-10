@@ -19,115 +19,79 @@
                   Bay Area, San Francisco, CA
                 </p>
                 <!-- <button class="btn btn-primary">Follow</button> -->
-                <button class="btn btn-outline" data-toggle="modal" data-target="#glassAnimals">Edit Profile</button>
+                <button class="btn" data-toggle="modal" data-target="#exampleModalScrollable">Edit Profile</button>
               </div>
               <!-- ///////////////////////////////////// -->
-              <div class="modal fade" id="glassAnimals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Edit your profile</h5>
+                      <h5 class="modal-title" id="exampleModalScrollableTitle">Edit your profile</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <div class="modal-body">
-                      <form action="#">
-                        <div class="row">
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="text" placeholder="User name" required />
-                            </div>
+                    <div class="modal-body" style="background-color: #121b22;">
+
+                      <form class="text-left">
+
+                        <div class="form-group text-center mt-2">
+                          <label for="fileToUpload" >
+                          <div class="profile-pic" style="background-image: url('https://bootdey.com/img/Content/avatar/avatar7.png')">
+                              <span class="glyphicon glyphicon-camera"></span>
+                              <!-- <span>Change Image</span> -->
                           </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="text" placeholder="First name" required />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="text" placeholder="Last name" required />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="email" placeholder="Email" required />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="password" placeholder="Password" required />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input
-                                type="password"
-                                placeholder="confirm password"
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input
-                                type="tel"
-                                placeholder="Phone number"
-                                pattern="(201)[0-9]{9}"
-                                minlength="11"
-                                maxlength="11"
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input-group">
-                              <div class="input-group-prepend">
-                                <button type="button" id="inputGroupFileAddon03">
-                                  <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-                                </button>
-                              </div>
-                              <div class="custom-file">
-                                <input
-                                  type="file"
-                                  class="custom-file-input"
-                                  id="inputGroupFile03"
-                                  aria-describedby="inputGroupFileAddon03"
-                                />
-                                <label class="custom-file-label" for="inputGroupFile03"
-                                  >Upload image</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="url" placeholder="Github" />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="url" placeholder="Instgram" />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="url" placeholder="Facebook" />
-                            </div>
-                          </div>
-                          <div class="col mb-5">
-                              <select class="container ">
-                                <option disabled selected>Select register type</option>
-                                <option>Company</option>
-                                <option>Client</option>
-                              </select>
-                          </div>
+                          </label>
+                          <input type="File" name="fileToUpload" id="fileToUpload">
+                          <h5 style="color: white;">Click the picture</h5>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="user-name" class="col-form-label">User name</label>
+                          <input type="text" class="form-control"  placeholder="Enter your user name"  id="user-name"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="first-name" class="col-form-label">First name</label>
+                          <input type="text" class="form-control" placeholder="Enter your First name"  id="first-name"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="last-name" class="col-form-label">Last name</label>
+                          <input type="text" class="form-control" placeholder="Enter your Last name"  id="last-name"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="email" class="col-form-label">Email</label>
+                          <input disabled type="email" class="form-control" placeholder="Enter your email" id="email"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="pass" class="col-form-label">Password</label>
+                          <input type="password" class="form-control" placeholder="Enter your new password"  id="pass"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="conf-pass" class="col-form-label">confirm password</label>
+                          <input type="password" class="form-control" placeholder="Enter your confirmation password"  id="conf-pass"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="phone" class="col-form-label">Phone number</label>
+                          <input type="tel" class="form-control" placeholder="Enter your phone number"  id="phone"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="github" class="col-form-label">Github</label>
+                          <input type="url" class="form-control" placeholder="Enter your github account"  id="github"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="instgram" class="col-form-label">Instgram</label>
+                          <input type="url" class="form-control" placeholder="Enter your instgram account"  id="instgram"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="facebook" class="col-form-label">Facebook</label>
+                          <input type="url" class="form-control" placeholder="Enter your facebook account" id="facebook"/>
                         </div>
                       </form>
+
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-danger">Track Artist</button>
+                      <button type="button" class="btn btnClose" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn">Save changes</button>
                     </div>
                   </div>
                 </div>

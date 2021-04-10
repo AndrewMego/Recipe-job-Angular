@@ -4,6 +4,49 @@ body{
   text-align: left;
   /* background-color: #F5F7FA;     */
 }
+
+.profile-pic {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  vertical-align: middle;
+  text-align: center;
+  color: transparent;
+  transition: all .3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input{
+  background-color: #F5F7FA;
+}
+ :disabled{
+   background-color: #204254;
+ }
+.profile-pic:hover {
+  background-color: #121b22;
+  z-index: 10000;
+  color: #fff;
+  transition: all .3s ease;
+  text-decoration: none;
+  /* opacity: 0.9; */
+  transform: scale(1.15);
+}
+
+.profile-pic span {
+  display: inline-block;
+  padding-top: 4.5em;
+  padding-bottom: 4.5em;
+}
+
+form input[type="file"] {
+        display: none;
+        cursor: pointer;
+}
+
 .progress-bar{
   background-color: #204254;
 }
@@ -20,6 +63,15 @@ hr{
 }
 .btn{
   background-color: #b94a3e;
+  color: white;
+}
+.btnClose:hover{
+  background-color: #204254;
+  border: 1px solid #204254;
+  color: white;
+}
+.btnClose{
+  background-color: #204254;
   color: white;
 }
 .main-body {

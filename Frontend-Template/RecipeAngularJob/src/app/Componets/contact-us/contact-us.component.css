@@ -9,3 +9,9 @@
   background-size: cover;
   margin-top: 60px;
 }
+section{
+  background-color: #F5F7FA;
+}
+.form-control{
+  background-color: white;
+}

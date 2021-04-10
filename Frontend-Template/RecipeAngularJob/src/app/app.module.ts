@@ -13,6 +13,9 @@ import { RegisterComponent } from './Componets/register/register.component';
 import { JobsComponent } from './Componets/jobs/jobs.component';
 import { JobDetailsComponent } from './Componets/job-details/job-details.component';
 import { UserProfileComponent } from './Componets/user-profile/user-profile.component';
+import { AppRoutingModule } from './app-routing.module';
+import { PostJobFormComponent } from './Componets/post-job-form/post-job-form.component';
+import { BlogComponent } from './Componets/blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +30,13 @@ import { UserProfileComponent } from './Componets/user-profile/user-profile.comp
     RegisterComponent,
     JobsComponent,
     JobDetailsComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    PostJobFormComponent,
+    BlogComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
