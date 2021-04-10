@@ -13,6 +13,7 @@ import { RegisterComponent } from './Componets/register/register.component';
 import { JobsComponent } from './Componets/jobs/jobs.component';
 import { JobDetailsComponent } from './Componets/job-details/job-details.component';
 import { UserProfileComponent } from './Componets/user-profile/user-profile.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UserProfileComponent } from './Componets/user-profile/user-profile.comp
     UserProfileComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
