@@ -7,9 +7,11 @@ import { HomeComponent } from './Componets/home/home.component';
 import { JobDetailsComponent } from './Componets/job-details/job-details.component';
 import { JobsComponent } from './Componets/jobs/jobs.component';
 import { LoginComponent } from './Componets/login/login.component';
+import { OthersComponent } from './Componets/others/others.component';
 import { PageNotFoundComponent } from './Componets/page-not-found/page-not-found.component';
 import { PostJobFormComponent } from './Componets/post-job-form/post-job-form.component';
 import { RegisterComponent } from './Componets/register/register.component';
+import { SingleBlogComponent } from './Componets/single-blog/single-blog.component';
 import { UserProfileComponent } from './Componets/user-profile/user-profile.component';
 
 
@@ -26,6 +28,8 @@ const routes: Routes = [
   {path:'job-details', component:JobDetailsComponent},
   {path:'blog', component:BlogComponent},
   {path:'profile', component:UserProfileComponent},
+  {path:'single-blog', component:SingleBlogComponent},
+  {path:'others', component:OthersComponent},
   {path:'**', component:PageNotFoundComponent}
 ];
 

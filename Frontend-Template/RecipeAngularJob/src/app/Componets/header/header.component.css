@@ -40,15 +40,22 @@ body{
 	overflow-x: hidden;
     transition: all 200ms linear;
 }
+
+/* ///////////////////////// */
+
+/* /////////////////////////// */
 .row .col-12 .navbar .navbar-brand {
   color: white;
   font-size: 40px;
   font-family: Forte;
 }
-
-.act{
-  border-bottom:2px solid #b94a3e;
+.hamada{
+  border-bottom: 3px solid #b94a3e;
 }
+
+/* .act{
+  border-bottom:3px solid #b94a3e;
+} */
 
 .btn:hover{
   color: #b94a3e;

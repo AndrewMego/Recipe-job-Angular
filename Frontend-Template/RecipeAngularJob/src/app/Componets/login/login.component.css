@@ -20,29 +20,41 @@ a:hover{
 }
 .form-control{
   background-color: #f8f9fa;
-  padding: 20px;
-  padding: 25px 15px;
+  /* padding: 20px;
+  padding: 25px 15px; */
   margin-bottom: 1.3rem;
 }
 
-.form-control:focus {
-
-    color: #000000;
-    background-color: #ffffff;
-    border: 3px solid #da5767;
-    outline: 0;
-    box-shadow: none;
-
+label small {
+  color: #999;
+  font-weight: normal;
 }
 
+.btn:hover{
+  color: #b94a3e;
+  background-color: white;
+  border: 1px solid #b94a3e;
+}
 .btn{
-  padding: 0.6rem 1.2rem;
-  /* background: #da5767; */
-  border: 2px solid;
+  background-color: #b94a3e;
+  color: white;
 }
-.btn-primary:hover {
-    background-color: #df8c96;
-    border-color: #df8c96;
-  transition: .3s;
+.btnClose:hover{
+  background-color: #204254;
+  border: 1px solid #204254;
+  color: white;
+}
+.btnClose{
+  background-color: #204254;
+  color: white;
+}
+.upload{
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  background-color: white;
+  width: 100%;
+}
 
+.modal-body input, .modal-body textarea{
+  background-color: #F5F7FA;
 }

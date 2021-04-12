@@ -5,6 +5,15 @@ body{
   /* background-color: #F5F7FA;     */
 }
 
+/* h6{
+  color: #204254;
+}
+h6:hover{
+  color: #b94a3e;
+} */
+.job_details_area{
+  background-color:#121b22;
+}
 .profile-pic {
   border-radius: 50%;
   height: 150px;
@@ -20,7 +29,7 @@ body{
   cursor: pointer;
 }
 
-input{
+input, textarea, select{
   background-color: #F5F7FA;
 }
  :disabled{
@@ -76,8 +85,8 @@ hr{
 }
 .main-body {
   padding: 15px;
-  background-color: #F5F7FA;  
-  color: #121b22;  
+  background-color: #F5F7FA;
+  color: #121b22;
 
 }
 .card {

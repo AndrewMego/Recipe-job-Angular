@@ -1,7 +1,9 @@
+
 .cover{
   background-size: cover;
   margin-top: 60px;
 }
+
 
 .btn:hover{
   color: #b94a3e;
@@ -15,4 +17,23 @@
   padding-bottom: 10px;
   font-weight: 700;
 }
-
+.single_catagory{
+  background-repeat: no-repeat;
+  background-size: cover;
+  width:100%;
+  /* height:400px; */
+  position:relative;
+  display:block;
+}
+.single_catagory::before{
+  content:"";
+  opacity:0.1;
+  position:absolute;
+  top:0;
+  bottom:0;
+  right:0;
+  left:0;
+  width:auto;
+  height:auto;
+  z-index:-5;
+}

@@ -1,0 +1,45 @@
+.btn:hover{
+  color: #b94a3e;
+  background-color: white;
+  border: 1px solid #b94a3e;
+}
+.btn{
+  background-color: #b94a3e;
+  color: white;
+  padding-top:10px ;
+  padding-bottom: 10px;
+  font-weight: 700;
+}
+.catagory_area
+{
+  background-color: #F5F7FA;
+}
+h6{
+  color: #204254;
+}
+h6:hover{
+  color: #b94a3e;
+}
+.job_listing_area{
+  margin-top: -150px;
+}
+.mail{
+   text-decoration: underline;
+}
+.mail:hover{
+  text-decoration: underline;
+  color: #b94a3e;
+}
+img{
+  height: 120px;
+  width: 100px;
+}
+a h5{
+  color: #006BDa;
+}
+a h5:hover{
+  color: #b94a3e;
+}
+
+
+

@@ -16,6 +16,8 @@ import { UserProfileComponent } from './Componets/user-profile/user-profile.comp
 import { AppRoutingModule } from './app-routing.module';
 import { PostJobFormComponent } from './Componets/post-job-form/post-job-form.component';
 import { BlogComponent } from './Componets/blog/blog.component';
+import { OthersComponent } from './Componets/others/others.component';
+import { SingleBlogComponent } from './Componets/single-blog/single-blog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { BlogComponent } from './Componets/blog/blog.component';
     JobDetailsComponent,
     UserProfileComponent,
     PostJobFormComponent,
-    BlogComponent
+    BlogComponent,
+    OthersComponent,
+    SingleBlogComponent
   ],
   imports: [
     BrowserModule,
