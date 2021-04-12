@@ -18,7 +18,8 @@ import { PostJobFormComponent } from './Componets/post-job-form/post-job-form.co
 import { BlogComponent } from './Componets/blog/blog.component';
 import { OthersComponent } from './Componets/others/others.component';
 import { SingleBlogComponent } from './Componets/single-blog/single-blog.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,10 @@ import { SingleBlogComponent } from './Componets/single-blog/single-blog.compone
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule, 
   ],
   providers: [],
   bootstrap: [AppComponent]
