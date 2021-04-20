@@ -13,6 +13,8 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginUser:Iuser
+  msg:boolean = false
+
   constructor(private formbuilder: FormBuilder, private _apiloginServ:UserServiceService , private _router:Router ) { }
 
   ngOnInit(): void {
@@ -26,11 +28,23 @@ export class LoginComponent implements OnInit {
     console.log(this.loginUser)
     this._apiloginServ.userLogin(
       this.loginUser).subscribe((res) => {
-        console.log(res)
+        if(res['msg'] == 'no')
+        {
+          this.msg = true
+        }else if(res['msg'] == 'notActive'){
+          alert("you must check your mail to active this account")
+        }
+        else{
+
+        console.log(res)  
+        window.location.href = 'http://localhost:4200/home';
+        //this._apiloginServ.notify({isRefresh : true});
+        sessionStorage.setItem('userInfo', JSON.stringify(res['obj']));
+       // this._router.navigateByUrl('/home');
+        }
+        
        
-       // alert("added Post")
-        sessionStorage.setItem('userInfo', JSON.stringify(res));
-        this._router.navigateByUrl('/home');
+        
       }, (err) => { console.log(err) })
   }
 }

@@ -11,13 +11,18 @@
                 <img src="./../../../assets/img/svg_icon/1.svg" alt="" />
               </div>
               <div class="jobs_conetent">
-                <a href="#"><h4>Software Engineer</h4></a>
+                <a href="#"><h4>{{JobDetail.userID.companyName}}</h4></a>
                 <div class="links_locat d-flex align-items-center">
                   <div class="location">
-                    <p><i class="fa fa-map-marker"></i> California, USA</p>
+                    <p><i class="fa fa-map-marker"></i> {{JobDetail.location}}, Egypt</p>
                   </div>
                   <div class="location">
-                    <p><i class="fa fa-clock-o"></i> Part-time</p>
+                    <p *ngIf="JobDetail.jobType == 'F'">
+                          <i class="fa fa-clock-o"></i>Full Time
+                        </p>
+                        <p *ngIf="JobDetail.jobType == 'P'">
+                          <i class="fa fa-clock-o"></i>Part Time
+                        </p>
                   </div>
                 </div>
               </div>
@@ -35,57 +40,32 @@
           <div class="single_wrap">
             <h4>Job description</h4>
             <p>
-              There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or randomised words which don't look even
-              slightly believable. If you are going to use a passage of Lorem
-              Ipsum, you need to be sure there isn't anything embarrassing.
-            </p>
-            <p>
-              Variations of passages of lorem Ipsum available, but the majority
-              have suffered alteration in some form, by injected humour, or
-              randomised words which don't look even slightly believable. If you
-              are going to use a passage of Lorem Ipsum, you need to be sure
-              there isn't anything embarrassing.
+             {{JobDetail.description}}.
             </p>
           </div>
-          <div class="single_wrap">
+          <!--<div class="single_wrap">
             <h4>Responsibility</h4>
             <ul>
-              <li>
-                The applicants should have experience in the following areas.
-              </li>
-              <li>Have sound knowledge of commercial activities.</li>
-              <li>Leadership, analytical, and problem-solving abilities.</li>
-              <li>
-                Should have vast knowledge in IAS/ IFRS, Company Act, Income
-                Tax, VAT.
+            <li>
+              {{JobDetail.responsibility}}.
               </li>
             </ul>
-          </div>
+          </div>-->
           <div class="single_wrap">
             <h4>Qualifications</h4>
             <ul>
               <li>
-                The applicants should have experience in the following areas.
-              </li>
-              <li>Have sound knowledge of commercial activities.</li>
-              <li>Leadership, analytical, and problem-solving abilities.</li>
-              <li>
-                Should have vast knowledge in IAS/ IFRS, Company Act, Income
-                Tax, VAT.
+               {{JobDetail.qualification}}.
               </li>
             </ul>
           </div>
           <div class="single_wrap">
             <h4>Benefits</h4>
-            <p>
-              There are many variations of passages of Lorem Ipsum available,
-              but the majority have suffered alteration in some form, by
-              injected humour, or randomised words which don't look even
-              slightly believable. If you are going to use a passage of Lorem
-              Ipsum, you need to be sure there isn't anything embarrassing.
-            </p>
+             <ul>
+              <li>
+               {{JobDetail.benefits}}.
+              </li>
+            </ul>
           </div>
         </div>
         <div class="apply_job_form white-bg">
@@ -156,13 +136,13 @@
           </div>
           <div class="job_content">
             <ul>
-              <li>Published on: <span>12 Nov, 2019</span></li>
-              <li>Vacancy: <span>2 Position</span></li>
-              <li>Experience: <span>From 1 to 3 years</span></li>
-              <li>Location: <span>California, USA</span></li>
-              <li>Job Nature: <span> Full-time</span></li>
-              <li>Gender: <span> Male</span></li>
-              <li>Tags: <span>HTML, CSS, JavaScript</span></li>
+              <li>Published on: <span>{{ JobDetail.published_at | date }}</span></li>
+              <li>Vacancy: <span>{{JobDetail.vacancy}} Position</span></li>
+              <li>Experience: <span>{{JobDetail.experience}}</span></li>
+              <li>Location: <span>{{JobDetail.location}}, Egypt</span></li>
+              <li>Job Nature: <span *ngIf="JobDetail.jobType == 'F'"> Full Time  </span>   <span *ngIf="JobDetail.jobType == 'P'"> Part Time  </span>    </li>
+              <li>Gender: <span> {{JobDetail.gender}}</span></li>
+              <li>Tags: <span *ngFor="let item of JobDetail.jobTags"> {{item}}</span></li>
             </ul>
           </div>
         </div>

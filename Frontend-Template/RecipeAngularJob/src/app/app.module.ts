@@ -20,6 +20,11 @@ import { OthersComponent } from './Componets/others/others.component';
 import { SingleBlogComponent } from './Componets/single-blog/single-blog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule, DatePipe } from '@angular/common';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { TagInputModule } from 'ngx-chips';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http';
     PostJobFormComponent,
     BlogComponent,
     OthersComponent,
-    SingleBlogComponent
+    SingleBlogComponent, 
+    
   ],
   imports: [
     BrowserModule,
@@ -45,8 +51,14 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule, 
+    CommonModule,
+    NgSelectModule,
+    TagInputModule, 
+    BrowserAnimationsModule, 
+    
+    
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

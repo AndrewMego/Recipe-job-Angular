@@ -8,19 +8,31 @@
 <!-- catagory_area -->
 <div class="catagory_area">
   <div class="container">
-    <div class="row cat_search">
-      <div class="col-lg-3 col-md-4">
-        <div class="single_input">
-          <input type="text" placeholder="Job Title" />
+    <form class="row cat_search" [formGroup]="findForm"   (ngSubmit)="btnSearch()">
+      
+        <div class="col-lg-3 col-md-4">
+          <div class="single_input">
+            <input type="text" placeholder="Job Title"  formControlName="title" />
+          </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-4">
-        <div class="single_input">
-          <input type="text" placeholder="Job Tags" />
+        <div class="col-lg-3 col-md-4">
+            <div  class="single_input">
+            <div class="nice-select wide"  tabindex="0">
+              <span class="current">Tag</span>
+              <ul class="list list-group">
+                <li 
+                  data-value="0"
+                  data-display="Tag"
+                  class="option selected list-group-item">
+                  Tag
+                </li>
+                <li class="option list-group-item" *ngFor="let d of DataTag" (click)="selecttag(d.id)"   data-value="{{d.id}}" >{{ d.name }}</li>
+              </ul>
+            </div>
+          </div>
         </div>
-      </div>
-      <!-- <div _ngcontent-hnr-c48="" class="col-lg-3 col-md-4 h-100 w-100">
-        <div _ngcontent-hnr-c48="" class="single_input">
+        <!-- <div  class="col-lg-3 col-md-4 h-100 w-100">
+        <div  class="single_input">
           <div class="nice-select wide" tabindex="0">
             <span class="current">Job Tags</span>
             <ul class="list">
@@ -37,32 +49,39 @@
             </ul>
           </div>
         </div>
-      </div> -->
-      <div _ngcontent-hnr-c48="" class="col-lg-3 col-md-4 h-100 w-100">
-        <div _ngcontent-hnr-c48="" class="single_input">
-          <div class="nice-select wide" tabindex="0">
-            <span class="current">Location</span>
-            <ul class="list">
-              <li
-                data-value="Location"
-                data-display="Location"
-                class="option selected"
-              >
-                Location
-              </li>
-              <li data-value="1" class="option">Dhaka</li>
-              <li data-value="2" class="option">Rangpur</li>
-              <li data-value="4" class="option">Sylet</li>
-            </ul>
+       </div> -->
+        <div  class="col-lg-3 col-md-4 h-100 w-100">
+          <div  class="single_input">
+            <div class="nice-select wide"  tabindex="0">
+              <span class="current" #getloc  >Location</span>
+              <ul class="list list-group">
+                <li 
+                  data-value="0"
+                  data-display="Location"
+                  class="option selected list-group-item"
+                >
+                  Location
+                </li>
+                <li class="option list-group-item" *ngFor="let d of DataLoc" (click)="selectlocation(d.id)"  data-value="{{d.id}}" >{{ d.name }}</li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-3 col-md-12">
-        <div class="job_btn">
-          <a [routerLink]="['/jobs']" class="btn btn-outline my-2 my-sm-0">Find Job</a>
+        <div class="col-lg-3 col-md-12">
+          <div class="job_btn" >
+          <div class="submit_btn ">
+                  <button
+                    class="boxed-btn3 w-100"
+                    type="submit"
+                    [disabled]="findForm.invalid"
+                  >
+                    Find Job
+                  </button>
+                  </div>
+          </div>
         </div>
-      </div>
-    </div>
+     
+    </form>
   </div>
 </div>
 <!--/ catagory_area -->
@@ -78,23 +97,25 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4 col-xl-3 col-md-6">
+      <div class="col-lg-4 col-xl-3 col-md-6" [routerLink]="['/jobs']" *ngFor="let cat of categoryList" (click)="getJob_in_Category(cat.id)">
         <div
           class="single_catagory"
-          style="background-image: url('./../../../assets/img/post/post_1.png')"
+          
         >
-          <a style="text-decoration: none" [routerLink]="['/jobs']"
-            ><h4>Design & Creative</h4></a
+          <a style="text-decoration: none" 
+            ><h4>{{cat.name}}</h4></a
           >
-          <p><span>50</span> Available position</p>
+          <p><span class="bg-danger text-light">{{cat.count}}</span> Available position</p>
         </div>
       </div>
-      <div class="col-lg-4 col-xl-3 col-md-6">
+    <!---  <div class="col-lg-4 col-xl-3 col-md-6">
         <div
           class="single_catagory"
           style="background-image: url('./../../../assets/img/post/post_2.png')"
         >
-          <a style="text-decoration: none" [routerLink]="['/jobs']"><h4>Marketing</h4></a>
+          <a style="text-decoration: none" [routerLink]="['/jobs']"
+            ><h4>Marketing</h4></a
+          >
           <p><span>50</span> Available position</p>
         </div>
       </div>
@@ -147,7 +168,9 @@
           class="single_catagory"
           style="background-image: url('./../../../assets/img/post/post_7.png')"
         >
-          <a style="text-decoration: none" [routerLink]="['/jobs']"><h4>Engineering</h4></a>
+          <a style="text-decoration: none" [routerLink]="['/jobs']"
+            ><h4>Engineering</h4></a
+          >
           <p><span>50</span> Available position</p>
         </div>
       </div>
@@ -161,7 +184,7 @@
           >
           <p><span>50</span> Available position</p>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -178,7 +201,10 @@
       </div>
       <div class="col-lg-6">
         <div class="brouse_job text-right">
-          <a style="text-decoration: none" [routerLink]="['/jobs']" class="boxed-btn4"
+          <a
+            style="text-decoration: none"
+            [routerLink]="['/jobs']"
+            class="boxed-btn4"
             >Browse More Job</a
           >
         </div>
@@ -186,7 +212,7 @@
     </div>
     <div class="job_lists">
       <div class="row">
-        <div class="col-lg-12 col-md-12">
+        <div class="col-lg-12 col-md-12" *ngFor="let job of getLastJob">
           <div class="single_jobs white-bg d-flex justify-content-between">
             <div class="jobs_left d-flex align-items-center">
               <div class="thumb">
@@ -194,14 +220,15 @@
               </div>
               <div class="jobs_conetent">
                 <a style="text-decoration: none" [routerLink]="['/job-details']"
-                  ><h4>Software Engineer</h4></a
+                  ><h4>{{job.title}}</h4></a
                 >
                 <div class="links_locat d-flex align-items-center">
                   <div class="location">
-                    <p><i class="fa fa-map-marker"></i> California, USA</p>
+                    <p><i class="fa fa-map-marker"></i> {{job.location}}, Egypt</p>
                   </div>
                   <div class="location">
-                    <p><i class="fa fa-clock-o"></i> Part-time</p>
+                    <p *ngIf= "job.jobType == 'F' "><i class="fa fa-clock-o"></i>Full Time</p>
+                    <p *ngIf= "job.jobType == 'P' "><i class="fa fa-clock-o"></i>Part Time</p>
                   </div>
                 </div>
               </div>
@@ -214,12 +241,12 @@
                 >
               </div>
               <div class="date">
-                <p>Date line: 31 Jan 2020</p>
+                <p>{{job.published_at | date}}</p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-12 col-md-12">
+       <!---- <div class="col-lg-12 col-md-12">
           <div class="single_jobs white-bg d-flex justify-content-between">
             <div class="jobs_left d-flex align-items-center">
               <div class="thumb">
@@ -282,15 +309,34 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
 </div>
 <!-- job_listing_area_end  -->
-
+<div class="job_searcing_wrap overlay">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 offset-lg-1 col-md-6">
+        <div class="searching_text">
+          <h3>Looking for a Job?</h3>
+          <p>We provide online instant cash loans with quick approval</p>
+          <a [routerLink]="['/jobs']" class="boxed-btn3">Browse Job</a>
+        </div>
+      </div>
+      <div class="col-lg-5 offset-lg-1 col-md-6">
+        <div class="searching_text">
+          <h3>Looking for a Expert?</h3>
+          <p>We provide online instant cash loans with quick approval</p>
+          <a [routerLink]="['/post-job']" class="boxed-btn3">Post a Job</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- top companies start -->
-<div class="top_companies_area">
+<div class="top_companies_area pt-5">
   <div class="container">
     <div class="row align-items-center mb-40">
       <div class="col-lg-6 col-md-6">
@@ -300,18 +346,18 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4 col-xl-3 col-md-6">
+      <div class="col-lg-4 col-xl-3 col-md-6" *ngFor="let company of DataComp">
         <div class="single_company">
           <div class="thumb">
             <img src="./../../../assets/img/svg_icon/5.svg" alt="" />
           </div>
           <a style="text-decoration: none" [routerLink]="['/profile']"
-            ><h3>Snack Studio</h3></a
+            ><h3>{{company.companyName}}</h3></a
           >
-          <p><span>50</span> Available position</p>
+          <p><span>{{company.count}}</span> Available position</p>
         </div>
       </div>
-      <div class="col-lg-4 col-xl-3 col-md-6">
+      <!--<div class="col-lg-4 col-xl-3 col-md-6">
         <div class="single_company">
           <div class="thumb">
             <img src="./../../../assets/img/svg_icon/4.svg" alt="" />
@@ -343,37 +389,18 @@
           >
           <p><span>50</span> Available position</p>
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </div>
 <!-- top companies end -->
 <!-- job_searcing_wrap  -->
-<div class="job_searcing_wrap overlay">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-5 offset-lg-1 col-md-6">
-        <div class="searching_text">
-          <h3>Looking for a Job?</h3>
-          <p>We provide online instant cash loans with quick approval</p>
-          <a [routerLink]="['/jobs']" class="boxed-btn3">Browse Job</a>
-        </div>
-      </div>
-      <div class="col-lg-5 offset-lg-1 col-md-6">
-        <div class="searching_text">
-          <h3>Looking for a Expert?</h3>
-          <p>We provide online instant cash loans with quick approval</p>
-          <a [routerLink]="['/post-job']" class="boxed-btn3">Post a Job</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 <!-- job_searcing_wrap end  -->
 
 <!-- testimonial_area  -->
 
-<div class="testimonial_area">
+<!--<div class="testimonial_area">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -388,7 +415,10 @@
               <div class="col-lg-11">
                 <div class="single_testmonial d-flex align-items-center">
                   <div class="thumb">
-                    <img src="./../../../assets/img/testmonial/author.png" alt="" />
+                    <img
+                      src="./../../../assets/img/testmonial/author.png"
+                      alt=""
+                    />
                     <div class="quote_icon">
                       <i class="Flaticon flaticon-quote"></i>
                     </div>
@@ -411,7 +441,10 @@
               <div class="col-lg-11">
                 <div class="single_testmonial d-flex align-items-center">
                   <div class="thumb">
-                    <img src="./../../../assets/img/testmonial/author.png" alt="" />
+                    <img
+                      src="./../../../assets/img/testmonial/author.png"
+                      alt=""
+                    />
                     <div class="quote_icon">
                       <i class="Flaticon flaticon-quote"></i>
                     </div>
@@ -434,7 +467,10 @@
               <div class="col-lg-11">
                 <div class="single_testmonial d-flex align-items-center">
                   <div class="thumb">
-                    <img src="./../../../assets/img/testmonial/author.png" alt="" />
+                    <img
+                      src="./../../../assets/img/testmonial/author.png"
+                      alt=""
+                    />
                     <div class="quote_icon">
                       <i class="Flaticon flaticon-quote"></i>
                     </div>
@@ -456,6 +492,6 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
 <!-- /testimonial_area  -->

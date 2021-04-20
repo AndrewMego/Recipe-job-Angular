@@ -4,11 +4,13 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-3">
+      <form [formGroup]="findForm"   (ngSubmit)="btnSearch()">
         <div class="job_filter white-bg">
           <div class="form_inner white-bg">
             <h3>Filter</h3>
-            <form action="#">
+            
               <div class="row">
+              
                 <div class="col-lg-12">
                   <div class="single_field">
                     <input type="text" placeholder="Search keyword" />
@@ -18,17 +20,22 @@
                   <div _ngcontent-hnr-c48="" class="single_field">
                     <div class="nice-select wide" tabindex="0">
                       <span class="current">Location</span>
-                      <ul class="list">
+                      <ul class="list list-group">
                         <li
-                          data-value="Job Tags"
-                          data-display="Job Tags"
-                          class="option selected"
+                          data-value="0"
+                          data-display="Location"
+                          class="option selected list-group-item"
                         >
                           Location
                         </li>
-                        <li data-value="1" class="option">CSS</li>
-                        <li data-value="2" class="option">HTML</li>
-                        <li data-value="4" class="option">JavaScript</li>
+                        <li
+                          class="option list-group-item"
+                          *ngFor="let d of DataLoc"
+                          (click)="selectlocation(d.id)"
+                          data-value="{{ d.id }}"
+                        >
+                          {{ d.name }}
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -55,16 +62,22 @@
                   <div _ngcontent-hnr-c48="" class="single_field">
                     <div class="nice-select wide" tabindex="0">
                       <span class="current">Experience</span>
-                      <ul class="list">
+                      <ul class="list list-group">
                         <li
-                          data-value="Job Tags"
-                          data-display="Job Tags"
-                          class="option selected"
+                          data-value="0"
+                          data-display="Experience"
+                          class="option selected list-group-item"
                         >
-                        Experience
+                          Experience
                         </li>
-                        <li data-value="1" class="option">Less than 1 year</li>
-                        <li data-value="2" class="option">Less than 1 year</li>
+                        <li
+                          class="option list-group-item"
+                          *ngFor="let e of TypeEx"
+                          (click)="selectEx(e)"
+                          
+                        >
+                          {{ e }}
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -73,16 +86,22 @@
                   <div _ngcontent-hnr-c48="" class="single_field">
                     <div class="nice-select wide" tabindex="0">
                       <span class="current">Job Nature</span>
-                      <ul class="list">
+                      <ul class="list list-group">
                         <li
-                          data-value="Job Tags"
-                          data-display="Job Tags"
-                          class="option selected"
+                          data-value="0"
+                          data-display="Job Nature"
+                          class="option selected list-group-item"
                         >
-                        Job Nature
+                          Job Nature
                         </li>
-                        <li data-value="1" class="option">Part-time</li>
-                        <li data-value="2" class="option">Full-time</li>
+                        <li
+                          class="option list-group-item"
+                          *ngFor="let t of TypeJob"
+                          (click)="selectNature(t)"
+                          
+                        >
+                          {{ t }}
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -91,22 +110,28 @@
                   <div _ngcontent-hnr-c48="" class="single_field">
                     <div class="nice-select wide" tabindex="0">
                       <span class="current">Gender</span>
-                      <ul class="list">
+                      <ul class="list list-group">
                         <li
-                          data-value="Job Tags"
-                          data-display="Job Tags"
-                          class="option selected"
+                          data-value="0"
+                          data-display="Gender"
+                          class="option selected list-group-item"
                         >
-                        Gender
+                          Gender
                         </li>
-                        <li data-value="1" class="option">Male</li>
-                        <li data-value="2" class="option">Female</li>
+                        <li
+                          class="option list-group-item"
+                          *ngFor="let t of TypeGender"
+                          (click)="selectGender(t)"
+                          
+                        >
+                          {{ t }}
+                        </li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
-            </form>
+            
           </div>
           <!-- <div class="range_wrap">
             <label for="amount">Price range:</label>
@@ -125,11 +150,22 @@
               />
             </p>
           </div> -->
-          <div class="reset_btn">
-            <button class="boxed-btn3 w-100" type="submit">Search</button>
+          <div class="job_btn" >
+          <div class="submit_btn ">
+                  <button
+                    class="boxed-btn3 w-100"
+                    type="submit"
+                    [disabled]="findForm.invalid"
+                  >
+                    Find Job
+                  </button>
+                  </div>
           </div>
+         
         </div>
+         </form>
       </div>
+      
       <div class="col-lg-9">
         <div class="recent_joblist_wrap">
           <div class="recent_joblist white-bg">
@@ -147,7 +183,7 @@
                         data-display="Job Tags"
                         class="option selected"
                       >
-                      Most Recent
+                        Most Recent
                       </li>
                       <li data-value="1" class="option">Marketer</li>
                       <li data-value="2" class="option">Wordpress</li>
@@ -161,23 +197,31 @@
 
         <div class="job_lists m-0">
           <div class="row">
-            <div class="col-lg-12 col-md-12">
+            <div class="col-lg-12 col-md-12" *ngFor="let job of listJob" [routerLink]="['/job-details']" (click)="jobInfoId(job.jobID)">
               <div class="single_jobs white-bg d-flex justify-content-between">
                 <div class="jobs_left d-flex align-items-center">
                   <div class="thumb">
                     <img src="./../../../assets/img/svg_icon/1.svg" alt="" />
                   </div>
                   <div class="jobs_conetent">
-                    <h4>Company Name</h4>
-                    <a [routerLink]="['/job-details']"
-                      ><h6>Software Engineer</h6></a
+                    <h4>{{ job.userID.companyName }}</h4>
+                    <a 
+                      ><h6>{{ job.title }}</h6></a
                     >
                     <div class="links_locat d-flex align-items-center">
                       <div class="location">
-                        <p><i class="fa fa-map-marker"></i> California, USA</p>
+                        <p>
+                          <i class="fa fa-map-marker"></i>{{ job.location }},
+                          Egypt
+                        </p>
                       </div>
                       <div class="location">
-                        <p><i class="fa fa-clock-o"></i> Part-time</p>
+                        <p *ngIf="job.jobType == 'F'">
+                          <i class="fa fa-clock-o"></i>Full Time
+                        </p>
+                        <p *ngIf="job.jobType == 'P'">
+                          <i class="fa fa-clock-o"></i>Part Time
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -192,7 +236,7 @@
                     >
                   </div>
                   <div class="date">
-                    <p>Date line: 31 Jan 2020</p>
+                    <p>{{ job.published_at | date }}</p>
                   </div>
                 </div>
               </div>

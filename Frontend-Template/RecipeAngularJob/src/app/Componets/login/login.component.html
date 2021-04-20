@@ -12,7 +12,6 @@
                     type="text"
                     placeholder="User Name"
                     formControlName="username"
-                    
                   />
                   <div
                     class="alert alert-danger"
@@ -54,7 +53,7 @@
                 </div>
               </div>
               <div class="col-md-12">
-                <div class="submit_btn">
+                <div class="submit_btn ">
                   <button
                     class="boxed-btn3 w-100"
                     type="submit"
@@ -62,6 +61,15 @@
                   >
                     Login
                   </button>
+                  <div
+                    class="mt-3 alert alert-danger"
+                    role="alert"
+                    *ngIf=" msg == true" 
+                  >
+                    <strong>
+                      check your User Name and Password and try again
+                    </strong>
+                  </div>
                 </div>
               </div>
             </div>

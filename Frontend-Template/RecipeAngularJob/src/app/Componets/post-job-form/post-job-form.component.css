@@ -289,6 +289,15 @@ footer p a:hover{
     color: #e86c42;
 }
 
+.ng-select.custom ::ng-deep .ng-select-container   {            
+    min-height: 60px;
+    border: 1px solid #E8E8E8;
+    text-align: center;
+    padding: auto;
+
+}
+
+
 @media screen and (max-width: 768px) {
 
     .nav-tabs {
@@ -303,3 +312,9 @@ footer p a:hover{
         margin-bottom: 5px;
     }
 }
+
+
+.example-chip-list {
+    width: 100%;
+  }
+

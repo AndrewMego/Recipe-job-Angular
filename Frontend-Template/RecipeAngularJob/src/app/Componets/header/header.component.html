@@ -93,7 +93,7 @@
                   </li>
                   <!-- if condition user login start -->
 
-                  <li style="margin-left: 70px" class="nav-item">
+                  <li *ngIf="loggedIn == true" style="margin-left: 70px" class="nav-item">
                     <a
                       class="nav-link"
                       [routerLink]="['/profile']"
@@ -101,7 +101,7 @@
                       >profile</a
                     >
                   </li>
-                  <li class="nav-item ml-4">
+                  <li *ngIf="loggedIn == true" class="nav-item ml-4" (click)="logout()">
                     <a
                       class="nav-link"
                       href="home"
@@ -109,7 +109,7 @@
                       >Logout</a
                     >
                   </li>
-                  <li style="margin-left: 70px" class="nav-item">
+                  <li *ngIf="loggedIn == false" style="margin-left: 70px" class="nav-item">
                     <a
                       class="nav-link"
                       [routerLink]="['/login']"
@@ -119,7 +119,7 @@
                   <!-- if condition user login end -->
 
                   <!-- if condition client or company start -->
-                  <li class="pl- pl-md-0 ml-0 ml-md-4">
+                  <li *ngIf="userType == 'Company' " class="pl- pl-md-0 ml-0 ml-md-4">
                     <!-- <a class="btn btn-outline-danger nav-link" href="#"> Add Post </a> -->
                     <a [routerLink]="['/post-job']"
                       ><button

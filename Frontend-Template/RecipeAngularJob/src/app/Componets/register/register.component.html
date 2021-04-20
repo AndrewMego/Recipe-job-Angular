@@ -4,31 +4,200 @@
       <div class="col">
         <div class="apply_job_form white-bg">
           <h4>Register To Recipe</h4>
-          <form action="#">
+          <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="row">
+              <div class="col-12 mb-4">
+                <select
+                  class="nice-select wide"
+                  #typeUser
+                  (change)="ff(typeUser.value)"
+                >
+                  <option class="option" value="0">Select register type</option>
+                  <option class="option"
+                    class="w-100"
+                    *ngFor="let e of typelist"
+                    value="{{ e }}"
+                  >
+                    {{ e }}
+                  </option>
+                </select>
+              </div>
+            </div>
+
             <div class="row">
               <div class="col-md-12">
                 <div class="input_field">
-                  <input type="text" placeholder="User name" required />
+                  <input
+                    type="text"
+                    placeholder="User name"
+                    formControlName="username"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      registerForm.controls['username'].invalid &&
+                      registerForm.controls['username'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="registerForm.controls['username'].errors.required"
+                    >
+                      User Name is required
+                    </strong>
+                    <strong
+                      *ngIf="registerForm.controls['username'].errors.min"
+                    >
+                      User Name must be more than 7 letters
+                    </strong>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6">
+
+              <div class="col-md-6" *ngIf="ttype == 'Employee'">
                 <div class="input_field">
-                  <input type="text" placeholder="First name" required />
+                  <input
+                    type="text"
+                    placeholder="First name"
+                    formControlName="firstname"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      registerForm.controls['firstname'].invalid &&
+                      registerForm.controls['firstname'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="registerForm.controls['firstname'].errors.required"
+                    >
+                      First Name is required
+                    </strong>
+                    <strong
+                      *ngIf="registerForm.controls['firstname'].errors.min"
+                    >
+                      Enter Valid Name
+                    </strong>
+                    <strong
+                      *ngIf="registerForm.controls['firstname'].errors.pattern"
+                    >
+                      Enter Valid Name
+                    </strong>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6" *ngIf="ttype == 'Employee'">
                 <div class="input_field">
-                  <input type="text" placeholder="Last name" required />
+                  <input
+                    type="text"
+                    placeholder="Last name"
+                    formControlName="lastname"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      registerForm.controls['lastname'].invalid &&
+                      registerForm.controls['lastname'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="registerForm.controls['lastname'].errors.required"
+                    >
+                      Last Name is required
+                    </strong>
+                    <strong
+                      *ngIf="
+                        registerForm.controls['lastname'].errors.min ||
+                        registerForm.controls['lastname'].errors.pattern
+                      "
+                    >
+                      Enter Valid Name
+                    </strong>
+                  </div>
+                </div>
+              </div>
+
+              <!---->
+              <div class="col-md-12" *ngIf="ttype == 'Company'">
+                <div class="input_field">
+                  <input
+                    type="text"
+                    placeholder="Company Name"
+                    formControlName="campanyname"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      registerForm.controls['campanyname'].invalid &&
+                      registerForm.controls['campanyname'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="
+                        registerForm.controls['campanyname'].errors.required
+                      "
+                    >
+                      Enter Company Name
+                    </strong>
+                  </div>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="input_field">
-                  <input type="email" placeholder="Email" required />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    formControlName="email"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      registerForm.controls['email'].invalid &&
+                      registerForm.controls['email'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="registerForm.controls['email'].errors.required"
+                    >
+                      E-Mail is required
+                    </strong>
+                    <strong *ngIf="registerForm.controls['email'].errors.email">
+                      Email not contain Ex: @,.com
+                    </strong>
+                  </div>
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="input_field">
-                  <input type="password" placeholder="Password" required />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    formControlName="password"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      registerForm.controls['password'].invalid &&
+                      registerForm.controls['password'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="registerForm.controls['password'].errors.required"
+                    >
+                      Password is required
+                    </strong>
+
+                    <strong
+                      *ngIf="registerForm.controls['password'].errors.min"
+                    >
+                      Password must be more than 8 letters
+                    </strong>
+                  </div>
                 </div>
               </div>
               <div class="col-md-12">
@@ -36,20 +205,58 @@
                   <input
                     type="password"
                     placeholder="confirm password"
-                    required
+                    formControlName="conpassword"
                   />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      registerForm.controls['conpassword'].invalid &&
+                      registerForm.controls['conpassword'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="
+                        registerForm.controls['conpassword'].errors
+                          .confirmedValidator ||
+                        registerForm.controls['conpassword'].errors.required
+                      "
+                    >
+                      Confirm Password must be Match Password
+                    </strong>
+                  </div>
                 </div>
               </div>
+
               <div class="col-md-6">
                 <div class="input_field">
                   <input
                     type="tel"
                     placeholder="Phone number"
-                    pattern="(201)[0-9]{9}"
+                    formControlName="phone"
                     minlength="11"
                     maxlength="11"
-                    required
                   />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      registerForm.controls['phone'].invalid &&
+                      registerForm.controls['phone'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="registerForm.controls['phone'].errors.required"
+                    >
+                      Phone is required
+                    </strong>
+
+                    <strong
+                      *ngIf="registerForm.controls['phone'].errors.pattern"
+                    >
+                      Enter valid Phone Number
+                    </strong>
+                  </div>
                 </div>
               </div>
               <div class="col-md-6">
@@ -60,51 +267,61 @@
                     </button>
                   </div>
                   <div class="custom-file">
+
+                   <label class="custom-file-label"   for="inputGroupFile03"
+                      >{{UploadMsg}}</label>
                     <input
+                      class="custom-file-input"
+                        id="inputGroupFile03"
+                      #file
+                      type="file"
+                     
+                      (change)="preview(file.files)"
+                      formControlName="uploadImg"
+                    />
+                   
+
+                    <!--<input
                       type="file"
                       class="custom-file-input"
                       id="inputGroupFile03"
                       aria-describedby="inputGroupFileAddon03"
+                      formControlName="uploadImg"
                     />
                     <label class="custom-file-label" for="inputGroupFile03"
                       >Upload image</label
-                    >
+                    >-->
                   </div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="input_field">
-                  <input type="url" placeholder="Github" />
+                  <input
+                    type="url"
+                    placeholder="Github (Option)"
+                    formControlName="git"
+                  />
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="input_field">
-                  <input type="url" placeholder="Instgram" />
+                  <input
+                    type="url"
+                    placeholder="Instgram (Option)"
+                    formControlName="insta"
+                  />
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="input_field">
-                  <input type="url" placeholder="Facebook" />
+                  <input
+                    type="url"
+                    placeholder="Facebook (Option)"
+                    formControlName="face"
+                  />
                 </div>
               </div>
-              <div _ngcontent-hnr-c48="" class="col mb-4 h-100 w-100">
-                <div _ngcontent-hnr-c48="" class="single_input">
-                  <div class="nice-select wide" tabindex="0">
-                    <span class="current">Select register type</span>
-                    <ul class="list">
-                      <li
-                        data-value="Job Tags"
-                        data-display="Job Tags"
-                        class="option selected"
-                      >
-                      Select register type
-                      </li>
-                      <li data-value="1" class="option">Company</li>
-                      <li data-value="2" class="option">Client</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+
               <!-- -->
               <div class="col-md-12">
                 <div class="submit_btn">

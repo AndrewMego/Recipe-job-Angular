@@ -1,5 +1,12 @@
 <!-- <p>job-details works!</p> -->
 
+<ng-select [multiple]="true" class="border">
+  <ng-option *ngFor="let car of DataLoc" [value]="car.id">{{
+    car.name
+  }}</ng-option>
+  <ng-option [value]="'custom'">Custom</ng-option>
+</ng-select>
+<hr />
 <div class="job_details_area">
   <div class="container">
     <div class="row">
@@ -47,24 +54,59 @@
                   <!-- Tab panes -->
                   <div class="tab-content text-center">
                     <div class="tab-pane active" id="home" role="tabpanel">
-                      <form action="jobs">
+                      <form [formGroup]="postJobForm" (submit)="postJob()">
                         <div class="row">
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="text" placeholder="Job title" />
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="input_field">
-                              <input type="text" placeholder="Job tags" />
-                            </div>
-                          </div>
                           <div class="col">
                             <div class="input_field">
                               <input
                                 type="text"
+                                formControlName="title"
+                                placeholder="Job title"
+                              />
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['title'].invalid &&
+                                  postJobForm.controls['title'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['title'].errors
+                                      .required
+                                  "
+                                >
+                                  Job Title is required
+                                </strong>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col">
+                            <div class="input_field">
+                              <input
+                                formControlName="location"
+                                type="text"
                                 placeholder="Company location"
                               />
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['location'].invalid &&
+                                  postJobForm.controls['location'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['location'].errors
+                                      .required
+                                  "
+                                >
+                                  Location is required
+                                </strong>
+                              </div>
                             </div>
                           </div>
                           <div class="col-12">
@@ -72,20 +114,255 @@
                               <div class="col">
                                 <div class="input_field">
                                   <input
+                                    formControlName="vacancy"
                                     type="number"
                                     placeholder="Vacancy"
                                     min="1"
                                   />
+                                  <div
+                                    class="alert alert-danger"
+                                    role="alert"
+                                    *ngIf="
+                                      postJobForm.controls['vacancy'].invalid &&
+                                      postJobForm.controls['vacancy'].touched
+                                    "
+                                  >
+                                    <strong
+                                      *ngIf="
+                                        postJobForm.controls['vacancy'].errors
+                                          .required
+                                      "
+                                    >
+                                      Vacancy is required
+                                    </strong>
+                                  </div>
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="input_field">
                                   <input
+                                    formControlName="salary"
                                     type="number"
                                     placeholder="Salary"
                                     min="1"
                                   />
+                                  <div
+                                    class="alert alert-danger"
+                                    role="alert"
+                                    *ngIf="
+                                      postJobForm.controls['salary'].invalid &&
+                                      postJobForm.controls['salary'].touched
+                                    "
+                                  >
+                                    <strong
+                                      *ngIf="
+                                        postJobForm.controls['salary'].errors
+                                          .required
+                                      "
+                                    >
+                                      Salary is required
+                                    </strong>
+                                  </div>
                                 </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 mb-4">
+                            <div class="row mb-6">
+                              <div class="col-10">
+                                <div class="" style="height: 60px">
+                                  <ng-select
+                                    class="custom py-auto"
+                                    [items]="DataCat"
+                                    bindLabel="name"
+                                    bindValue="id"
+                                    (change)="changeCat($event)"
+                                    placeholder="Category"
+                                  >
+                                  </ng-select>
+                                </div>
+                              </div>
+                              <div class="col-2 d-flex align-items-center">
+                                <input
+                                  class="mr-1"
+                                  type="checkbox"
+                                  [checked]="checkCatOther"
+                                  (change)="CatOther()"
+                                />
+                                Other Category
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger mt-2"
+                              role="alert"
+                              *ngIf="isCatEmpty == true"
+                            >
+                              <strong> Enter Job Category </strong>
+                            </div>
+                          </div>
+
+                          <div
+                            *ngIf="checkCatOther == true"
+                            class="col-12 mb-4"
+                          >
+                            <div class="row">
+                              <div class="col">
+                                <div class="input_field">
+                                  <input
+                                    class="w-100"
+                                    #newCat
+                                    type="text"
+                                    placeholder="Enter new Ctegory"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger mt-2"
+                              role="alert"
+                              *ngIf="isCatEmpty == true"
+                            >
+                              <strong> Enter Job Category </strong>
+                            </div>
+                          </div>
+
+                          <div class="col-12 mb-4">
+                            <div class="row mb-6">
+                              <div class="col-10">
+                                <div class="" style="height: 60px">
+                                  <ng-select
+                                    class="custom py-auto"
+                                    [multiple]="true"
+                                    [items]="DataLoc"
+                                    bindLabel="name"
+                                    bindValue="id"
+                                    placeholder="Tags"
+                                    (change)="changeTag($event)"
+                                  >
+                                  </ng-select>
+                                </div>
+                              </div>
+                              <div class="col-2 d-flex align-items-center">
+                                <input
+                                  class="mr-1"
+                                  type="checkbox"
+                                  [checked]="checkTagOther"
+                                  (change)="checkTagOther = !checkTagOther"
+                                />
+                                Other Tag
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger mt-2"
+                              role="alert"
+                              *ngIf="isTagEmpty == true"
+                            >
+                              <strong> Enter Job Tag </strong>
+                            </div>
+                          </div>
+
+                          <div
+                            *ngIf="checkTagOther == true"
+                            class="col-12 mb-4"
+                          >
+                            <div class="row">
+                              <div class="col">
+                                <div
+                                  class=""
+                                  style="
+                                    height: 60px;
+                                    border: 1px solid #e8e8e8;
+                                    width: 100%;
+                                    -webkit-border-radius: 5px;
+                                    -moz-border-radius: 5px;
+                                    border-radius: 5px;
+                                    padding-left: 20px;
+                                    padding-right: 20px;
+                                    margin-bottom: 20px;
+                                  "
+                                >
+                                  <tag-input
+                                    class="input_field"
+                                    class="w-100"
+                                    [(ngModel)]="additionTag"
+                                    (onAdd)="onModelAdded($event)"
+                                    (onRemove)="onModelRemoved($event)"
+                                    [modelAsStrings]="true"
+                                    [placeholder]="'Enter a new Tag'"
+                                    [secondaryPlaceholder]="'Enter a new Tag'"
+                                    [ngModelOptions]="{ standalone: true }"
+                                  >
+                                  </tag-input>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger"
+                              role="alert"
+                              *ngIf="isTagEmpty == true"
+                            >
+                              <strong> Enter Job Tag </strong>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="input_field">
+                              <textarea
+                                name="#"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                formControlName="description"
+                                placeholder="Job description"
+                              ></textarea>
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['description'].invalid &&
+                                  postJobForm.controls['description'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['description'].errors
+                                      .required
+                                  "
+                                >
+                                  Description is required
+                                </strong>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="input_field">
+                              <textarea
+                                name="#"
+                                id=""
+                                cols="30"
+                                rows="10"
+                                formControlName="qualification"
+                                placeholder="Qualification"
+                              ></textarea>
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['qualification']
+                                    .invalid &&
+                                  postJobForm.controls['qualification'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['qualification'].errors
+                                      .required
+                                  "
+                                >
+                                  Qualification is required
+                                </strong>
                               </div>
                             </div>
                           </div>
@@ -96,90 +373,116 @@
                                 id=""
                                 cols="30"
                                 rows="10"
-                                placeholder="Job description"
-                              ></textarea>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="input_field">
-                              <textarea
-                                name="#"
-                                id=""
-                                cols="30"
-                                rows="10"
-                                placeholder="Responsibility"
-                              ></textarea>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="input_field">
-                              <textarea
-                                name="#"
-                                id=""
-                                cols="30"
-                                rows="10"
-                                placeholder="Qualification"
-                              ></textarea>
-                            </div>
-                          </div>
-                          <div class="col-md-12">
-                            <div class="input_field">
-                              <textarea
-                                name="#"
-                                id=""
-                                cols="30"
-                                rows="10"
+                                formControlName="benefits"
                                 placeholder="Benefits"
                               ></textarea>
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['benefits'].invalid &&
+                                  postJobForm.controls['benefits'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['benefits'].errors
+                                      .required
+                                  "
+                                >
+                                  Benefits is required
+                                </strong>
+                              </div>
                             </div>
                           </div>
                           <div class="col-4">
                             <div class="form-group">
                               <select
                                 class="form-control"
-                                id="exampleFormControlSelect1"
+                                #selectTypeJob
+                                (change)="selectT(selectTypeJob.value)"
                               >
-                                <option disabled selected>
-                                  Select job nature
+                                <option disabled selected value="0">
+                                  Select Type Job
                                 </option>
-                                <option>Part-time</option>
-                                <option>Full-time</option>
+                                <option
+                                  *ngFor="let e of TypeJob"
+                                  value="{{ e.typejob }}"
+                                >
+                                  {{ e.typejob }}
+                                </option>
                               </select>
+
+                              <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="checkSelectType == false"
+                              >
+                                <strong> Choise Job Type </strong>
+                              </div>
                             </div>
                           </div>
                           <div class="col-4">
-                            <div class="form-group">
+                            <div class="input_field">
                               <select
                                 class="form-control"
-                                id="exampleFormControlSelect1"
+                                #selectEx
+                                (change)="selectE(selectEx.value)"
                               >
-                                <option disabled selected>
+                                <option disabled selected value="0">
                                   Select years of experiences
                                 </option>
-                                <option>Less than 1 year</option>
-                                <option>From 1 to 3 years</option>
-                                <option>From 3 to 5 years</option>
-                                <option>More than 5 years</option>
+                                <option
+                                  *ngFor="let e of TypeEx"
+                                  value="{{ e.ex }}"
+                                >
+                                  {{ e.ex }}
+                                </option>
                               </select>
+                              <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="checkSelectEx == false"
+                              >
+                                <strong> Choise years of Experiences </strong>
+                              </div>
                             </div>
                           </div>
+
                           <div class="col-4">
                             <div class="form-group">
                               <select
                                 class="form-control"
-                                id="exampleFormControlSelect1"
+                                #selectGender
+                                (change)="selectG(selectGender.value)"
                               >
-                                <option disabled selected>
+                                <option disabled selected value="0">
                                   Select gender
                                 </option>
-                                <option>Male</option>
-                                <option>Female</option>
+                                <option
+                                  *ngFor="let e of TypeGender"
+                                  value="{{ e.gender }}"
+                                >
+                                  {{ e.gender }}
+                                </option>
                               </select>
+
+                              <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="checkSelectGender == false"
+                              >
+                                <strong> Gender is required </strong>
+                              </div>
                             </div>
                           </div>
                           <div class="col-md-12 mt-4">
                             <div class="submit_btn">
-                              <button href="jobs" class="boxed-btn3 w-100" type="submit">
+                              <button
+                                href="jobs"
+                                class="boxed-btn3 w-100"
+                                type="submit"
+                              >
                                 Post Now
                               </button>
                             </div>
@@ -187,6 +490,7 @@
                         </div>
                       </form>
                     </div>
+
                     <div class="tab-pane" id="profile" role="tabpanel">
                       <form action="jobs">
                         <div class="row">
@@ -220,10 +524,7 @@
                           </div>
                           <div class="col-12">
                             <div class="input_field">
-                              <input
-                                type="email"
-                                placeholder="Email"
-                              />
+                              <input type="email" placeholder="Email" />
                             </div>
                           </div>
                           <div class="col-md-12">
@@ -239,10 +540,7 @@
                           </div>
                           <div class="col-4">
                             <div class="form-group">
-                              <select
-                                class="form-control"
-                                id="exampleFormControlSelect1"
-                              >
+                              <select class="form-control">
                                 <option disabled selected>
                                   Select job nature
                                 </option>
@@ -253,10 +551,7 @@
                           </div>
                           <div class="col-4">
                             <div class="form-group">
-                              <select
-                                class="form-control"
-                                id="exampleFormControlSelect1"
-                              >
+                              <select class="form-control">
                                 <option disabled selected>
                                   Select years of experiences
                                 </option>
@@ -269,13 +564,8 @@
                           </div>
                           <div class="col-4">
                             <div class="form-group">
-                              <select
-                                class="form-control"
-                                id="exampleFormControlSelect1"
-                              >
-                                <option disabled selected>
-                                  Select gender
-                                </option>
+                              <select class="form-control">
+                                <option disabled selected>Select gender</option>
                                 <option>Male</option>
                                 <option>Female</option>
                               </select>
@@ -283,7 +573,11 @@
                           </div>
                           <div class="col-md-12 mt-4">
                             <div class="submit_btn">
-                              <button href="jobs" class="boxed-btn3 w-100" type="submit">
+                              <button
+                                href="jobs"
+                                class="boxed-btn3 w-100"
+                                type="submit"
+                              >
                                 Post Now
                               </button>
                             </div>
@@ -297,9 +591,6 @@
             </div>
           </div>
         </div>
-
-        <!-- <h4>Post your job</h4> -->
-        <!-- </div> -->
       </div>
     </div>
   </div>

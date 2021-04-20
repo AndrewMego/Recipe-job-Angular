@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent
-      ],
+      ], 
+       imports: [FormsModule],
     }).compileComponents();
   });
 
@@ -28,4 +31,6 @@ describe('AppComponent', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('.content span').textContent).toContain('RecipeAngularJob app is running!');
   });
+
+  
 });
