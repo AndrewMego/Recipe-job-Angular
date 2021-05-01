@@ -1,0 +1,326 @@
+<!--================Job Area =================-->
+<section class="blog_area section-padding " style="background: #F5F7FA;">
+  <div class="container ">
+    <div class="row">
+      <!-- all blog  -->
+      <div class="col-8 mt-5">
+        <div class="col-sm-6">
+          <h4 class="mb-0" style="color: #b94a3e">My Job Posts</h4>
+        </div>
+        <!--<div class="col mb-5 mb-lg-0 mt-5">
+          <div class="blog_left_sidebar">
+            <div class="col-lg-12 col-md-12" >-->
+
+        <div class="job_listing_area">
+          <div class="job_lists m-0">
+            <div class="row" >
+              <div class="col-lg-12 col-md-12" *ngFor="let job of listJob">
+                <div
+                  class="single_jobs white-bg d-flex justify-content-between"
+                >
+                  <div
+                    class="jobs_left d-flex align-items-center"
+                    [routerLink]="['/job-details']"
+                    (click)="jobInfoId(job.jobID)"
+                  >
+                    <div
+                      class="thumb p-0 h-100 justify-content-center align-items-center offset"
+                      style="max-height: 100px; max-width: 100px"
+                    >
+                      <img
+                        src="{{ job.userID.profilePic }}"
+                        class="mx-auto d-block h-100 justify-content-center align-items-center"
+                        style="max-height: 100%; max-width: 100%"
+                      />
+                    </div>
+                    <div class="jobs_conetent">
+                      <!-- <h4>Company Name</h4> -->
+                      <a
+                        ><h4>{{ job.catName }}</h4></a
+                      >
+                      <div class="links_locat d-flex align-items-center">
+                        <div class="location">
+                          <p>
+                            <i class="fa fa-map-marker"></i> {{ job.location }},
+                            Egypt
+                          </p>
+                        </div>
+                        <div class="location">
+                          <p *ngIf="job.jobType == 'F'">
+                            <i class="fa fa-clock-o"></i>Full Time
+                          </p>
+                          <p *ngIf="job.jobType == 'P'">
+                            <i class="fa fa-clock-o"></i>Part Time
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="jobs_right">
+                    <div class="apply_now">
+                      <a
+                        class="boxed-btn3 mr-1 mb-2"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                      >
+                        Edit
+                      </a>
+                      <a
+                        class="boxed-btn3"
+                        data-toggle="modal"
+                        data-target="#exampleModalScroll"
+                        (click)="deleteJob(job.jobID)"
+                      >
+                        Delete
+                      </a>
+                    </div>
+                    <div class="date">
+                      <p>{{ job.published_at | date }}</p>
+                    </div>
+                  </div>
+
+                  <!-- delete a job start -->
+                  <div
+                    class="modal fade"
+                    id="exampleModalScroll"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="exampleModalScrollableTitle"
+                    aria-hidden="true"
+                   >
+                    <div
+                      class="modal-dialog modal-dialog-scrollable"
+                      role="document"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5
+                            class="modal-title"
+                            id="exampleModalScrollableTitle"
+                          >
+                            Delete a job
+                          </h5>
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div
+                          class="modal-body"
+                          style="background-color: #121b22; padding-top: 30px"
+                        >
+                          <p style="color: white; font-size: 20px">
+                            Are you sure you want to delete this job?
+                          </p>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btnClose"
+                            data-dismiss="modal"
+                          >
+                            No
+                          </button>
+                          <button
+                            type="button"
+                            class="btn"
+                            (click)="sureDelete()"
+                          >
+                            Yes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- delete a job end -->
+
+                  <!-- edit a job start -->
+                  <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="exampleModalScrollableTitle"
+                    aria-hidden="true"
+                  >
+                    <div
+                      class="modal-dialog modal-dialog-scrollable"
+                      role="document"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5
+                            class="modal-title"
+                            id="exampleModalScrollableTitle"
+                          >
+                            Edit a job
+                          </h5>
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div
+                          class="modal-body"
+                          style="background-color: #121b22"
+                        >
+                          <form class="text-left">
+                            <div class="form-group">
+                              <label for="user-name" class="col-form-label"
+                                >Job title</label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Edit title"
+                                id="user-name"
+                              />
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-6">
+                                <label for="first-name" class="col-form-label"
+                                  >Vacancy</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  placeholder="Edit vacancy"
+                                  id="first-name"
+                                  min="1"
+                                />
+                              </div>
+                              <div class="form-group col-6">
+                                <label for="last-name" class="col-form-label"
+                                  >Salary</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  placeholder="Edit salary"
+                                  id="last-name"
+                                  min="1"
+                                />
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="github" class="col-form-label"
+                                >Job description</label
+                              >
+                              <textarea
+                                type="text"
+                                class="form-control"
+                                placeholder="Edit description"
+                                id="instgram"
+                              ></textarea>
+                            </div>
+                            <div class="form-group">
+                              <label for="instgram" class="col-form-label"
+                                >Responsibility</label
+                              >
+                              <textarea
+                                type="text"
+                                class="form-control"
+                                placeholder="Edit responsibility"
+                                id="instgram"
+                              ></textarea>
+                            </div>
+                            <div class="form-group">
+                              <label for="facebook" class="col-form-label"
+                                >Qualification</label
+                              >
+                              <textarea
+                                type="text"
+                                class="form-control"
+                                placeholder="Edit qualification"
+                                id="facebook"
+                              ></textarea>
+                            </div>
+                            <div class="form-group">
+                              <label for="benefits" class="col-form-label"
+                                >Benefits</label
+                              >
+                              <textarea
+                                type="text"
+                                class="form-control"
+                                placeholder="Edit benefits"
+                                id="benefits"
+                              ></textarea>
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-4">
+                                <select
+                                  class="form-control"
+                                  id="exampleFormControlSelect1"
+                                >
+                                  <option disabled selected>
+                                    Edit job nature
+                                  </option>
+                                  <option>Part-time</option>
+                                  <option>Full-time</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-4">
+                                <select
+                                  class="form-control"
+                                  id="exampleFormControlSelect1"
+                                >
+                                  <option disabled selected>
+                                    Edit experiences
+                                  </option>
+                                  <option>Less than 1 year</option>
+                                  <option>From 1 to 3 years</option>
+                                  <option>From 3 to 5 years</option>
+                                  <option>More than 5 years</option>
+                                </select>
+                              </div>
+                              <div class="form-group col-4">
+                                <select
+                                  class="form-control"
+                                  id="exampleFormControlSelect1"
+                                >
+                                  <option disabled selected>Edit gender</option>
+                                  <option>Male</option>
+                                  <option>Female</option>
+                                </select>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btnClose"
+                            data-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button type="button" class="btn">
+                            Save changes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- edit a job end  -->
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <!--- </div>
+          </div>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</section>
+<!--==============col-md-offset-2==Blog Area =================-->

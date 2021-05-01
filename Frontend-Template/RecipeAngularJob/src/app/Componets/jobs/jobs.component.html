@@ -173,7 +173,7 @@
               <div class="col-md-9">
                 <h4>Job Listing</h4>
               </div>
-              <div _ngcontent-hnr-c48="" class="col-md-3 h-100 w-100">
+             <!---- <div _ngcontent-hnr-c48="" class="col-md-3 h-100 w-100">
                 <div _ngcontent-hnr-c48="" class="single_field">
                   <div class="nice-select wide" tabindex="0">
                     <span class="current">Most Recent</span>
@@ -190,7 +190,7 @@
                     </ul>
                   </div>
                 </div>
-              </div>
+              </div>-->
             </div>
           </div>
         </div>
@@ -200,9 +200,16 @@
             <div class="col-lg-12 col-md-12" *ngFor="let job of listJob" [routerLink]="['/job-details']" (click)="jobInfoId(job.jobID)">
               <div class="single_jobs white-bg d-flex justify-content-between">
                 <div class="jobs_left d-flex align-items-center">
-                  <div class="thumb">
-                    <img src="./../../../assets/img/svg_icon/1.svg" alt="" />
-                  </div>
+                  <div
+                      class="thumb p-0 h-100 justify-content-center align-items-center offset"
+                      style="max-height: 100px; max-width: 100px"
+                    >
+                      <img
+                        src="{{ job.userID.profilePic }}"
+                        class="mx-auto d-block h-100 justify-content-center align-items-center"
+                        style="max-height: 100%; max-width: 100%"
+                      />
+                    </div>
                   <div class="jobs_conetent">
                     <h4>{{ job.userID.companyName }}</h4>
                     <a 
@@ -228,10 +235,11 @@
                 </div>
                 <div class="jobs_right">
                   <div class="apply_now">
-                    <a class="heart_mark" href="#">
-                      <i class="fa fa-heart"></i>
-                    </a>
-                    <a [routerLink]="['/job-details']" class="boxed-btn3"
+                   
+                    <a *ngIf="loggedIn == true" [routerLink]="['/job-details']" class="boxed-btn3"
+                      >Apply Now</a
+                    >
+                     <a *ngIf="loggedIn == false" [routerLink]="['/login']" class="boxed-btn3"
                       >Apply Now</a
                     >
                   </div>

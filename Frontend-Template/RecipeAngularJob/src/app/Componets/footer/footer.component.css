@@ -6,7 +6,12 @@
 }
 footer{
   background-color: #121b22;
-  color:#FFF
+  color:#FFF;
+  margin:0px;
+  padding: 0;
+  position: relative;
+  transition: all 200ms linear;
+  outline: none;
 }
 i {
   color: #b94a3e;
@@ -28,4 +33,12 @@ input{
   font-size: 40px;
   font-family: Forte;
 }
-
+.btnClose:hover{
+  background-color: #204254;
+  border: 1px solid #204254;
+  color: white;
+}
+.btnClose{
+  background-color: #204254;
+  color: white;
+}

@@ -18,12 +18,12 @@ export class PostJobFormComponent implements OnInit {
   @ViewChild('selectTypeJob') selectTypeJob: ElementRef;
   @ViewChild('selectGender') selectGender: ElementRef;
   @ViewChild('newCat') newCat: ElementRef;
-
+  postEmailForm: FormGroup
   postJobForm: FormGroup
   DataLoc: Idata[]
   DataCat: Idata[]
   Job: Ijob
-  selectedTag: Idata[]
+  selectedTag:number[]
   appendTagwithId: Idata
   selectCat: Idata[]
 
@@ -39,7 +39,7 @@ export class PostJobFormComponent implements OnInit {
 
   additionCat: String
   additionTag: Idata[];
-
+  additionTagf: Idata[];
   TypeEx: any;
   TypeJob: any;
   TypeGender: any
@@ -81,10 +81,11 @@ export class PostJobFormComponent implements OnInit {
           console.log(err);
         })
 
-    this.TypeEx = [{ 'id': '1', 'ex': ' Less than 1 year' },
-    { 'id': '2', 'ex': ' From 1 to 3 year' },
-    { 'id': '3', 'ex': ' From 3 to 5 year' },
-    { 'id': '4', 'ex': 'More than 5 year' }]
+    this.TypeEx = [
+      { 'id': '1', 'ex': ' Less than 1 year' },
+      { 'id': '2', 'ex': ' From 1 to 3 year' },
+      { 'id': '3', 'ex': ' From 3 to 5 year' },
+      { 'id': '4', 'ex': 'More than 5 year' }]
 
 
     this.TypeJob = [{ 'id': '1', 'typejob': ' Full Time' },
@@ -96,6 +97,7 @@ export class PostJobFormComponent implements OnInit {
 
     this.postJobForm = this.formbuilder.group({
       userID: [''],
+      ExEmail: ['', [Validators.email]],
       title: ['', [Validators.required, Validators.min(6)]],
       location: ['', [Validators.required, Validators.min(8)]],
       jobType: [''],
@@ -121,16 +123,18 @@ export class PostJobFormComponent implements OnInit {
   selectT(val) {
     console.log(val)
     this._typejob = val
+    this.selectTypeJob.nativeElement.value = val
 
   }
   selectG(val) {
     console.log(val)
     this._gender = val
-
+    this.selectGender.nativeElement.value = val
   }
   selectE(val) {
     console.log(val)
     this._Ex = val
+    this.selectEx.nativeElement.value = val
 
   }
   changeCat(val) {
@@ -139,14 +143,19 @@ export class PostJobFormComponent implements OnInit {
 
   }
   changeTag(val) {
-    console.log(val.id)
-    this.selectedTag = val
+    let arr = []
+    for (let i = 0; i < val.length; i++) {
+      console.log(val[i].id)
+      arr[i] = val[i].id
+    }
+    this.selectedTag= arr
+
   }
 
 
   onModelAdded = ($event: TagModel) => {
     console.log(this.additionTag);
-    // this.additionTag.push($event);
+    //this.additionTag.push($event.tag);
   }
 
   onModelRemoved = ($event: TagModel) => {
@@ -158,6 +167,8 @@ export class PostJobFormComponent implements OnInit {
 
 
   postJob() {
+    console.log("enter")
+
 
     if (this.selectEx.nativeElement.value == '0') {
       this.checkSelectEx = false
@@ -240,6 +251,7 @@ export class PostJobFormComponent implements OnInit {
       console.log(this.Job)
 
 
+      console.log(this.postJobForm.value)
 
       this._apiPostJobServ.postJob(
         this.Job).subscribe((res) => {
@@ -250,11 +262,11 @@ export class PostJobFormComponent implements OnInit {
 
             this.appendTagwithId = { 'name': this.selectedTag, 'jobID': res }
             console.log(this.appendTagwithId)
-          
+
           }
           else {
 
-            this.appendTagwithId = { 'otherTags': this.additionTag, 'jobID': res, 'name': this.selectedTag }
+            this.appendTagwithId = { 'otherTags':this.additionTag, 'jobID': res, 'name': this.selectedTag }
 
           }
 
@@ -267,10 +279,90 @@ export class PostJobFormComponent implements OnInit {
 
 
         }, (err) => { console.log(err) })
+
     }
+  }
+
+  postJobWithmail() {
+
+    if (this.selectEx.nativeElement.value == '0') {
+      this.checkSelectEx = false
+    } else { this.checkSelectEx = true }
+
+    if (this.selectTypeJob.nativeElement.value == '0') {
+      this.checkSelectType = false
+    } else { this.checkSelectType = true }
+
+    if (this.selectGender.nativeElement.value == '0') {
+      this.checkSelectGender = false
+    } else { this.checkSelectGender = true }
+
+
+    if (this.checkTagOther == true) {
+      if (this.additionTag == null) {
+        this.isTagEmpty = true
+      } else { this.isTagEmpty = false }
+    }
+    else {
+      if (this.selectedTag === undefined) {
+        this.isTagEmpty = true
+      } else { this.isTagEmpty = false }
+    }
+
+
+
+
+    let getInfoUserSession = JSON.parse(sessionStorage.getItem('userInfo'))
+
+
+    this.postJobForm.patchValue({
+      userID: getInfoUserSession['userId'],
+      published_at: this.datePipe.transform(this.myDate, 'yyyy-MM-dd'),
+      jobType: this._typejob,
+      experience: this._Ex,
+      gender: this._gender
+    })
+
+    this.Job = this.postJobForm.value
+    console.log(this.Job)
+
+
+    console.log(this.postJobForm.value)
+
+    this._apiPostJobServ.postJob(
+      this.Job).subscribe((res) => {
+
+        console.log(res)
+
+        if (this.checkTagOther == false) {
+
+          this.appendTagwithId = { 'name': this.selectedTag, 'jobID': res }
+          console.log(this.appendTagwithId)
+
+        }
+        else {
+
+          this.appendTagwithId = { 'otherTags': this.additionTag, 'jobID': res, 'name': this.selectedTag }
+
+        }
+
+
+        this._apiPostTagServ.postTag(this.appendTagwithId).subscribe((res) => {
+          console.log(res)
+
+        }, (err) => { console.log(err) })
+
+
+
+      }, (err) => { console.log(err) })
+
   }
 
 
 }
+
+
+
+
 
 // 

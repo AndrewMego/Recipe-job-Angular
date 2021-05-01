@@ -395,13 +395,47 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-4">
-                            <div class="form-group">
-                              <select
+                         <div class="col-4">
+                            <!--<div class="form-group">-->
+                            <div class="single_input">
+                              <div class="nice-select wide" tabindex="0">
+                                <span class="current" #selectTypeJob
+                                  >Select Type Job</span
+                                >
+                                <ul class="list list-group">
+                                  <li
+                                    data-value="0"
+                                     (click)="selectT(0)"
+                                    data-display="Select Type Job"
+                                    class="option selected list-group-item"
+                                  >
+                                    Select Type Job
+                                  </li>
+                                  <li
+                                    class="option list-group-item"
+                                    *ngFor="let e of TypeJob"
+                                    (click)="selectT(e.typejob)"
+                                    data-value="{{ e.typejob }}"
+                                  >
+                                    {{ e.typejob }}
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger m-3"
+                              role="alert"
+                              *ngIf="checkSelectType == false"
+                            >
+                              <strong> Choise Job Type </strong>
+                            </div>
+                            <!--</div>-->
+                            <!--<div class="form-group">
+                               <select
                                 class="form-control"
                                 #selectTypeJob
                                 (change)="selectT(selectTypeJob.value)"
-                              >
+                               >
                                 <option disabled selected value="0">
                                   Select Type Job
                                 </option>
@@ -420,11 +454,43 @@
                               >
                                 <strong> Choise Job Type </strong>
                               </div>
-                            </div>
+                            </div>-->
                           </div>
                           <div class="col-4">
-                            <div class="input_field">
-                              <select
+                            <div class="single_input">
+                              <div class="nice-select wide" tabindex="0">
+                                <span class="current" #selectEx
+                                  >Select years of experiences</span
+                                >
+                                <ul class="list list-group">
+                                  <li
+                                   (click)="selectE(0)"
+                                    data-value="0"
+                                    data-display="Select years of experiences"
+                                    class="option selected list-group-item"
+                                  >
+                                    Select years of experiences
+                                  </li>
+                                  <li
+                                    class="option list-group-item"
+                                    *ngFor="let e of TypeEx"
+                                    (click)="selectE(e.ex)"
+                                    data-value="{{ e.ex }}"
+                                  >
+                                    {{ e.ex }}
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger m-3"
+                              role="alert"
+                              *ngIf="checkSelectEx == false"
+                            >
+                              <strong> Choise years of Experiences </strong>
+                            </div>
+                            <!-- <div class="form-group">
+                             <!---- <select
                                 class="form-control"
                                 #selectEx
                                 (change)="selectE(selectEx.value)"
@@ -445,12 +511,44 @@
                                 *ngIf="checkSelectEx == false"
                               >
                                 <strong> Choise years of Experiences </strong>
+                              </div>->
+                            </div>-->
+                          </div>
+                          <div class="col-4">
+                           <div class="single_input">
+                              <div class="nice-select wide" tabindex="0">
+                                <span class="current" #selectGender
+                                  >Select gender</span
+                                >
+                                <ul class="list list-group">
+                                  <li
+                                    data-value="0"
+                                     (click)="selectG(0)"
+                                    data-display="Select gender"
+                                    class="option selected list-group-item"
+                                  >
+                                    Select gender
+                                  </li>
+                                  <li
+                                    class="option list-group-item"
+                                    *ngFor="let e of TypeGender"
+                                    (click)="selectG( e.gender)"
+                                   
+                                  value="{{ e.gender }}"
+                                >
+                                  {{ e.gender }}
+                                  </li>
+                                </ul>
                               </div>
                             </div>
-                          </div>
-
-                          <div class="col-4">
-                            <div class="form-group">
+                            <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="checkSelectGender == false"
+                              >
+                                <strong> Gender is required </strong>
+                              </div>
+                           <!---- <div class="form-group">
                               <select
                                 class="form-control"
                                 #selectGender
@@ -474,7 +572,7 @@
                               >
                                 <strong> Gender is required </strong>
                               </div>
-                            </div>
+                            </div>-->
                           </div>
                           <div class="col-md-12 mt-4">
                             <div class="submit_btn">
@@ -492,39 +590,203 @@
                     </div>
 
                     <div class="tab-pane" id="profile" role="tabpanel">
-                      <form action="jobs">
+                      <form
+                        action="jobs"
+                        [formGroup]="postJobForm"
+                        (submit)="postJobWithmail()"
+                      >
                         <div class="row">
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="input_field">
-                              <input type="text" placeholder="Job title" />
+                              <input
+                                type="text"
+                                placeholder="Job title"
+                                formControlName="title"
+                              />
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['title'].invalid &&
+                                  postJobForm.controls['title'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['title'].errors
+                                      .required
+                                  "
+                                >
+                                  Job Title is required
+                                </strong>
+                              </div>
                             </div>
                           </div>
-                          <div class="col-6">
-                            <div class="input_field">
-                              <input type="text" placeholder="Job tags" />
+
+                          <div class="col-12 mb-4">
+                            <div class="row mb-6">
+                              <div class="col-10">
+                                <div class="" style="height: 60px">
+                                  <ng-select
+                                    class="custom py-auto"
+                                    [multiple]="true"
+                                    [items]="DataLoc"
+                                    bindLabel="name"
+                                    bindValue="id"
+                                    placeholder="Tags"
+                                    (change)="changeTag($event)"
+                                  >
+                                  </ng-select>
+                                </div>
+                              </div>
+                              <div class="col-2 d-flex align-items-center">
+                                <input
+                                  class="mr-1"
+                                  type="checkbox"
+                                  [checked]="checkTagOther"
+                                  (change)="checkTagOther = !checkTagOther"
+                                />
+                                Other Tag
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger mt-2"
+                              role="alert"
+                              *ngIf="isTagEmpty == true"
+                            >
+                              <strong> Enter Job Tag </strong>
                             </div>
                           </div>
+
+                          <div
+                            *ngIf="checkTagOther == true"
+                            class="col-12 mb-4"
+                          >
+                            <div class="row">
+                              <div class="col">
+                                <div
+                                  class=""
+                                  style="
+                                    height: 60px;
+                                    border: 1px solid #e8e8e8;
+                                    width: 100%;
+                                    -webkit-border-radius: 5px;
+                                    -moz-border-radius: 5px;
+                                    border-radius: 5px;
+                                    padding-left: 20px;
+                                    padding-right: 20px;
+                                    margin-bottom: 20px;
+                                  "
+                                >
+                                  <tag-input
+                                    class="input_field"
+                                    class="w-100"
+                                    [(ngModel)]="additionTag"
+                                    (onAdd)="onModelAdded($event)"
+                                    (onRemove)="onModelRemoved($event)"
+                                    [modelAsStrings]="true"
+                                    [placeholder]="'Enter a new Tag'"
+                                    [secondaryPlaceholder]="'Enter a new Tag'"
+                                    [ngModelOptions]="{ standalone: true }"
+                                  >
+                                  </tag-input>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger"
+                              role="alert"
+                              *ngIf="isTagEmpty == true"
+                            >
+                              <strong> Enter Job Tag </strong>
+                            </div>
+                          </div>
+
                           <div class="col">
                             <div class="input_field">
                               <input
+                                formControlName="vacancy"
                                 type="number"
                                 placeholder="Vacancy"
                                 min="1"
                               />
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['vacancy'].invalid &&
+                                  postJobForm.controls['vacancy'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['vacancy'].errors
+                                      .required
+                                  "
+                                >
+                                  Vacancy is required
+                                </strong>
+                              </div>
                             </div>
                           </div>
                           <div class="col">
                             <div class="input_field">
                               <input
+                                formControlName="salary"
                                 type="number"
                                 placeholder="Salary"
                                 min="1"
                               />
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['salary'].invalid &&
+                                  postJobForm.controls['salary'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['salary'].errors
+                                      .required
+                                  "
+                                >
+                                  Salary is required
+                                </strong>
+                              </div>
                             </div>
                           </div>
                           <div class="col-12">
                             <div class="input_field">
-                              <input type="email" placeholder="Email" />
+                              <input
+                                type="email"
+                                placeholder="Email"
+                                formControlName="ExEmail"
+                              />
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['ExEmail'].invalid &&
+                                  postJobForm.controls['ExEmail'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['ExEmail'].errors
+                                      .required
+                                  "
+                                >
+                                  E-Mail is required
+                                </strong>
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['ExEmail'].errors.ExEmail
+                                  "
+                                >
+                                  Email not contain Ex: @,.com
+                                </strong>
+                              </div>
                             </div>
                           </div>
                           <div class="col-md-12">
@@ -534,42 +796,206 @@
                                 id=""
                                 cols="30"
                                 rows="10"
+                                formControlName="description"
                                 placeholder="Job Requirements"
                               ></textarea>
+                              <div
+                                class="alert alert-danger"
+                                role="alert"
+                                *ngIf="
+                                  postJobForm.controls['description'].invalid &&
+                                  postJobForm.controls['description'].touched
+                                "
+                              >
+                                <strong
+                                  *ngIf="
+                                    postJobForm.controls['description'].errors
+                                      .required
+                                  "
+                                >
+                                  Description is required
+                                </strong>
+                              </div>
                             </div>
                           </div>
                           <div class="col-4">
-                            <div class="form-group">
-                              <select class="form-control">
-                                <option disabled selected>
-                                  Select job nature
+                            <!--<div class="form-group">-->
+                            <div class="single_input">
+                              <div class="nice-select wide" tabindex="0">
+                                <span class="current" #selectTypeJob
+                                  >Select Type Job</span
+                                >
+                                <ul class="list list-group">
+                                  <li
+                                    data-value="0"
+                                     (click)="selectT(0)"
+                                    data-display="Select Type Job"
+                                    class="option selected list-group-item"
+                                  >
+                                    Select Type Job
+                                  </li>
+                                  <li
+                                    class="option list-group-item"
+                                    *ngFor="let e of TypeJob"
+                                    (click)="selectT(e.typejob)"
+                                    data-value="{{ e.typejob }}"
+                                  >
+                                    {{ e.typejob }}
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger m-3"
+                              role="alert"
+                              *ngIf="checkSelectType == false"
+                            >
+                              <strong> Choise Job Type </strong>
+                            </div>
+                            <!--</div>-->
+                            <!--<div class="form-group">
+                               <select
+                                class="form-control"
+                                #selectTypeJob
+                                (change)="selectT(selectTypeJob.value)"
+                               >
+                                <option disabled selected value="0">
+                                  Select Type Job
                                 </option>
-                                <option>Part-time</option>
-                                <option>Full-time</option>
+                                <option
+                                  *ngFor="let e of TypeJob"
+                                  value="{{ e.typejob }}"
+                                >
+                                  {{ e.typejob }}
+                                </option>
                               </select>
-                            </div>
+
+                              <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="checkSelectType == false"
+                              >
+                                <strong> Choise Job Type </strong>
+                              </div>
+                            </div>-->
                           </div>
                           <div class="col-4">
-                            <div class="form-group">
-                              <select class="form-control">
-                                <option disabled selected>
+                            <div class="single_input">
+                              <div class="nice-select wide" tabindex="0">
+                                <span class="current" #selectEx
+                                  >Select years of experiences</span
+                                >
+                                <ul class="list list-group">
+                                  <li
+                                   (click)="selectE(0)"
+                                    data-value="0"
+                                    data-display="Select years of experiences"
+                                    class="option selected list-group-item"
+                                  >
+                                    Select years of experiences
+                                  </li>
+                                  <li
+                                    class="option list-group-item"
+                                    *ngFor="let e of TypeEx"
+                                    (click)="selectE(e.ex)"
+                                    data-value="{{ e.ex }}"
+                                  >
+                                    {{ e.ex }}
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div
+                              class="alert alert-danger m-3"
+                              role="alert"
+                              *ngIf="checkSelectEx == false"
+                            >
+                              <strong> Choise years of Experiences </strong>
+                            </div>
+                            <!-- <div class="form-group">
+                             <!---- <select
+                                class="form-control"
+                                #selectEx
+                                (change)="selectE(selectEx.value)"
+                              >
+                                <option disabled selected value="0">
                                   Select years of experiences
                                 </option>
-                                <option>Less than 1 year</option>
-                                <option>From 1 to 3 years</option>
-                                <option>From 3 to 5 years</option>
-                                <option>More than 5 years</option>
+                                <option
+                                  *ngFor="let e of TypeEx"
+                                  value="{{ e.ex }}"
+                                >
+                                  {{ e.ex }}
+                                </option>
                               </select>
-                            </div>
+                              <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="checkSelectEx == false"
+                              >
+                                <strong> Choise years of Experiences </strong>
+                              </div>->
+                            </div>-->
                           </div>
                           <div class="col-4">
-                            <div class="form-group">
-                              <select class="form-control">
-                                <option disabled selected>Select gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                              </select>
+                           <div class="single_input">
+                              <div class="nice-select wide" tabindex="0">
+                                <span class="current" #selectGender
+                                  >Select gender</span
+                                >
+                                <ul class="list list-group">
+                                  <li
+                                    data-value="0"
+                                     (click)="selectG(0)"
+                                    data-display="Select gender"
+                                    class="option selected list-group-item"
+                                  >
+                                    Select gender
+                                  </li>
+                                  <li
+                                    class="option list-group-item"
+                                    *ngFor="let e of TypeGender"
+                                    (click)="selectG( e.gender)"
+                                   
+                                  value="{{ e.gender }}"
+                                >
+                                  {{ e.gender }}
+                                  </li>
+                                </ul>
+                              </div>
                             </div>
+                            <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="checkSelectGender == false"
+                              >
+                                <strong> Gender is required </strong>
+                              </div>
+                           <!---- <div class="form-group">
+                              <select
+                                class="form-control"
+                                #selectGender
+                                (change)="selectG(selectGender.value)"
+                              >
+                                <option disabled selected value="0">
+                                  Select gender
+                                </option>
+                                <option
+                                  *ngFor="let e of TypeGender"
+                                  value="{{ e.gender }}"
+                                >
+                                  {{ e.gender }}
+                                </option>
+                              </select>
+
+                              <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="checkSelectGender == false"
+                              >
+                                <strong> Gender is required </strong>
+                              </div>
+                            </div>-->
                           </div>
                           <div class="col-md-12 mt-4">
                             <div class="submit_btn">

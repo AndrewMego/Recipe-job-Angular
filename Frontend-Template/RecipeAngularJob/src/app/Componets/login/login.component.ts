@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
     console.log(this.loginUser)
     this._apiloginServ.userLogin(
       this.loginUser).subscribe((res) => {
+        console.log(res)  
         if(res['msg'] == 'no')
         {
           this.msg = true
@@ -37,14 +38,16 @@ export class LoginComponent implements OnInit {
         else{
 
         console.log(res)  
-        window.location.href = 'http://localhost:4200/home';
+       
         //this._apiloginServ.notify({isRefresh : true});
+        if(res['obj'].typeUser == 'Company'){
+          window.location.href = 'http://localhost:4200/profile';
+        }else{
+          window.location.href = 'http://localhost:4200/home';
+        }
         sessionStorage.setItem('userInfo', JSON.stringify(res['obj']));
        // this._router.navigateByUrl('/home');
         }
-        
-       
-        
       }, (err) => { console.log(err) })
   }
 }

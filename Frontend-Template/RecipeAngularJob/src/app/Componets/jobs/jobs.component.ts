@@ -18,10 +18,18 @@ export class JobsComponent implements OnInit {
   TypeJob: any
   TypeGender: any
   getData: Ifind
+  loggedIn:boolean = false
   findForm: FormGroup
   constructor(private _apiFindServ: JobServiceService, private _apiHomeServ: HomeServiceService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    if(sessionStorage.getItem('userInfo')){
+      let getInfoUserSession = JSON.parse(sessionStorage.getItem('userInfo'))
+      console.log(getInfoUserSession)
+      this.loggedIn = true
+    }else{this.loggedIn = false}
+
+
     this.TypeEx = [' Less than 1 year', ' From 1 to 3 year', ' From 3 to 5 year', 'More than 5 year']
     this.TypeJob = [' Full Time', ' Part Time']
     this.TypeGender = ['Male', 'Female']
@@ -49,8 +57,20 @@ export class JobsComponent implements OnInit {
         parseInt(getID)).subscribe((res) => {
 
           this.listJob = res
-
+          localStorage.removeItem('getID');
         }, (err) => { console.log(err) })
+    }else{
+      this._apiHomeServ.allJobs()
+      .subscribe(
+        (data) => {
+          console.log(data)
+        
+          this.listJob =data
+
+        }
+        , (err) => {
+          console.log(err);
+        })
     }
   }
   selectlocation(item){

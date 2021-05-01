@@ -14,7 +14,8 @@ export interface Ijob {
     gender?:String
     salary?: String,
     categoryID?: number,
+    catName?: string
     experience?: String,
-   
+   ExEmail?: string
     jobTags?:any
 }

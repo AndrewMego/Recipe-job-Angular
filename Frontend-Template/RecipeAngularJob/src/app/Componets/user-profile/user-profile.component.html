@@ -6,17 +6,51 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
-              <img
-                src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                alt="Admin"
-                class="rounded-circle"
-                width="150"
-              />
+              <div
+                class="profile-pic"
+                style="
+                                background-image: url('{{
+                  UserInfo.profilePic
+                }}');
+                              "
+              ></div>
               <div class="mt-3">
-                <h4>John Doe</h4>
-                <p class="text-secondary mb-1">Full Stack Developer</p>
-                <p class="text-muted font-size-sm">
-                  Bay Area, San Francisco, CA
+                <h4 *ngIf="UserInfo.typeUser == 'Company'">
+                  {{ UserInfo.first_name }}
+                </h4>
+                <h4 *ngIf="UserInfo.typeUser != 'Company'">
+                  {{ UserInfo.first_name }} {{ UserInfo.last_name }}
+                </h4>
+                <p
+                  class="text-secondary mb-1"
+                  *ngIf="
+                    UserInfo.typeUser == 'Company' &&
+                    UserInfo.fieldCompany != null
+                  "
+                >
+                  {{ UserInfo.fieldCompany }}
+                </p>
+                <p
+                  class="text-secondary mb-1"
+                  *ngIf="
+                    UserInfo.typeUser == 'Company' &&
+                    UserInfo.fieldCompany == null
+                  "
+                >
+                  add Field
+                </p>
+
+                <p
+                  class="text-muted font-size-sm"
+                  *ngIf="UserInfo.location == null"
+                >
+                  add Location
+                </p>
+                <p
+                  class="text-muted font-size-sm"
+                  *ngIf="UserInfo.location != null"
+                >
+                  {{ UserInfo.location }}
                 </p>
                 <!-- <button class="btn btn-primary">Follow</button> -->
                 <button
@@ -35,7 +69,7 @@
                 role="dialog"
                 aria-labelledby="exampleModalScrollableTitle"
                 aria-hidden="true"
-               >
+              >
                 <div
                   class="modal-dialog modal-dialog-scrollable"
                   role="document"
@@ -55,13 +89,21 @@
                       </button>
                     </div>
                     <div class="modal-body" style="background-color: #121b22">
-                      <form class="text-left">
+                      <!--form uddate-->
+                      <form
+                        [formGroup]="formEditProfile"
+                        (ngSubmit)="update()"
+                        enctype="multipart/form-data"
+                        class="text-left"
+                      >
                         <div class="form-group text-center mt-2">
                           <label for="fileToUpload">
                             <div
                               class="profile-pic"
                               style="
-                                background-image: url('https://bootdey.com/img/Content/avatar/avatar7.png');
+                                background-image: url('{{
+                                UserInfo.profilePic
+                              }}');
                               "
                             >
                               <span class="glyphicon glyphicon-camera"></span>
@@ -72,6 +114,7 @@
                             type="File"
                             name="fileToUpload"
                             id="fileToUpload"
+                            (change)="preview($event)"
                           />
                           <h5 style="color: white">Click the picture</h5>
                         </div>
@@ -85,9 +128,34 @@
                             class="form-control"
                             placeholder="Enter your user name"
                             id="user-name"
+                            formControlName="username"
                           />
+                          <div
+                            class="alert alert-danger"
+                            role="alert"
+                            *ngIf="
+                              formEditProfile.controls['username'].invalid &&
+                              formEditProfile.controls['username'].touched
+                            "
+                          >
+                            <strong
+                              *ngIf="
+                                formEditProfile.controls['username'].errors
+                                  .required
+                              "
+                            >
+                              User Name is required
+                            </strong>
+                            <strong
+                              *ngIf="
+                                formEditProfile.controls['username'].errors.min
+                              "
+                            >
+                              User Name must be more than 7 letters
+                            </strong>
+                          </div>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="UserInfo.typeUser != 'Company'">
                           <div class="form-group col-6">
                             <label for="first-name" class="col-form-label"
                               >First name</label
@@ -97,7 +165,41 @@
                               class="form-control"
                               placeholder="Enter your First name"
                               id="first-name"
+                              formControlName="firstname"
                             />
+                            <div
+                              class="alert alert-danger"
+                              role="alert"
+                              *ngIf="
+                                formEditProfile.controls['firstname'].invalid &&
+                                formEditProfile.controls['firstname'].touched
+                              "
+                            >
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['firstname'].errors
+                                    .required
+                                "
+                              >
+                                First Name is required
+                              </strong>
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['firstname'].errors
+                                    .min
+                                "
+                              >
+                                Enter Valid Name
+                              </strong>
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['firstname'].errors
+                                    .pattern
+                                "
+                              >
+                                Enter Valid Name
+                              </strong>
+                            </div>
                           </div>
                           <div class="form-group col-6">
                             <label for="last-name" class="col-form-label"
@@ -108,6 +210,78 @@
                               class="form-control"
                               placeholder="Enter your Last name"
                               id="last-name"
+                              formControlName="lastname"
+                            />
+                            <div
+                              class="alert alert-danger"
+                              role="alert"
+                              *ngIf="
+                                formEditProfile.controls['lastname'].invalid &&
+                                formEditProfile.controls['lastname'].touched
+                              "
+                            >
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['lastname'].errors
+                                    .required
+                                "
+                              >
+                                Last Name is required
+                              </strong>
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['lastname'].errors
+                                    .min ||
+                                  formEditProfile.controls['lastname'].errors
+                                    .pattern
+                                "
+                              >
+                                Enter Valid Name
+                              </strong>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="UserInfo.typeUser == 'Company'">
+                          <div class="form-group col-6">
+                            <label for="first-name" class="col-form-label"
+                              >Company Name</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter your Company name"
+                              id="first-name"
+                              formControlName="campanyname"
+                            />
+                            <div
+                              class="alert alert-danger"
+                              role="alert"
+                              *ngIf="
+                                formEditProfile.controls['campanyname']
+                                  .invalid &&
+                                formEditProfile.controls['campanyname'].touched
+                              "
+                            >
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['campanyname'].errors
+                                    .required
+                                "
+                              >
+                                Enter Company Name
+                              </strong>
+                            </div>
+                          </div>
+                          <div class="form-group col-6">
+                            <label for="first-name" class="col-form-label"
+                              >Company Field</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Enter your Company Field"
+                              id="first-name"
+                              formControlName="companyField"
                             />
                           </div>
                         </div>
@@ -123,6 +297,18 @@
                             id="email"
                           />
                         </div>
+                        <div class="form-group">
+                          <label for="location" class="col-form-label"
+                            >Location</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Enter your Location"
+                            id="location"
+                            formControlName="location"
+                          />
+                        </div>
                         <div class="row">
                           <div class="form-group col-6">
                             <label for="pass" class="col-form-label"
@@ -133,7 +319,34 @@
                               class="form-control"
                               placeholder="Enter your new password"
                               id="pass"
+                              formControlName="password"
                             />
+                            <div
+                              class="alert alert-danger"
+                              role="alert"
+                              *ngIf="
+                                formEditProfile.controls['password'].invalid &&
+                                formEditProfile.controls['password'].touched
+                              "
+                            >
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['password'].errors
+                                    .required
+                                "
+                              >
+                                Password is required
+                              </strong>
+
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['password'].errors
+                                    .min
+                                "
+                              >
+                                Password must be more than 8 letters
+                              </strong>
+                            </div>
                           </div>
                           <div class="form-group col-6">
                             <label for="conf-pass" class="col-form-label"
@@ -144,7 +357,28 @@
                               class="form-control"
                               placeholder="confirmation password"
                               id="conf-pass"
+                              formControlName="conpassword"
                             />
+                            <div
+                              class="alert alert-danger"
+                              role="alert"
+                              *ngIf="
+                                formEditProfile.controls['conpassword']
+                                  .invalid &&
+                                formEditProfile.controls['conpassword'].touched
+                              "
+                            >
+                              <strong
+                                *ngIf="
+                                  formEditProfile.controls['conpassword'].errors
+                                    .confirmedValidator ||
+                                  formEditProfile.controls['conpassword'].errors
+                                    .required
+                                "
+                              >
+                                Confirm Password must be Match Password
+                              </strong>
+                            </div>
                           </div>
                         </div>
                         <div class="form-group">
@@ -156,18 +390,48 @@
                             class="form-control"
                             placeholder="Enter your phone number"
                             id="phone"
+                            formControlName="phone_number"
                           />
+                          <div
+                            class="alert alert-danger"
+                            role="alert"
+                            *ngIf="
+                              formEditProfile.controls['phone_number']
+                                .invalid &&
+                              formEditProfile.controls['phone_number'].touched
+                            "
+                          >
+                            <strong
+                              *ngIf="
+                                formEditProfile.controls['phone_number'].errors
+                                  .required
+                              "
+                            >
+                              Phone is required
+                            </strong>
+
+                            <strong
+                              *ngIf="
+                                formEditProfile.controls['phone_number'].errors
+                                  .pattern
+                              "
+                            >
+                              Enter valid Phone Number
+                            </strong>
+                          </div>
                         </div>
 
                         <div class="form-group">
                           <label for="github" class="col-form-label"
                             >Github</label
                           >
+
                           <input
                             type="url"
                             class="form-control"
                             placeholder="Enter your github account"
                             id="github"
+                            formControlName="git"
                           />
                         </div>
                         <div class="form-group">
@@ -179,6 +443,7 @@
                             class="form-control"
                             placeholder="Enter your instgram account"
                             id="instgram"
+                            formControlName="insta"
                           />
                         </div>
                         <div class="form-group">
@@ -190,20 +455,32 @@
                             class="form-control"
                             placeholder="Enter your facebook account"
                             id="facebook"
+                            formControlName="face"
                           />
                         </div>
+                        <div class="form-group">
+                          <label for="Linkedin" class="col-form-label"
+                            >Linkedin</label
+                          >
+                          <input
+                            type="url"
+                            class="form-control"
+                            placeholder="Enter your Linkedin account"
+                            formControlName="linkedin"
+                            id="Linkedin"
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          class="btn btnClose"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="submit" class="btn">Save changes</button>
                       </form>
                     </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btnClose"
-                        data-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button type="button" class="btn">Save changes</button>
-                    </div>
+                    <div class="modal-footer"></div>
                   </div>
                 </div>
               </div>
@@ -235,7 +512,14 @@
                 </svg>
                 Github
               </h6>
-              <span class="text-secondary">bootdey</span>
+              <span class="text-secondary" *ngIf="UserInfo.gitAccount == null"
+                >add github Acount</span
+              >
+              <span
+                class="text-secondary"
+                *ngIf="UserInfo.gitAccount != null"
+                >{{ UserInfo.gitAccount }}</span
+              >
             </li>
             <li
               class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -261,7 +545,12 @@
                 </svg>
                 Instagram
               </h6>
-              <span class="text-secondary">bootdey</span>
+              <span class="text-secondary" *ngIf="UserInfo.gitInsta == null"
+                >add Instgram Acount</span
+              >
+              <span class="text-secondary" *ngIf="UserInfo.gitInsta != null">{{
+                UserInfo.gitInsta
+              }}</span>
             </li>
             <li
               class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
@@ -285,166 +574,243 @@
                 </svg>
                 Facebook
               </h6>
-              <span class="text-secondary">bootdey</span>
+              <span class="text-secondary" *ngIf="UserInfo.gitFace == null"
+                >add Facebook Acount</span
+              >
+              <span class="text-secondary" *ngIf="UserInfo.gitFace != null">{{
+                UserInfo.gitFace
+              }}</span>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+            >
+              <h6 class="mb-0">
+                <i
+                  class="fa fa-linkedin-square feather feather-facebook mr-2 icon-inline text-primary"
+                  style="font-size: 26px"
+                ></i>
+                Linkedin
+              </h6>
+              <span class="text-secondary" *ngIf="UserInfo.gitLinked == null"
+                >add Linkedin Acount</span
+              >
+              <span class="text-secondary" *ngIf="UserInfo.gitLinked != null">{{
+                UserInfo.gitLinked
+              }}</span>
             </li>
           </ul>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-7">
         <div class="card mb-3">
           <div class="card-body">
-            <div class="row">
+            <div class="row" *ngIf="UserInfo.typeUser == 'Company'">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Company Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                {{ UserInfo.first_name }}
+              </div>
+            </div>
+            <div class="row" *ngIf="UserInfo.typeUser != 'Company'">
               <div class="col-sm-3">
                 <h6 class="mb-0">Full Name</h6>
               </div>
-              <div class="col-sm-9 text-secondary">Kenneth Valdez</div>
+              <div class="col-sm-9 text-secondary">
+                {{ UserInfo.first_name }} {{ UserInfo.last_name }}
+              </div>
             </div>
             <hr />
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Email</h6>
               </div>
-              <div class="col-sm-9 text-secondary">fip@jukmuh.al</div>
+              <div class="col-sm-9 text-secondary">{{ UserInfo.email }}</div>
             </div>
             <hr />
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Phone</h6>
               </div>
-              <div class="col-sm-9 text-secondary">(239) 816-9029</div>
+              <div class="col-sm-9 text-secondary">
+                {{ UserInfo.phone_number }}
+              </div>
             </div>
             <hr />
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Type</h6>
               </div>
-              <div class="col-sm-9 text-secondary">Client</div>
+              <div class="col-sm-9 text-secondary">{{ UserInfo.typeUser }}</div>
             </div>
           </div>
         </div>
-        <div class="row gutters-sm">
-          <div class="col-sm-6 mb-3">
+        <div class="row gutters-sm" *ngIf="UserInfo.typeUser != 'Company'">
+          <div class="col-sm-12 mb-3">
             <div class="card h-100">
               <div class="card-body">
                 <h6 class="d-flex align-items-center mb-3">
-                  <i class="material-icons text-skills mr-2">skills</i>Project
-                  Status
+                  <i class="material-icons text-skills mr-2">skills</i>
                 </h6>
-                <small>Web Design</small>
-                <div class="progress mb-3" style="height: 5px">
+                <p class="text-right">
+                  <i
+                    class="fa fa-edit p-2"
+                    data-toggle="modal"
+                    data-target="#exampleModalEditSkill"
+                  >
+                  </i>
+                </p>
+                <ul>
+                  <li *ngFor="let skill of arrSkills">{{ skill }}.</li>
+                </ul>
+                <div
+                  class="modal fade"
+                  id="exampleModalEditSkill"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="exampleModalScrollableTitle"
+                  aria-hidden="true"
+                >
                   <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 80%"
-                    aria-valuenow="80"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <small>Website Markup</small>
-                <div class="progress mb-3" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 72%"
-                    aria-valuenow="72"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <small>Backend API</small>
-                <div class="progress mb-3" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 66%"
-                    aria-valuenow="66"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 mb-3">
-            <div class="card h-100">
-              <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3">
-                  <i class="material-icons text-skills mr-2">skills</i>Project
-                  Status
-                </h6>
-                <small>Website Markup</small>
-                <div class="progress mb-3" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 72%"
-                    aria-valuenow="72"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <small>One Page</small>
-                <div class="progress mb-3" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 89%"
-                    aria-valuenow="89"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <small>Mobile Template</small>
-                <div class="progress mb-3" style="height: 5px">
-                  <div
-                    class="progress-bar"
-                    role="progressbar"
-                    style="width: 55%"
-                    aria-valuenow="55"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
+                    class="modal-dialog modal-dialog-scrollable"
+                    role="document"
+                  >
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5
+                          class="modal-title"
+                          id="exampleModalScrollableTitle"
+                        >
+                          Edit Skills
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" style="padding-top: 30px">
+                        note: Enter your Skill and press enter to write onther
+                        <tag-input
+                          class="input_field"
+                          class="w-100"
+                          [(ngModel)]="addtionSkill"
+                          (onAdd)="onModelAdded($event)"
+                          (onRemove)="onModelRemoved($event)"
+                          [modelAsStrings]="true"
+                          [placeholder]="'Enter a new skill'"
+                          [secondaryPlaceholder]="'Enter a new skill'"
+                          [ngModelOptions]="{ standalone: true }"
+                        >
+                        </tag-input>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btnClose"
+                          data-dismiss="modal"
+                        >
+                          No
+                        </button>
+                        <button
+                          type="button"
+                          class="btn"
+                          (click)="updateSkill()"
+                        >
+                          Yes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <h4
+              class="mb-0"
+              style="color: #b94a3e"
+              *ngIf="UserInfo.typeUser == 'Company'"
+            >
+              Job Posts
+            </h4>
+            <h4
+              class="mb-0"
+              style="color: #b94a3e"
+              *ngIf="UserInfo.typeUser != 'Company'"
+            >
+              Job Applaying
+            </h4>
+          </div>
+        </div>
+        <hr />
         <div class="job_listing_area">
           <div class="job_lists m-0">
-            <div class="row">
-              <div class="col-lg-12 col-md-12">
+            <div class="row" *ngIf="isJob == true">
+              <div class="col-lg-12 col-md-12" *ngFor="let job of listJob">
                 <div
                   class="single_jobs white-bg d-flex justify-content-between"
                 >
-                  <div class="jobs_left d-flex align-items-center">
-                    <div class="thumb">
-                      <img src="./../../../assets/img/svg_icon/1.svg" alt="" />
+                  <div
+                    class="jobs_left d-flex align-items-center"
+                    [routerLink]="['/job-details']"
+                    (click)="jobInfoId(job.jobID)"
+                  >
+                    <div
+                      class="thumb p-0 h-100 justify-content-center align-items-center offset"
+                      style="max-height: 100px; max-width: 100px"
+                    >
+                      <img
+                        src="{{ job.userID.profilePic }}"
+                        class="mx-auto d-block h-100 justify-content-center align-items-center"
+                        style="max-height: 100%; max-width: 100%"
+                      />
                     </div>
                     <div class="jobs_conetent">
                       <!-- <h4>Company Name</h4> -->
-                      <a [routerLink]="['/job-details']"
-                        ><h4>Software Engineer</h4></a
+                      <a
+                        ><h4>{{ job.catName }}</h4></a
                       >
                       <div class="links_locat d-flex align-items-center">
                         <div class="location">
                           <p>
-                            <i class="fa fa-map-marker"></i> California, USA
+                            <i class="fa fa-map-marker"></i> {{ job.location }},
+                            Egypt
                           </p>
                         </div>
                         <div class="location">
-                          <p><i class="fa fa-clock-o"></i> Part-time</p>
+                          <p *ngIf="job.jobType == 'F'">
+                            <i class="fa fa-clock-o"></i>Full Time
+                          </p>
+                          <p *ngIf="job.jobType == 'P'">
+                            <i class="fa fa-clock-o"></i>Part Time
+                          </p>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="jobs_right">
                     <div class="apply_now">
-                      <a
-                        class="boxed-btn3 mr-1"
+                      <a *ngIf="job.locID"
+                        class="boxed-btn3 mr-1 mb-2"
                         data-toggle="modal"
                         data-target="#exampleModal"
+                        (click)="editID(job.jobID)"
+                      >
+                        Edit
+                      </a>
+                      <a *ngIf="!job.locID"
+                        class="boxed-btn3 mr-1 mb-2"
+                        data-toggle="modal"
+                        data-target="#exampleModalOther"
+                        (click)="editID(job.jobID)"
                       >
                         Edit
                       </a>
@@ -452,12 +818,13 @@
                         class="boxed-btn3"
                         data-toggle="modal"
                         data-target="#exampleModalScroll"
+                        (click)="deleteJob(job.jobID)"
                       >
                         Delete
                       </a>
                     </div>
                     <div class="date">
-                      <p>Date line: 31 Jan 2020</p>
+                      <p>{{ job.published_at | date }}</p>
                     </div>
                   </div>
 
@@ -468,7 +835,8 @@
                     tabindex="-1"
                     role="dialog"
                     aria-labelledby="exampleModalScrollableTitle"
-                    aria-hidden="true">
+                    aria-hidden="true"
+                  >
                     <div
                       class="modal-dialog modal-dialog-scrollable"
                       role="document"
@@ -506,7 +874,13 @@
                           >
                             No
                           </button>
-                          <button type="button" class="btn">Yes</button>
+                          <button
+                            type="button"
+                            class="btn"
+                            (click)="sureDelete()"
+                          >
+                            Yes
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -517,14 +891,16 @@
                   <div
                     class="modal fade"
                     id="exampleModal"
+                  
                     tabindex="-1"
                     role="dialog"
                     aria-labelledby="exampleModalScrollableTitle"
                     aria-hidden="true"
-                  >
+                   >
                     <div
                       class="modal-dialog modal-dialog-scrollable"
                       role="document"
+                      style="  max-width: 60%;"
                     >
                       <div class="modal-content">
                         <div class="modal-header">
@@ -557,6 +933,7 @@
                                 class="form-control"
                                 placeholder="Edit title"
                                 id="user-name"
+                                #editTitle
                               />
                             </div>
                             <div class="row">
@@ -570,6 +947,7 @@
                                   placeholder="Edit vacancy"
                                   id="first-name"
                                   min="1"
+                                  #vacancy
                                 />
                               </div>
                               <div class="form-group col-6">
@@ -582,6 +960,7 @@
                                   placeholder="Edit salary"
                                   id="last-name"
                                   min="1"
+                                  #salary
                                 />
                               </div>
                             </div>
@@ -594,19 +973,10 @@
                                 class="form-control"
                                 placeholder="Edit description"
                                 id="instgram"
+                                #desc
                               ></textarea>
                             </div>
-                            <div class="form-group">
-                              <label for="instgram" class="col-form-label"
-                                >Responsibility</label
-                              >
-                              <textarea
-                                type="text"
-                                class="form-control"
-                                placeholder="Edit responsibility"
-                                id="instgram"
-                              ></textarea>
-                            </div>
+                           
                             <div class="form-group">
                               <label for="facebook" class="col-form-label"
                                 >Qualification</label
@@ -616,6 +986,7 @@
                                 class="form-control"
                                 placeholder="Edit qualification"
                                 id="facebook"
+                                #qualifi
                               ></textarea>
                             </div>
                             <div class="form-group">
@@ -627,49 +998,121 @@
                                 class="form-control"
                                 placeholder="Edit benefits"
                                 id="benefits"
+                                #benefit
                               ></textarea>
                             </div>
                             <div class="row">
-                              <div class="form-group col-4">
-                                <select
-                                  class="form-control"
-                                  id="exampleFormControlSelect1"
+                              <div class="col-4">
+                                <div class="single_input">
+                                  <div class="nice-select wide" tabindex="0">
+                                    <span class="current" #selectTypeJob
+                                      >Select Type Job</span
+                                    >
+                                    <ul class="list list-group">
+                                      <li
+                                        data-value="0"
+                                        (click)="selectT(0)"
+                                        data-display="Select Type Job"
+                                        class="option selected list-group-item"
+                                      >
+                                        Select Type Job
+                                      </li>
+                                      <li
+                                        class="option list-group-item"
+                                        *ngFor="let e of TypeJob"
+                                        (click)="selectT(e.typejob)"
+                                        data-value="{{ e.typejob }}"
+                                      >
+                                        {{ e.typejob }}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div
+                                  class="alert alert-danger m-3"
+                                  role="alert"
+                                  *ngIf="checkSelectType == false"
                                 >
-                                  <option disabled selected>
-                                    Edit job nature
-                                  </option>
-                                  <option>Part-time</option>
-                                  <option>Full-time</option>
-                                </select>
+                                  <strong> Choise Job Type </strong>
+                                </div>
                               </div>
-                              <div class="form-group col-4">
-                                <select
-                                class="form-control"
-                                id="exampleFormControlSelect1"
-                              >
-                                <option disabled selected>
-                                  Edit experiences
-                                </option>
-                                <option>Less than 1 year</option>
-                                <option>From 1 to 3 years</option>
-                                <option>From 3 to 5 years</option>
-                                <option>More than 5 years</option>
-                              </select>
-                              </div>
-                              <div class="form-group col-4">
-                                <select
-                                  class="form-control"
-                                  id="exampleFormControlSelect1"
+                              <div class="col-4">
+                                <div class="single_input">
+                                  <div class="nice-select wide" tabindex="0">
+                                    <span class="current" #selectEx
+                                      >Select years of experiences</span
+                                    >
+                                    <ul class="list list-group">
+                                      <li
+                                        (click)="selectE(0)"
+                                        data-value="0"
+                                        data-display="Select years of experiences"
+                                        class="option selected list-group-item"
+                                      >
+                                        Select years of experiences
+                                      </li>
+                                      <li
+                                        class="option list-group-item"
+                                        *ngFor="let e of TypeEx"
+                                        (click)="selectE(e.ex)"
+                                        data-value="{{ e.ex }}"
+                                      >
+                                        {{ e.ex }}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div
+                                  class="alert alert-danger m-3"
+                                  role="alert"
+                                  *ngIf="checkSelectEx == false"
                                 >
-                                  <option disabled selected>
-                                    Edit gender
-                                  </option>
-                                  <option>Male</option>
-                                  <option>Female</option>
-                                </select>
+                                  <strong> Choise years of Experiences </strong>
+                                </div>
+                              </div>
+                              <div class="col-4">
+                                <div class="single_input">
+                                  <div class="nice-select wide" tabindex="0">
+                                    <span class="current" #selectGender
+                                      >Select gender</span
+                                    >
+                                    <ul class="list list-group">
+                                      <li
+                                        data-value="0"
+                                        (click)="selectG(0)"
+                                        data-display="Select gender"
+                                        class="option selected list-group-item"
+                                      >
+                                        Select gender
+                                      </li>
+                                      <li
+                                        class="option list-group-item"
+                                        *ngFor="let e of TypeGender"
+                                        (click)="selectG(e.gender)"
+                                        value="{{ e.gender }}"
+                                      >
+                                        {{ e.gender }}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div
+                                  class="alert alert-danger m-3"
+                                  role="alert"
+                                  *ngIf="checkSelectGender == false"
+                                >
+                                  <strong> Gender is required </strong>
+                                </div>
                               </div>
                             </div>
                           </form>
+                           <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="isEdit == false"
+                              >
+                                <strong> Enter All Data </strong>
+                              </div>
                         </div>
                         <div class="modal-footer">
                           <button
@@ -679,7 +1122,7 @@
                           >
                             Close
                           </button>
-                          <button type="button" class="btn">
+                          <button type="button" class="btn" (click)="save()">
                             Save changes
                           </button>
                         </div>
@@ -687,12 +1130,637 @@
                     </div>
                   </div>
                   <!-- edit a job end  -->
+                   <div
+                    class="modal fade"
+                    id="exampleModalOther"
+                  
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="exampleModalScrollableTitle"
+                    aria-hidden="true"
+                   >
+                    <div
+                      class="modal-dialog modal-dialog-scrollable"
+                      role="document"
+                      style="  max-width: 60%;"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5
+                            class="modal-title"
+                            id="exampleModalScrollableTitle"
+                          >
+                            Edit a job
+                          </h5>
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div
+                          class="modal-body"
+                          style="background-color: #121b22"
+                        >
+                          <form class="text-left">
+                            <div class="form-group">
+                              <label for="user-name" class="col-form-label"
+                                >Job title</label
+                              >
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Edit title"
+                                id="user-name"
+                                #editTitle
+                              />
+                            </div>
+                            <div class="row">
+                              <div class="form-group col-6">
+                                <label for="first-name" class="col-form-label"
+                                  >Vacancy</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  placeholder="Edit vacancy"
+                                  id="first-name"
+                                  min="1"
+                                  #vacancy
+                                />
+                              </div>
+                              <div class="form-group col-6">
+                                <label for="last-name" class="col-form-label"
+                                  >Salary</label
+                                >
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  placeholder="Edit salary"
+                                  id="last-name"
+                                  min="1"
+                                  #salary
+                                />
+                              </div>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                              <label for="benefits" class="col-form-label"
+                                >Requirements</label
+                              >
+                              <textarea
+                                type="text"
+                                class="form-control"
+                                placeholder="Edit benefits"
+                                id="benefits"
+                                #Requirements
+                              ></textarea>
+                            </div>
+                            <div class="row">
+                              <div class="col-4">
+                                <div class="single_input">
+                                  <div class="nice-select wide" tabindex="0">
+                                    <span class="current" #selectTypeJob
+                                      >Select Type Job</span
+                                    >
+                                    <ul class="list list-group">
+                                      <li
+                                        data-value="0"
+                                        (click)="selectT(0)"
+                                        data-display="Select Type Job"
+                                        class="option selected list-group-item"
+                                      >
+                                        Select Type Job
+                                      </li>
+                                      <li
+                                        class="option list-group-item"
+                                        *ngFor="let e of TypeJob"
+                                        (click)="selectT(e.typejob)"
+                                        data-value="{{ e.typejob }}"
+                                      >
+                                        {{ e.typejob }}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div
+                                  class="alert alert-danger m-3"
+                                  role="alert"
+                                  *ngIf="checkSelectType == false"
+                                >
+                                  <strong> Choise Job Type </strong>
+                                </div>
+                              </div>
+                              <div class="col-4">
+                                <div class="single_input">
+                                  <div class="nice-select wide" tabindex="0">
+                                    <span class="current" #selectEx
+                                      >Select years of experiences</span
+                                    >
+                                    <ul class="list list-group">
+                                      <li
+                                        (click)="selectE(0)"
+                                        data-value="0"
+                                        data-display="Select years of experiences"
+                                        class="option selected list-group-item"
+                                      >
+                                        Select years of experiences
+                                      </li>
+                                      <li
+                                        class="option list-group-item"
+                                        *ngFor="let e of TypeEx"
+                                        (click)="selectE(e.ex)"
+                                        data-value="{{ e.ex }}"
+                                      >
+                                        {{ e.ex }}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div
+                                  class="alert alert-danger m-3"
+                                  role="alert"
+                                  *ngIf="checkSelectEx == false"
+                                >
+                                  <strong> Choise years of Experiences </strong>
+                                </div>
+                              </div>
+                              <div class="col-4">
+                                <div class="single_input">
+                                  <div class="nice-select wide" tabindex="0">
+                                    <span class="current" #selectGender
+                                      >Select gender</span
+                                    >
+                                    <ul class="list list-group">
+                                      <li
+                                        data-value="0"
+                                        (click)="selectG(0)"
+                                        data-display="Select gender"
+                                        class="option selected list-group-item"
+                                      >
+                                        Select gender
+                                      </li>
+                                      <li
+                                        class="option list-group-item"
+                                        *ngFor="let e of TypeGender"
+                                        (click)="selectG(e.gender)"
+                                        value="{{ e.gender }}"
+                                      >
+                                        {{ e.gender }}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div
+                                  class="alert alert-danger m-3"
+                                  role="alert"
+                                  *ngIf="checkSelectGender == false"
+                                >
+                                  <strong> Gender is required </strong>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                           <div
+                                class="alert alert-danger m-3"
+                                role="alert"
+                                *ngIf="isEdit == false"
+                              >
+                                <strong> Enter All Data </strong>
+                              </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btnClose"
+                            data-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button type="button" class="btn" (click)="saveOther()">
+                            Save changes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--edit other-->
                 </div>
               </div>
+              <div class="col-md-12" *ngIf="moreJob == true">
+                <div class="submit_btn" [routerLink]="['/my-job']">
+                  <button class="boxed-btn3 w-100" type="submit">
+                    More job posts
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="isJob == false">
+              <p *ngIf="UserInfo.typeUser == 'Company'">
+                You have not Post any job
+              </p>
+              <p *ngIf="UserInfo.typeUser != 'Company'">
+                You have not applay any job
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!--area blog-->
+
+        <hr *ngIf="UserInfo.typeUser == 'Company'" />
+        <div class="row" *ngIf="UserInfo.typeUser == 'Company'">
+          <div class="col-sm-3">
+            <h4 class="m-0" style="color: #b94a3e">Blog Posts</h4>
+          </div>
+        </div>
+        <hr />
+        <div class="job_listing_area" *ngIf="UserInfo.typeUser == 'Company'">
+          <div class="job_lists m-0">
+            <div class="row" *ngIf="isBlog == true">
+              <div class="col-lg-12 col-md-12" *ngFor="let blog of listBlog">
+                <article class="blog_item bg-white p-0 col-12">
+                  <div class="blog_item_img text-right">
+                    <img
+                      *ngIf="blog.imgBlog[0] != null"
+                      class="card-img rounded-0 w-100"
+                      height="500"
+                      src="{{ blog.imgBlog[0] }}"
+                      alt=""
+                    />
+                    <span class="">
+                      <i
+                        class="fa fa-edit p-2"
+                        data-toggle="modal"
+                        data-target="#exampleModalEditBlog"
+                      >
+                      </i>
+                      <i
+                        data-toggle="modal"
+                        data-target="#exampleModalDeleteBlog"
+                        (click)="deleteBlog(blog.blogID)"
+                        class="fa fa-times-circle text-right p-2"
+                      ></i>
+                    </span>
+                    <span class="m-2">
+                      <p class="text-right m-2">
+                        {{ blog.published_at | date }}
+                      </p>
+                    </span>
+                  </div>
+                  <div
+                    class="modal fade"
+                    id="exampleModalEditBlog"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="exampleModalScrollableTitle"
+                    aria-hidden="true"
+                  >
+                    <div
+                      class="modal-dialog modal-dialog-scrollable"
+                      role="document"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5
+                            class="modal-title"
+                            id="exampleModalScrollableTitle"
+                          >
+                            Edit a Blog
+                          </h5>
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body" style="padding-top: 30px">
+                          <div class="border border-muted border-2 p-1">
+                            <form
+                              (ngSubmit)="postBlog()"
+                              enctype="multipart/form-data"
+                            >
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text"
+                                    >Create Blog</span
+                                  >
+                                </div>
+                                <textarea
+                                  placeholder="Write blog ..."
+                                  #textarea
+                                  class="form-control"
+                                  aria-label="With textarea"
+                                ></textarea>
+                              </div>
+
+                              <div class="input-group mt-1">
+                                <span class="input-group-text">Images</span>
+                                <div class="custom-file">
+                                  <input
+                                    type="file"
+                                    class="form-control"
+                                    id="inputGroupFile01"
+                                    (change)="preview($event)"
+                                  />
+                                  <label
+                                    class="custom-file-label h-100"
+                                    for="inputGroupFile01"
+                                    >{{ UploadMsg }}</label
+                                  >
+                                </div>
+                              </div>
+
+                              <div
+                                class="input-group mt-1 flex-row-reverse submit_btn"
+                              >
+                                <span
+                                  class="input-group-text boxed-btn3 btn"
+                                  id="inputGroupFileAddon01"
+                                  (click)="postBlog()"
+                                  >Save</span
+                                >
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                        <div class="modal-footer"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="modal fade"
+                    id="exampleModalDeleteBlog"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="exampleModalScrollableTitle"
+                    aria-hidden="true"
+                  >
+                    <div
+                      class="modal-dialog modal-dialog-scrollable"
+                      role="document"
+                    >
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5
+                            class="modal-title"
+                            id="exampleModalScrollableTitle"
+                          >
+                            Delete a Blog
+                          </h5>
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div
+                          class="modal-body"
+                          style="background-color: #121b22; padding-top: 30px"
+                        >
+                          <p style="color: white; font-size: 20px">
+                            Are you sure you want to delete this Blog?
+                          </p>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btnClose"
+                            data-dismiss="modal"
+                          >
+                            No
+                          </button>
+                          <button
+                            type="button"
+                            class="btn"
+                            (click)="sureDeleteBlog()"
+                          >
+                            Yes
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="blog_details m-0 pt-0">
+                    <a class="" [routerLink]="['/single-blog']">
+                      <img
+                        src="{{ blog.picOwnerBlog }}"
+                        alt="Admin"
+                        class="rounded-circle d-inline mb-2"
+                        width="60"
+                        height="70"
+                      />
+
+                      <h2 class="d-inline ml-2">{{ blog.first_name }}</h2>
+                    </a>
+                    <p>
+                      {{ blog.description }}
+                    </p>
+                    <ul class="blog-info-link" style="float: left">
+                      <li>
+                        <a [routerLink]="['/profile']"
+                          ><i class="fa fa-user"></i>{{ blog.first_name }}</a
+                        >
+                      </li>
+                      <li>
+                        <a [routerLink]="['/single-blog']"
+                          ><i class="fa fa-comments"></i> 0{{
+                            blog.comments.length
+                          }}
+                          Comments</a
+                        >
+                      </li>
+                    </ul>
+                    <!--<div style="float: right; margin-top: -10px">
+                  <li style="float: left">
+                    <button class="btn" data-toggle="modal" data-target="#edit">
+                      Edit
+                    </button>
+                  </li>
+                  <li class="ml-1" style="float: right">
+                    <button
+                      class="btn btnClose"
+                      data-toggle="modal"
+                      data-target="#delete"
+                    >
+                      Delete
+                    </button>
+                  </li>
+                 </div>-->
+                    <div
+                      class="modal fade"
+                      id="delete"
+                      tabindex="-1"
+                      role="dialog"
+                      aria-labelledby="exampleModalScrollableTitle"
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="modal-dialog modal-dialog-scrollable"
+                        role="document"
+                      >
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5
+                              class="modal-title"
+                              id="exampleModalScrollableTitle"
+                            >
+                              Delete a post
+                            </h5>
+                            <button
+                              type="button"
+                              class="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div
+                            class="modal-body"
+                            style="background-color: #121b22; padding-top: 35px"
+                          >
+                            <p style="color: white; font-size: 20px">
+                              Are you sure you want to delete this pos?
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btnClose"
+                              data-dismiss="modal"
+                            >
+                              No
+                            </button>
+                            <button type="button" class="btn">Yes</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- edit a post start -->
+                    <div
+                      class="modal fade"
+                      id="edit"
+                      tabindex="-1"
+                      role="dialog"
+                      aria-labelledby="exampleModalScrollableTitle"
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="modal-dialog modal-dialog-scrollable"
+                        role="document"
+                      >
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5
+                              class="modal-title"
+                              id="exampleModalScrollableTitle"
+                            >
+                              Edit a post
+                            </h5>
+                            <button
+                              type="button"
+                              class="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div
+                            class="modal-body"
+                            style="background-color: #121b22"
+                          >
+                            <form class="text-left">
+                              <div class="form-group">
+                                <label for="user-name" class="col-form-label"
+                                  >Post title</label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Edit title"
+                                  id="user-name"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="github" class="col-form-label"
+                                  >Post description</label
+                                >
+                                <textarea
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Edit description"
+                                  id="instgram"
+                                ></textarea>
+                              </div>
+                              <div class="form-group">
+                                <label for="">Change an image</label>
+                                <input
+                                  class="upload"
+                                  multiple
+                                  type="file"
+                                  id=""
+                                  name=""
+                                  accept="image/png, image/jpeg"
+                                />
+                              </div>
+                            </form>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btnClose"
+                              data-dismiss="modal"
+                            >
+                              Close
+                            </button>
+                            <button
+                              type="button"
+                              class="btn"
+                              [disabled]="formEditProfile.invalid"
+                            >
+                              Save changes
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- edit a post end  -->
+                  </div>
+                </article>
+              </div>
+              <div class="col-md-12" *ngIf="moreBlog == true">
+                <div class="submit_btn">
+                  <button
+                    class="boxed-btn3 w-100"
+                    [routerLink]="['/my-blog']"
+                    type="submit"
+                  >
+                    More Blog posts
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="isBlog == false">
+              <p>You have not Post any Blog</p>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- blogs -->
     </div>
   </div>
 </div>

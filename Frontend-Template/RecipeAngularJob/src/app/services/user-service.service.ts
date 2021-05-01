@@ -35,6 +35,7 @@ export class UserServiceService {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': ' */*'
+        
         //  ,'Authorization': 'my-auth-token'
       })
     };

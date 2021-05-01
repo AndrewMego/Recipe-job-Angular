@@ -4,9 +4,27 @@
       <div class="col">
         <div class="apply_job_form white-bg">
           <h4>Register To Recipe</h4>
-          <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <form [formGroup]="registerForm" (ngSubmit)="register()" enctype='multipart/form-data'>
             <div class="row">
               <div class="col-12 mb-4">
+
+
+ <div  class="single_input">
+            <div class="nice-select wide"  tabindex="0">
+              <span class="current" >Select register type</span>
+              <ul class="list list-group">
+                <li 
+                  data-value="0"
+                  data-display="Select register type"
+                  class="option selected list-group-item"
+                >
+                  Select register type
+                </li>
+                <li class="option list-group-item"  *ngFor="let e of typelist" (click)="ff(e)"  data-value="{{e}}" >{{ e }}</li>
+              </ul>
+            </div>
+          </div>
+              <!----
                 <select
                   class="nice-select wide"
                   #typeUser
@@ -21,6 +39,7 @@
                     {{ e }}
                   </option>
                 </select>
+                <!---->
               </div>
             </div>
 
@@ -159,7 +178,7 @@
                       registerForm.controls['email'].invalid &&
                       registerForm.controls['email'].touched
                     "
-                  >
+                   >
                     <strong
                       *ngIf="registerForm.controls['email'].errors.required"
                     >
@@ -233,7 +252,7 @@
                   <input
                     type="tel"
                     placeholder="Phone number"
-                    formControlName="phone"
+                    formControlName="phone_number"
                     minlength="11"
                     maxlength="11"
                   />
@@ -241,18 +260,18 @@
                     class="alert alert-danger"
                     role="alert"
                     *ngIf="
-                      registerForm.controls['phone'].invalid &&
-                      registerForm.controls['phone'].touched
+                      registerForm.controls['phone_number'].invalid &&
+                      registerForm.controls['phone_number'].touched
                     "
                   >
                     <strong
-                      *ngIf="registerForm.controls['phone'].errors.required"
+                      *ngIf="registerForm.controls['phone_number'].errors.required"
                     >
                       Phone is required
                     </strong>
 
                     <strong
-                      *ngIf="registerForm.controls['phone'].errors.pattern"
+                      *ngIf="registerForm.controls['phone_number'].errors.pattern"
                     >
                       Enter valid Phone Number
                     </strong>
@@ -273,24 +292,9 @@
                     <input
                       class="custom-file-input"
                         id="inputGroupFile03"
-                      #file
                       type="file"
-                     
-                      (change)="preview(file.files)"
-                      formControlName="uploadImg"
-                    />
+                      (change)="preview($event)"/>
                    
-
-                    <!--<input
-                      type="file"
-                      class="custom-file-input"
-                      id="inputGroupFile03"
-                      aria-describedby="inputGroupFileAddon03"
-                      formControlName="uploadImg"
-                    />
-                    <label class="custom-file-label" for="inputGroupFile03"
-                      >Upload image</label
-                    >-->
                   </div>
                 </div>
               </div>
@@ -321,8 +325,6 @@
                   />
                 </div>
               </div>
-
-              <!-- -->
               <div class="col-md-12">
                 <div class="submit_btn">
                   <button class="boxed-btn3 w-100" type="submit">

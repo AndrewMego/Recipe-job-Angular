@@ -1,0 +1,52 @@
+section{
+    background-color: #F5F7FA;
+    height: 100%;
+  }
+  .require {
+    color: #666;
+  }
+  label small {
+    color: #999;
+    font-weight: normal;
+  }
+  
+  .btn:hover{
+    color: #b94a3e;
+    background-color: white;
+    border: 1px solid #b94a3e;
+  }
+  .btn{
+    background-color: #b94a3e;
+    color: white;
+  }
+  .btnClose:hover{
+    background-color: #204254;
+    border: 1px solid #204254;
+    color: white;
+  }
+  .btnClose{
+    background-color: #204254;
+    color: white;
+  }
+  .upload{
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    background-color: white;
+    width: 100%;
+  }
+  
+  .modal-body input, .modal-body textarea{
+    background-color: #F5F7FA;
+  }
+  /* label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+  } */
+  /* input,
+  label {
+    margin: .4rem 0;
+  } */
+  
+  
+  
+  

@@ -2,375 +2,279 @@
 <section class="blog_area section-padding">
   <div class="container">
     <div class="row">
-      <div class="col mb-5 mb-lg-0">
-        <div class="blog_left_sidebar">
-          <article class="blog_item">
-            <div class="blog_item_img">
-              <img
-                class="card-img rounded-0"
-                src="./../../../assets/img/blog/single_blog_1.png"
-                alt=""
-              />
-              <a href="#" class="blog_item_date">
-                <h3>15</h3>
-                <p>Jan</p>
-              </a>
+      <div class="col-8 border border-muted border-2 p-1">
+        <form (ngSubmit)="postBlog()" enctype="multipart/form-data">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Create Blog</span>
             </div>
-
-            <div class="blog_details">
-              <a class="d-inline-block" [routerLink]="['/single-blog']">
-                <h2>Google inks pact for new 35-storey office</h2>
-              </a>
-              <p>
-                That dominion stars lights dominion divide years for fourth have
-                don't stars is that he earth it first without heaven in place
-                seed it second morning saying.
-              </p>
-              <ul class="blog-info-link" style="float: left">
-                <li>
-                  <a [routerLink]="['/profile']"
-                    ><i class="fa fa-user"></i> Company name</a
-                  >
-                </li>
-                <li>
-                  <a [routerLink]="['/single-blog']"
-                    ><i class="fa fa-comments"></i> 03 Comments</a
-                  >
-                </li>
-              </ul>
-              <div style="float: right; margin-top: -10px">
-                <li style="float: left">
-                  <button class="btn" data-toggle="modal" data-target="#edit">
-                    Edit
-                  </button>
-                </li>
-                <li class="ml-1" style="float: right">
-                  <button
-                    class="btn btnClose"
-                    data-toggle="modal"
-                    data-target="#delete"
-                  >
-                    Delete
-                  </button>
-                </li>
-              </div>
-              <div
-                class="modal fade"
-                id="delete"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="exampleModalScrollableTitle"
-                aria-hidden="true"
-              >
-                <div
-                  class="modal-dialog modal-dialog-scrollable"
-                  role="document"
-                >
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalScrollableTitle">
-                        Delete a post
-                      </h5>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div
-                      class="modal-body"
-                      style="background-color: #121b22; padding-top: 35px"
-                    >
-                      <p style="color: white; font-size: 20px">
-                        Are you sure you want to delete this pos?
-                      </p>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btnClose"
-                        data-dismiss="modal"
-                      >
-                        No
-                      </button>
-                      <button type="button" class="btn">Yes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- edit a post start -->
-              <div
-                class="modal fade"
-                id="edit"
-                tabindex="-1"
-                role="dialog"
-                aria-labelledby="exampleModalScrollableTitle"
-                aria-hidden="true"
-              >
-                <div
-                  class="modal-dialog modal-dialog-scrollable"
-                  role="document"
-                >
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalScrollableTitle">
-                        Edit a post
-                      </h5>
-                      <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                      >
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body" style="background-color: #121b22">
-                      <form class="text-left">
-                        <div class="form-group">
-                          <label for="user-name" class="col-form-label"
-                            >Post title</label
-                          >
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Edit title"
-                            id="user-name"
-                          />
-                        </div>
-                        <div class="form-group">
-                          <label for="github" class="col-form-label"
-                            >Post description</label
-                          >
-                          <textarea
-                            type="text"
-                            class="form-control"
-                            placeholder="Edit description"
-                            id="instgram"
-                          ></textarea>
-                        </div>
-                        <div class="form-group">
-                          <label for="avatar">Change an image</label>
-                          <input
-                            class="upload"
-                            multiple
-                            type="file"
-                            id="avatar"
-                            name="avatar"
-                            accept="image/png, image/jpeg"
-                          />
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button
-                        type="button"
-                        class="btn btnClose"
-                        data-dismiss="modal"
-                      >
-                        Close
-                      </button>
-                      <button type="button" class="btn">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- edit a post end  -->
-            </div>
-          </article>
-
-          <article class="blog_item">
-            <div class="blog_item_img">
-              <img
-                class="card-img rounded-0"
-                src="./../../../assets/img/blog/single_blog_2.png"
-                alt=""
-              />
-              <a href="#" class="blog_item_date">
-                <h3>15</h3>
-                <p>Jan</p>
-              </a>
-            </div>
-
-            <div class="blog_details">
-              <a class="d-inline-block" [routerLink]="['/single-blog']">
-                <h2>Google inks pact for new 35-storey office</h2>
-              </a>
-              <p>
-                That dominion stars lights dominion divide years for fourth have
-                don't stars is that he earth it first without heaven in place
-                seed it second morning saying.
-              </p>
-              <ul class="blog-info-link">
-                <li>
-                  <a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-comments"></i> 03 Comments</a>
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="blog_item">
-            <div class="blog_item_img">
-              <img
-                class="card-img rounded-0"
-                src="./../../../assets/img/blog/single_blog_3.png"
-                alt=""
-              />
-              <a href="#" class="blog_item_date">
-                <h3>15</h3>
-                <p>Jan</p>
-              </a>
-            </div>
-
-            <div class="blog_details">
-              <a class="d-inline-block" [routerLink]="['/single-blog']">
-                <h2>Google inks pact for new 35-storey office</h2>
-              </a>
-              <p>
-                That dominion stars lights dominion divide years for fourth have
-                don't stars is that he earth it first without heaven in place
-                seed it second morning saying.
-              </p>
-              <ul class="blog-info-link">
-                <li>
-                  <a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-comments"></i> 03 Comments</a>
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="blog_item">
-            <div class="blog_item_img">
-              <img
-                class="card-img rounded-0"
-                src="./../../../assets/img/blog/single_blog_4.png"
-                alt=""
-              />
-              <a href="#" class="blog_item_date">
-                <h3>15</h3>
-                <p>Jan</p>
-              </a>
-            </div>
-
-            <div class="blog_details">
-              <a class="d-inline-block" [routerLink]="['/single-blog']">
-                <h2>Google inks pact for new 35-storey office</h2>
-              </a>
-              <p>
-                That dominion stars lights dominion divide years for fourth have
-                don't stars is that he earth it first without heaven in place
-                seed it second morning saying.
-              </p>
-              <ul class="blog-info-link">
-                <li>
-                  <a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-comments"></i> 03 Comments</a>
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="blog_item">
-            <div class="blog_item_img">
-              <img
-                class="card-img rounded-0"
-                src="./../../../assets/img/blog/single_blog_5.png"
-                alt=""
-              />
-              <a href="#" class="blog_item_date">
-                <h3>15</h3>
-                <p>Jan</p>
-              </a>
-            </div>
-
-            <div class="blog_details">
-              <a class="d-inline-block" [routerLink]="['/single-blog']">
-                <h2>Google inks pact for new 35-storey office</h2>
-              </a>
-              <p>
-                That dominion stars lights dominion divide years for fourth have
-                don't stars is that he earth it first without heaven in place
-                seed it second morning saying.
-              </p>
-              <ul class="blog-info-link">
-                <li>
-                  <a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a>
-                </li>
-                <li>
-                  <a href="#"><i class="fa fa-comments"></i> 03 Comments</a>
-                </li>
-              </ul>
-            </div>
-          </article>
-
-          <nav class="blog-pagination justify-content-center d-flex">
-            <ul class="pagination">
-              <li class="page-item">
-                <a href="#" class="page-link" aria-label="Previous">
-                  <i class="ti-angle-left"></i>
-                </a>
-              </li>
-              <li class="page-item">
-                <a href="#" class="page-link">1</a>
-              </li>
-              <li class="page-item active">
-                <a href="#" class="page-link">2</a>
-              </li>
-              <li class="page-item">
-                <a href="#" class="page-link" aria-label="Next">
-                  <i class="ti-angle-right"></i>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-      <div class="col-4 col-md-offset-2">
-        <h3>Create new post</h3>
-        <form action="" method="POST">
-          <div class="form-group">
-            <label for="title">Title <span class="require">*</span></label>
-            <input type="text" class="form-control" name="title" />
-          </div>
-          <div class="form-group">
-            <label for="description">Description</label>
             <textarea
-              rows="5"
+              placeholder="Write blog ..."
+              #textarea
               class="form-control"
-              name="description"
+              aria-label="With textarea"
             ></textarea>
           </div>
-          <div class="form-group">
-            <label for="avatar">Choose one image or more</label>
-            <input
-              class="upload"
-              multiple
-              type="file"
-              id="avatar"
-              name="avatar"
-              accept="image/png, image/jpeg"
-            />
+
+          <div class="input-group mt-1">
+            <span class="input-group-text">Images</span>
+            <div class="custom-file">
+              <input
+                type="file"
+                class="form-control"
+                id="inputGroupFile01"
+                (change)="preview($event)"
+              />
+              <label class="custom-file-label h-100" for="inputGroupFile01">{{
+                UploadMsg
+              }}</label>
+            </div>
           </div>
-          <div class="form-group">
-            <form action="">
-              <button type="submit" class="btn btnClose">Post</button>
-              <button class="btn ml-1">Cancel</button>
-            </form>
+
+          <div class="input-group mt-1 flex-row-reverse submit_btn">
+            <span
+              class="input-group-text boxed-btn3 ml-1 btn"
+              id="inputGroupFileAddon01"
+              (click)="cancelBlog()"
+              >Cancel</span
+            >
+            <span
+              class="input-group-text boxed-btn3 btn"
+              id="inputGroupFileAddon01"
+              (click)="postBlog()"
+              >Upload</span
+            >
           </div>
         </form>
+      </div>
+
+      <!-- all blog  -->
+      <div class="col-8 mt-5">
+        <div class="col mb-5 mb-lg-0 mt-5">
+          <div class="blog_left_sidebar">
+            <article
+              class="blog_item bg-white"
+              *ngFor="let blog of blogsList"
+              (click)="blogID(blog.blogID)"
+            >
+              <div class="blog_item_img" [routerLink]="['/single-blog']">
+                <img
+                  *ngIf="blog.imgBlog[0] != null"
+                  class="card-img rounded-0 w-100"
+                  height="500"
+                  src="{{ blog.imgBlog[0] }}"
+                  alt=""
+                />
+                <span href="#" class="blog_item_date">
+                  <p>{{ blog.published_at | date }}</p>
+                </span>
+              </div>
+
+              <div class="blog_details">
+                <a class="">
+                  <img
+                    src="{{ blog.picOwnerBlog }}"
+                    alt="Admin"
+                    class="rounded-circle d-inline mb-2"
+                    width="60"
+                    height="70"
+                  />
+
+                  <h2 class="d-inline ml-2">{{ blog.first_name }}</h2>
+                </a>
+                <p>
+                  {{ blog.description }}
+                </p>
+                <ul class="blog-info-link" style="float: left">
+                  <li>
+                    <a [routerLink]="['/profile']"
+                      ><i class="fa fa-user"></i>{{ blog.first_name }}</a
+                    >
+                  </li>
+                  <li>
+                    <a [routerLink]="['/single-blog']"
+                      ><i class="fa fa-comments"></i> 0{{
+                        blog.comments.length
+                      }}
+                      Comments</a
+                    >
+                  </li>
+                  <li>
+                    <share-buttons
+                      [theme]="'material-dark'"
+                      [include]="['facebook']"
+                      [show]="9"
+                      [size]="1"
+                      [url]="
+                        'http://127.0.0.1:8000/media/blog/pexels-oladimeji-ajegbile-2908773.jpg'
+                      "
+                      [image]="
+                        'http://127.0.0.1:8000/media/blog/pexels-oladimeji-ajegbile-2908773.jpg'
+                      "
+                      [autoSetMeta]="false"
+                    ></share-buttons>
+                  </li>
+                </ul>
+                <!--<div style="float: right; margin-top: -10px">
+                  <li style="float: left">
+                    <button class="btn" data-toggle="modal" data-target="#edit">
+                      Edit
+                    </button>
+                  </li>
+                  <li class="ml-1" style="float: right">
+                    <button
+                      class="btn btnClose"
+                      data-toggle="modal"
+                      data-target="#delete"
+                    >
+                      Delete
+                    </button>
+                  </li>
+                </div>-->
+                <div
+                  class="modal fade"
+                  id="delete"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="exampleModalScrollableTitle"
+                  aria-hidden="true"
+                >
+                  <div
+                    class="modal-dialog modal-dialog-scrollable"
+                    role="document"
+                  >
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5
+                          class="modal-title"
+                          id="exampleModalScrollableTitle"
+                        >
+                          Delete a post
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div
+                        class="modal-body"
+                        style="background-color: #121b22; padding-top: 35px"
+                      >
+                        <p style="color: white; font-size: 20px">
+                          Are you sure you want to delete this pos?
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btnClose"
+                          data-dismiss="modal"
+                        >
+                          No
+                        </button>
+                        <button type="button" class="btn">Yes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- edit a post start -->
+                <div
+                  class="modal fade"
+                  id="edit"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="exampleModalScrollableTitle"
+                  aria-hidden="true"
+                >
+                  <div
+                    class="modal-dialog modal-dialog-scrollable"
+                    role="document"
+                  >
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5
+                          class="modal-title"
+                          id="exampleModalScrollableTitle"
+                        >
+                          Edit a post
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" style="background-color: #121b22">
+                        <form class="text-left">
+                          <div class="form-group">
+                            <label for="user-name" class="col-form-label"
+                              >Post title</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Edit title"
+                              id="user-name"
+                            />
+                          </div>
+                          <div class="form-group">
+                            <label for="github" class="col-form-label"
+                              >Post description</label
+                            >
+                            <textarea
+                              type="text"
+                              class="form-control"
+                              placeholder="Edit description"
+                              id="instgram"
+                            ></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="avatar">Change an image</label>
+                            <input
+                              class="upload"
+                              multiple
+                              type="file"
+                              id="avatar"
+                              name="avatar"
+                              accept="image/png, image/jpeg"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btnClose"
+                          data-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <button type="button" class="btn">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- edit a post end  -->
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="col-4 border border-danger mr-4"
+        style="position: fixed; right: 0px"
+      >
+        Paid ads
       </div>
     </div>
   </div>
 </section>
-<!--================Blog Area =================-->
+<!--==============col-md-offset-2==Blog Area =================-->

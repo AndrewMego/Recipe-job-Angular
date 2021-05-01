@@ -7,31 +7,36 @@
         <div class="job_details_header">
           <div class="single_jobs white-bg d-flex justify-content-between">
             <div class="jobs_left d-flex align-items-center">
-              <div class="thumb">
-                <img src="./../../../assets/img/svg_icon/1.svg" alt="" />
+              <div
+                class="thumb p-0 h-100 justify-content-center align-items-center offset"
+                style="max-height: 100px; max-width: 100px"
+              >
+                <img
+                  src="{{ JobDetail.userID.profilePic }}"
+                  class="mx-auto d-block h-100 justify-content-center align-items-center"
+                  style="max-height: 100%; max-width: 100%"
+                />
               </div>
               <div class="jobs_conetent">
-                <a href="#"><h4>{{JobDetail.userID.companyName}}</h4></a>
+                <a href="#"
+                  ><h4>{{ JobDetail.userID.companyName }}</h4></a
+                >
                 <div class="links_locat d-flex align-items-center">
                   <div class="location">
-                    <p><i class="fa fa-map-marker"></i> {{JobDetail.location}}, Egypt</p>
+                    <p>
+                      <i class="fa fa-map-marker"></i> {{ JobDetail.location }},
+                      Egypt
+                    </p>
                   </div>
                   <div class="location">
                     <p *ngIf="JobDetail.jobType == 'F'">
-                          <i class="fa fa-clock-o"></i>Full Time
-                        </p>
-                        <p *ngIf="JobDetail.jobType == 'P'">
-                          <i class="fa fa-clock-o"></i>Part Time
-                        </p>
+                      <i class="fa fa-clock-o"></i>Full Time
+                    </p>
+                    <p *ngIf="JobDetail.jobType == 'P'">
+                      <i class="fa fa-clock-o"></i>Part Time
+                    </p>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="jobs_right">
-              <div class="apply_now">
-                <a class="heart_mark" href="#">
-                  <i class="ti-heart"></i>
-                </a>
               </div>
             </div>
           </div>
@@ -39,9 +44,12 @@
         <div class="descript_wrap white-bg">
           <div class="single_wrap">
             <h4>Job description</h4>
-            <p>
-             {{JobDetail.description}}.
-            </p>
+            <p>{{ JobDetail.description }}.</p>
+          </div>
+          <div class="single_wrap" *ngIf="JobDetail.ExEmail">
+            <h4>Email</h4>
+            <p>Send your CV and a summary of your work to</p>
+            <h4>{{ JobDetail.ExEmail }}</h4>
           </div>
           <!--<div class="single_wrap">
             <h4>Responsibility</h4>
@@ -51,40 +59,72 @@
               </li>
             </ul>
           </div>-->
-          <div class="single_wrap">
+          <div class="single_wrap" *ngIf="JobDetail.qualification">
             <h4>Qualifications</h4>
             <ul>
-              <li>
-               {{JobDetail.qualification}}.
-              </li>
+              <li>{{ JobDetail.qualification }}.</li>
             </ul>
           </div>
-          <div class="single_wrap">
+          <div class="single_wrap" *ngIf="JobDetail.benefits">
             <h4>Benefits</h4>
-             <ul>
-              <li>
-               {{JobDetail.benefits}}.
-              </li>
+            <ul>
+              <li>{{ JobDetail.benefits }}.</li>
             </ul>
           </div>
         </div>
-        <div class="apply_job_form white-bg">
+        <div class="apply_job_form" *ngIf="loggedIn == true">
           <h4>Apply for the job</h4>
-          <form action="">
+          <form
+            *ngIf="usertype != 'Company' && applaying == false"
+            [formGroup]="aplayForm"
+            (ngSubmit)="aplay()"
+            enctype="multipart/form-data"
+          >
             <div class="row">
               <div class="col-md-6">
                 <div class="input_field">
-                  <input type="text" placeholder="Your name" />
+                  <input type="text" placeholder="Your name" #myName />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="input_field">
-                  <input type="text" placeholder="Email" />
+                  <input
+                    disabled
+                    type="text"
+                    placeholder="Email"
+                    value="{{ myEmail }}"
+                  />
                 </div>
               </div>
               <div class="col-md-12">
                 <div class="input_field">
-                  <input type="text" placeholder="Website/Portfolio link" />
+                  <input
+                    type="tel"
+                    placeholder="Phone number"
+                    formControlName="phone_number"
+                    minlength="11"
+                    maxlength="11"
+                  />
+                  <div
+                    class="alert alert-danger"
+                    role="alert"
+                    *ngIf="
+                      aplayForm.controls['phone_number'].invalid &&
+                      aplayForm.controls['phone_number'].touched
+                    "
+                  >
+                    <strong
+                      *ngIf="aplayForm.controls['phone_number'].errors.required"
+                    >
+                      Phone is required
+                    </strong>
+
+                    <strong
+                      *ngIf="aplayForm.controls['phone_number'].errors.pattern"
+                    >
+                      Enter valid Phone Number
+                    </strong>
+                  </div>
                 </div>
               </div>
               <div class="col-md-12">
@@ -95,15 +135,35 @@
                     </button>
                   </div>
                   <div class="custom-file">
+                    <label class="custom-file-label" for="inputGroupFile03">{{
+                      UploadMsgCer
+                    }}</label>
                     <input
-                      type="file"
                       class="custom-file-input"
                       id="inputGroupFile03"
-                      aria-describedby="inputGroupFileAddon03"
+                      type="file"
+                      (change)="previewCer($event)"
                     />
-                    <label class="custom-file-label" for="inputGroupFile03"
-                      >Upload CV</label
-                    >
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <button type="button" id="inputGroupFileAddon03">
+                      <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <div class="custom-file">
+                    <label class="custom-file-label" for="inputGroupFile03">{{
+                      UploadMsg
+                    }}</label>
+                    <input
+                      class="custom-file-input"
+                      id="inputGroupFile03"
+                      type="file"
+                      (change)="preview($event)"
+                    />
                   </div>
                 </div>
               </div>
@@ -114,7 +174,8 @@
                     id=""
                     cols="30"
                     rows="10"
-                    placeholder="Coverletter"
+                    #writeSummary
+                    placeholder="write summary"
                   ></textarea>
                 </div>
               </div>
@@ -124,9 +185,86 @@
                     Apply Now
                   </button>
                 </div>
+                <div
+                  class="mt-3 alert alert-danger"
+                  role="alert"
+                  *ngIf="msg == true"
+                >
+                  <strong> please enter your data </strong>
+                </div>
               </div>
             </div>
           </form>
+
+          <div *ngIf="applaying == true">
+            {{ applayingmsg }}
+          </div>
+          <div *ngIf="usertype == 'Company'">
+            <!--1212-->
+            <div class="row">
+              <div
+                class="col-lg-12 col-md-12"
+                *ngFor="let aplay of jobAplaying"
+                [routerLink]="['/job-details']"
+                (click)="jobInfoId(job.jobID)"
+              >
+                <div
+                  class="single_jobs white-bg d-flex justify-content-between"
+                >
+                  <div class="jobs_left d-flex align-items-center">
+                    <div
+                      class="thumb p-0 h-100 justify-content-center align-items-center offset"
+                      style="max-height: 100px; max-width: 100px"
+                    >
+                      <img
+                        src="{{ aplay.imgUser }}"
+                        class="mx-auto d-block h-100 justify-content-center align-items-center"
+                        style="max-height: 100%; max-width: 100%"
+                      />
+                    </div>
+                    <a
+                      ><h6>{{ aplay.name }}</h6></a
+                    >
+                    <div class="jobs_conetent">
+                      Name:
+                      <p>{{ aplay.name }}</p>
+                      E-Mail:
+                      <p>{{ aplay.email }}</p>
+                      Phone:
+                      <p>{{ aplay.phone }}</p>
+                    </div>
+                  </div>
+                  <div class="jobs_right text-center">
+                    <div class="apply_now mt-1" (click)="openCV(aplay.CV)">
+                      <a class="boxed-btn3">CV</a>
+                    </div>
+                    <div
+                      class="apply_now mt-1"
+                      *ngIf="aplay.certify"
+                      (click)="openCertify(aplay.certify)"
+                    >
+                      <a class="boxed-btn3">Certifications</a>
+                    </div>
+                    <div class="apply_now mt-1"
+                    data-toggle="modal"
+                        data-target="#exampleModalAccept"
+                       (click)="acceptedAplay(aplay)">
+                      <a class="boxed-btn3">Accept</a>
+                    </div>
+                    <div class="date">
+                      <p>{{ aplay.published_at | date }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12" *ngIf="jobAplaying.length == 0">
+                There are no requests aplayed
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="loggedIn == false && !JobDetail.ExEmail">
+          <h4 class="text-danger">con't aplay without login</h4>
         </div>
       </div>
       <div class="col-lg-4">
@@ -136,13 +274,30 @@
           </div>
           <div class="job_content">
             <ul>
-              <li>Published on: <span>{{ JobDetail.published_at | date }}</span></li>
-              <li>Vacancy: <span>{{JobDetail.vacancy}} Position</span></li>
-              <li>Experience: <span>{{JobDetail.experience}}</span></li>
-              <li>Location: <span>{{JobDetail.location}}, Egypt</span></li>
-              <li>Job Nature: <span *ngIf="JobDetail.jobType == 'F'"> Full Time  </span>   <span *ngIf="JobDetail.jobType == 'P'"> Part Time  </span>    </li>
-              <li>Gender: <span> {{JobDetail.gender}}</span></li>
-              <li>Tags: <span *ngFor="let item of JobDetail.jobTags"> {{item}}</span></li>
+              <li>
+                Published on: <span>{{ JobDetail.published_at | date }}</span>
+              </li>
+              <li>
+                Vacancy: <span>{{ JobDetail.vacancy }} Position</span>
+              </li>
+              <li>
+                Experience: <span>{{ JobDetail.experience }}</span>
+              </li>
+              <li>
+                Location: <span>{{ JobDetail.location }}, Egypt</span>
+              </li>
+              <li>
+                Job Nature:
+                <span *ngIf="JobDetail.jobType == 'F'"> Full Time </span>
+                <span *ngIf="JobDetail.jobType == 'P'"> Part Time </span>
+              </li>
+              <li>
+                Gender: <span> {{ JobDetail.gender }}</span>
+              </li>
+              <li>
+                Tags:
+                <span *ngFor="let item of JobDetail.jobTags"> {{ item }}</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -163,6 +318,51 @@
             </li>
           </ul>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModalAccept"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalScrollableTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Accept</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div
+        class="modal-body"
+        style="background-color: #121b22; padding-top: 30px"
+      >
+        <div class="form-group">
+          <label for="github" class="col-form-label">approval letter</label>
+          <textarea
+            type="text"
+            class="form-control"
+            #approvalletter
+            placeholder="Write an approval letter ..."
+            id="approval-letter"
+          ></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" (click)="accepted()">
+          Send Letter
+        </button>
       </div>
     </div>
   </div>

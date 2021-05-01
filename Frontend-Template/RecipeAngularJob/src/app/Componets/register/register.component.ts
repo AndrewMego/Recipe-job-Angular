@@ -4,6 +4,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { Iuser } from 'src/app/models/interfaces/iuser';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 
 export function ConfirmedValidator(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
@@ -38,7 +40,7 @@ export class RegisterComponent implements OnInit {
   getType: boolean
   ttype: string
   UploadMsg: String = "Upload image"
-  constructor(private formbuilder: FormBuilder, private _apiregisterServ: UserServiceService, private _router: Router) {
+  constructor(private http: HttpClient, private formbuilder: FormBuilder, private _apiregisterServ: UserServiceService, private _router: Router) {
     this.typelist = ["Employee", "Company"];
   }
 
@@ -55,7 +57,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.min(8)]],
       conpassword: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.pattern(new RegExp('01[0-9]{9}'))]],
+      phone_number: ['', [Validators.required, Validators.pattern(new RegExp('01[0-9]{9}'))]],
       uploadImg: [''],
       insta: [''],
       git: [''],
@@ -74,42 +76,11 @@ export class RegisterComponent implements OnInit {
 
   }
 
-  preview(files) {
-    if (files.length === 0)
-      return;
+  preview(event: any) {
 
-    var mimeType = files.item(0).type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "Only images are supported.";
-      return;
-    } else {
-
-      
-      var reader = new FileReader();
-      this.imagePath = files.item(0);
-      this.UploadMsg = this.imagePath.name
-      console.log(this.imagePath)
-      reader.readAsDataURL(files.item(0));
-
-      reader.onload = function ( loadEvent ) {
-        console.log("load event",   loadEvent.target.result);
-        const formData = new FormData();
-        formData.append('file', loadEvent.target.result as string);
-     }
-     
-     /* reader.onload = () => {
-        
-        this.imgURL = reader.result as string;
-        console.log(this.imgURL)
-        this.registerForm.patchValue({
-          uploadImg: reader.result
-        });
-
-
-
-      };*/
-
-    }
+    this.imagePath = event.target.files[0];
+    this.UploadMsg = this.imagePath.name
+   
   }
 
   ff(val) {
@@ -122,31 +93,60 @@ export class RegisterComponent implements OnInit {
 
 
   register() {
-
-    if (this.elem.nativeElement.innerText == '0') {
+    console.log(this.ttype)
+    if (this.ttype == '0' || this.ttype == undefined) {
+     
       this.getType = false;
 
     } else {
-
       this.getType = true
-
       this.registerForm.patchValue({
-
         typeUser: this.ttype
       })
 
-      this.registerUser = this.registerForm.value
-      console.log(this.registerUser)
-      this._apiregisterServ.userRegister(
-        this.registerUser).subscribe((res) => {
+      
 
-          alert(res['msg'])
-          console.log(res)
 
-        }, (err) => { console.log(err) })
+
+      const uploadData = new FormData();
+
+      console.log(uploadData)
+
+      uploadData.append('profile', this.imagePath, this.imagePath.name);
+
+
+      uploadData.append('username', this.registerForm.get('username').value)
+      uploadData.append('firstname', this.registerForm.get('firstname').value)
+      uploadData.append('lastname', this.registerForm.get('lastname').value)
+      uploadData.append('email', this.registerForm.get('email').value)
+      uploadData.append('password', this.registerForm.get('password').value)
+      uploadData.append('phone', this.registerForm.get('phone_number').value)
+      uploadData.append('insta', this.registerForm.get('insta').value)
+      uploadData.append('git', this.registerForm.get('git').value)
+      uploadData.append('face', this.registerForm.get('face').value)
+      uploadData.append('typeUser', this.registerForm.get('typeUser').value)
+      uploadData.append('campanyname', this.registerForm.get('campanyname').value)
+     
+      this.http.post('http://127.0.0.1:8000/Users/register', uploadData).subscribe(
+        data => {
+          if (data['msg'] == 'success'){
+          alert('check your email and press on link to active your account')
+          window.location.href = 'http://localhost:4200/login';
+          }else{ alert(data['msg'])}
+        },
+        error => console.log(error)
+      );
     }
+    // this._apiregisterServ.userRegister(
+    //   this.registerUser).subscribe((res) => {
 
+    //     alert(res['msg'])
+    //     console.log(res)
 
+    //   }, (err) => { console.log(err) })
   }
+
+
+
 
 }

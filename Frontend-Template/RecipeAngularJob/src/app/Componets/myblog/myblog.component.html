@@ -1,0 +1,290 @@
+<!--================Blog Area =================-->
+<section class="blog_area section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-8 border border-muted border-2 p-1">
+        <form (ngSubmit)="postBlog()" enctype="multipart/form-data">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Create Blog</span>
+            </div>
+            <textarea
+              placeholder="Write blog ..."
+              #textarea
+              class="form-control"
+              aria-label="With textarea"
+            ></textarea>
+          </div>
+
+          <div class="input-group mt-1">
+            <span class="input-group-text">Images</span>
+            <div class="custom-file">
+              <input
+                type="file"
+                class="form-control"
+                id="inputGroupFile01"
+                (change)="preview($event)"
+              />
+              <label class="custom-file-label h-100" for="inputGroupFile01">{{
+                UploadMsg
+              }}</label>
+            </div>
+          </div>
+
+          <div class="input-group mt-1 flex-row-reverse submit_btn">
+            <span
+              class="input-group-text boxed-btn3 ml-1 btn"
+              id="inputGroupFileAddon01"
+              (click)="cancelBlog()"
+              >Cancel</span
+            >
+            <span
+              class="input-group-text boxed-btn3 btn"
+              id="inputGroupFileAddon01"
+              (click)="postBlog()"
+              >Upload</span
+            >
+          </div>
+        </form>
+      </div>
+
+      <!-- all blog  -->
+      <div class="col-8 mt-5">
+        <div class="col-sm-3">
+          <h4 class="mb-0" style="color: #b94a3e">My Blogs</h4>
+        </div>
+        <div class="col mb-5 mb-lg-0 mt-5">
+          <div class="blog_left_sidebar">
+            <div class="col-lg-12 col-md-12" *ngFor="let blog of alllistBlog">
+              <article class="blog_item bg-white p-0 col-12">
+                <div class="blog_item_img text-right">
+                  <img
+                    *ngIf="blog.imgBlog[0] != null"
+                    class="card-img rounded-0 w-100"
+                    height="500"
+                    src="{{ blog.imgBlog[0] }}"
+                    alt=""
+                  />
+                  <span class="">
+                    <i
+                      class="fa fa-edit p-2"
+                      data-toggle="modal"
+                      data-target="#exampleModalEditBlog"
+                      (click)="updateIDBlog(blog.blogID)"
+                    >
+                    </i>
+                    <i
+                      data-toggle="modal"
+                      data-target="#exampleModalDeleteBlog"
+                      (click)="deleteBlog(blog.blogID)"
+                      class="fa fa-times-circle text-right p-2"
+                    ></i>
+                  </span>
+                  <span class="m-2">
+                    <p class="text-right m-2">
+                      {{ blog.published_at | date }}
+                    </p>
+                  </span>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalEditBlog"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="exampleModalScrollableTitle"
+                  aria-hidden="true"
+                >
+                  <div
+                    class="modal-dialog modal-dialog-scrollable"
+                    role="document"
+                  >
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5
+                          class="modal-title"
+                          id="exampleModalScrollableTitle"
+                        >
+                          Edit a Blog
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" style="padding-top: 30px">
+                        <div class="border border-muted border-2 p-1">
+                          <form
+                            
+                            enctype="multipart/form-data"
+                          >
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"
+                                  >Create Blog</span
+                                >
+                              </div>
+                              <textarea
+                                placeholder="Write blog ..."
+                                #textareaUpdate
+                                class="form-control"
+                                aria-label="With textarea"
+                              ></textarea>
+                            </div>
+
+                            <div class="input-group mt-1">
+                              <span class="input-group-text">Images</span>
+                              <div class="custom-file">
+                                <input
+                                  type="file"
+                                  class="form-control"
+                                  id="inputGroupFile01"
+                                  (change)="preview($event)"
+                                />
+                                <label
+                                  class="custom-file-label h-100"
+                                  for="inputGroupFile01"
+                                  >{{ UploadMsg }}</label
+                                >
+                              </div>
+                            </div>
+
+                            <div
+                              class="input-group mt-1 flex-row-reverse submit_btn"
+                            >
+                              <span
+                                class="input-group-text boxed-btn3 btn"
+                                id="inputGroupFileAddon01"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                                (click)="updateBlog()"
+                                >Save</span
+                              >
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="modal-footer"></div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="modal fade"
+                  id="exampleModalDeleteBlog"
+                  tabindex="-1"
+                  role="dialog"
+                  aria-labelledby="exampleModalScrollableTitle"
+                  aria-hidden="true"
+                >
+                  <div
+                    class="modal-dialog modal-dialog-scrollable"
+                    role="document"
+                  >
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5
+                          class="modal-title"
+                          id="exampleModalScrollableTitle"
+                        >
+                          Delete a Blog
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div
+                        class="modal-body"
+                        style="background-color: #121b22; padding-top: 30px"
+                      >
+                        <p style="color: white; font-size: 20px">
+                          Are you sure you want to delete this Blog?
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btnClose"
+                          data-dismiss="modal"
+                        >
+                          No
+                        </button>
+                        <button
+                          type="button"
+                          class="btn"
+                          data-dismiss="modal"
+                          (click)="sureDeleteBlog()"
+                        >
+                          Yes
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="blog_details m-0 pt-0">
+                  <a class="" [routerLink]="['/single-blog']">
+                    <img
+                      src="{{ blog.picOwnerBlog }}"
+                      alt="Admin"
+                      class="rounded-circle d-inline mb-2"
+                      width="60"
+                      height="70"
+                    />
+
+                    <h2 class="d-inline ml-2">{{ blog.first_name }}</h2>
+                  </a>
+                  <p>
+                    {{ blog.description }}
+                  </p>
+                  <ul class="blog-info-link" style="float: left">
+                    <li>
+                      <a [routerLink]="['/profile']"
+                        ><i class="fa fa-user"></i>{{ blog.first_name }}</a
+                      >
+                    </li>
+                    <li>
+                      <a [routerLink]="['/single-blog']"
+                        ><i class="fa fa-comments"></i> 0{{
+                          blog.comments.length
+                        }}
+                        Comments</a
+                      >
+                    </li>
+                  </ul>
+                  <!--<div style="float: right; margin-top: -10px">
+                  <li style="float: left">
+                    <button class="btn" data-toggle="modal" data-target="#edit">
+                      Edit
+                    </button>
+                  </li>
+                  <li class="ml-1" style="float: right">
+                    <button
+                      class="btn btnClose"
+                      data-toggle="modal"
+                      data-target="#delete"
+                    >
+                      Delete
+                    </button>
+                  </li>
+                 </div>-->
+
+                  <!-- edit a post start -->
+
+                  <!-- edit a post end  -->
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--==============col-md-offset-2==Blog Area =================-->

@@ -23,7 +23,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TagInputModule } from 'ngx-chips';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminComponent } from './Componets/admin/admin.component';
+import { MyblogComponent } from './componets/myblog/myblog.component';
+import { MyjobComponent } from './componets/myjob/myjob.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 @NgModule({
   declarations: [
@@ -42,8 +47,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     PostJobFormComponent,
     BlogComponent,
     OthersComponent,
-    SingleBlogComponent, 
-    
+    SingleBlogComponent,
+    AdminComponent,
+    MyblogComponent, 
+    MyblogComponent, MyjobComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -55,7 +63,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     NgSelectModule,
     TagInputModule, 
     BrowserAnimationsModule, 
-    
+    ShareButtonsModule.withConfig({
+      debug: true
+    }),
+    ShareIconsModule
     
   ],
   providers: [DatePipe],

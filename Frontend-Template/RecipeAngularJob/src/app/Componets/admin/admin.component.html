@@ -1,0 +1,504 @@
+<section class="tabs-section text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-5 col-lg-3">
+        <ul class="nav nav-tabs flex-column mb-3">
+          <li class="nav-item">
+            <a class="nav-link active show" data-toggle="tab" href="#tab-1"
+              >Admin profile</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-2"
+              >User's accounts</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-3">BLogs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-4">Jobs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-5">Testimonials</a>
+          </li>
+          <!-- <li class="nav-item">
+                 <a class="nav-link" data-toggle="tab" href="#tab-6">Can we use it?</a>
+              </li> -->
+        </ul>
+      </div>
+      <div class="col-sm-7 col-lg-9">
+        <div class="tab-content">
+          <div class="tab-pane active show" id="tab-1">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="feature-img">
+                  <img
+                    src="./../../../assets/img/about/about.png"
+                    alt=""
+                    class="img-fluid"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-8 details">
+                <h3 class="mt-3">What is Mark Mourad?</h3>
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled
+                </p>
+                <h6>Date of birth:</h6>
+                <h6>Gender:</h6>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="tab-2">
+            <div class="row">
+              <!--MDB Tables-->
+              <div class="container">
+                <div class="card">
+                  <div class="card-body">
+                    <!-- Grid row -->
+                    <div class="row mb-4">
+                      <!-- Grid column -->
+                      <div class="col-md-12">
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                          <input
+                            class="form-control my-0 py-2 pl-3"
+                            type="text"
+                            placeholder="Search something here..."
+                            aria-label="Search"
+                          />
+                          <span
+                            class="input-group-addon waves-effect purple lighten-2"
+                            id="basic-addon1">
+                            <button class="btn btnSearch">Search</button>
+                          </span>
+                        </div>
+                      </div>
+                      <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                    <!--Table-->
+                    <table class="table table-hover table-responsive mb-0">
+                      <!--Table head-->
+                      <thead class="text-center thead-dark">
+                        <tr>
+                          <th scope="row">#</th>
+                          <th class="th-md">Image</th>
+                          <th class="th-lg">First_name</th>
+                          <th class="th-lg">Last_name</th>
+                          <th class="th-lg">Username</th>
+                          <th class="th-lg">Email</th>
+                          <th class="th-lg">Type</th>
+                          <th class="th-lg">Details</th>
+                          <th class="th-lg">Delete</th>
+                        </tr>
+                      </thead>
+                      <!--Table head-->
+                      <!--Table body-->
+                      <tbody class="text-center">
+                        <tr>
+                          <th scope="row">1</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/2.png" alt=""></td>
+                          <td>Mark</td>
+                          <td>Mourad</td>
+                          <td>markmourad40</td>
+                          <td>markmourad40@gmail.com</td>
+                          <td>Client</td>
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/3.png" alt=""></td>
+                          <td>Andrew</td>
+                          <td>Magdy</td>
+                          <td>andrewmego77</td>
+                          <td>andrewmego77@gmail.com</td>
+                          <td>Company</td>
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/4.png" alt=""></td>
+                          <td>Mahmoud</td>
+                          <td>abdeldayem</td>
+                          <td>abdeldayem50</td>
+                          <td>abdeldayem@gmail.com</td>
+                          <td>Client</td>
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/5.png" alt=""></td>
+                          <td>Walaa</td>
+                          <td>Khaled</td>
+                          <td>walaakhaled83</td>
+                          <td>walaakhaled@gmail.com</td>
+                          <td>Client</td>
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                      </tbody>
+                      <!--Table body-->
+                    </table>
+                    <!--Bottom Table UI-->
+                    <!-- <div class="d-flex justify-content-center">
+
+                      <nav class="my-4 pt-2">
+                        <ul class="pagination pagination-circle mb-0">
+
+                          <li
+                            class="page-item disabled clearfix d-none d-md-block"
+                          >
+                            <a class="page-link">First</a>
+                          </li>
+
+                          <li class="page-item disabled">
+                            <a class="page-link" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+
+                          <li class="page-item act">
+                            <a class="page-link">1</a>
+                          </li>
+                          <li class="page-item"><a class="page-link">2</a></li>
+                          <li class="page-item"><a class="page-link">3</a></li>
+                          <li class="page-item"><a class="page-link">4</a></li>
+                          <li class="page-item"><a class="page-link">5</a></li>
+
+                          <li class="page-item">
+                            <a class="page-link" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+
+                          <li class="page-item clearfix d-none d-md-block">
+                            <a class="page-link">Last</a>
+                          </li>
+                        </ul>
+                      </nav>
+
+                    </div> -->
+                    <!--Bottom Table UI-->
+                  </div>
+                </div>
+              </div>
+              <!--MDB Tables-->
+            </div>
+          </div>
+          <div class="tab-pane" id="tab-3">
+            <div class="row">
+              <div class="container">
+                <div class="card">
+                  <div class="card-body">
+                    <!-- Grid row -->
+                    <div class="row mb-4">
+                      <!-- Grid column -->
+                      <div class="col-md-12">
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                          <input
+                            class="form-control my-0 py-2 pl-3"
+                            type="text"
+                            placeholder="Search something here..."
+                            aria-label="Search"
+                          />
+                          <span
+                            class="input-group-addon waves-effect purple lighten-2"
+                            id="basic-addon1">
+                            <button class="btn btnSearch">Search</button>
+                          </span>
+                        </div>
+                      </div>
+                      <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                    <!--Table-->
+                    <table class="table table-hover table-responsive mb-0">
+                      <!--Table head-->
+                      <thead class="text-center thead-dark">
+                        <tr>
+                          <th scope="row">#</th>
+                          <th class="th-md">Image</th>
+                          <th class="th-lg">Posted_by</th>
+                          <th class="th-lg">Blog_title</th>
+                          <th class="th-lg">Username</th>
+                          <th class="th-lg">Email</th>
+                          <th class="th-lg">Posted_at</th>
+                          <th class="th-lg">Details</th>
+                          <th class="th-lg">Delete</th>
+                        </tr>
+                      </thead>
+                      <!--Table head-->
+                      <!--Table body-->
+                      <tbody class="text-center">
+                        <tr>
+                          <th scope="row">1</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/2.png" alt=""></td>
+                          <td>Mark</td>
+                          <td>Pla Plaaa</td>
+                          <td>markmourad40</td>
+                          <td>markmourad40@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/3.png" alt=""></td>
+                          <td>Andrew</td>
+                          <td>Pla Plaaa</td>
+                          <td>andrewmego77</td>
+                          <td>andrewmego77@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/4.png" alt=""></td>
+                          <td>Mahmoud</td>
+                          <td>Pla Plaaa</td>
+                          <td>abdeldayem50</td>
+                          <td>abdeldayem@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/5.png" alt=""></td>
+                          <td>Walaa</td>
+                          <td>Pla Plaaa</td>
+                          <td>walaakhaled83</td>
+                          <td>walaakhaled@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                      </tbody>
+                      <!--Table body-->
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="tab-4">
+            <div class="row">
+              <div class="container">
+                <div class="card">
+                  <div class="card-body">
+                    <!-- Grid row -->
+                    <div class="row mb-4">
+                      <!-- Grid column -->
+                      <div class="col-md-12">
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                          <input
+                            class="form-control my-0 py-2 pl-3"
+                            type="text"
+                            placeholder="Search something here..."
+                            aria-label="Search"
+                          />
+                          <span
+                            class="input-group-addon waves-effect purple lighten-2"
+                            id="basic-addon1">
+                            <button class="btn btnSearch">Search</button>
+                          </span>
+                        </div>
+                      </div>
+                      <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                    <!--Table-->
+                    <table class="table table-hover table-responsive mb-0">
+                      <!--Table head-->
+                      <thead class="text-center thead-dark">
+                        <tr>
+                          <th scope="row">#</th>
+                          <th class="th-md">Image</th>
+                          <th class="th-lg">Posted_by</th>
+                          <th class="th-lg">Job_title</th>
+                          <th class="th-lg">Username</th>
+                          <th class="th-lg">Email</th>
+                          <th class="th-lg">Posted_at</th>
+                          <th class="th-lg">Details</th>
+                          <th class="th-lg">Delete</th>
+                        </tr>
+                      </thead>
+                      <!--Table head-->
+                      <!--Table body-->
+                      <tbody class="text-center">
+                        <tr>
+                          <th scope="row">1</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/2.png" alt=""></td>
+                          <td>Mark</td>
+                          <td>Pla Plaaa</td>
+                          <td>markmourad40</td>
+                          <td>markmourad40@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/3.png" alt=""></td>
+                          <td>Andrew</td>
+                          <td>Pla Plaaa</td>
+                          <td>andrewmego77</td>
+                          <td>andrewmego77@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/4.png" alt=""></td>
+                          <td>Mahmoud</td>
+                          <td>Pla Plaaa</td>
+                          <td>abdeldayem50</td>
+                          <td>abdeldayem@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/5.png" alt=""></td>
+                          <td>Walaa</td>
+                          <td>Pla Plaaa</td>
+                          <td>walaakhaled83</td>
+                          <td>walaakhaled@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                      </tbody>
+                      <!--Table body-->
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="tab-5">
+            <div class="row">
+              <div class="container">
+                <div class="card">
+                  <div class="card-body">
+                    <!-- Grid row -->
+                    <div class="row mb-4">
+                      <!-- Grid column -->
+                      <div class="col-md-12">
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                          <input
+                            class="form-control my-0 py-2 pl-3"
+                            type="text"
+                            placeholder="Search something here..."
+                            aria-label="Search"
+                          />
+                          <span
+                            class="input-group-addon waves-effect purple lighten-2"
+                            id="basic-addon1">
+                            <button class="btn btnSearch">Search</button>
+                          </span>
+                        </div>
+                      </div>
+                      <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                    <!--Table-->
+                    <table class="table table-hover table-responsive mb-0">
+                      <!--Table head-->
+                      <thead class="text-center thead-dark">
+                        <tr>
+                          <th scope="row">#</th>
+                          <th class="th-md">Image</th>
+                          <th class="th-lg">Posted_by</th>
+                          <th class="th-lg">Username</th>
+                          <th class="th-lg">Email</th>
+                          <th class="th-lg">Posted_at</th>
+                          <th class="th-lg">Details</th>
+                          <th class="th-lg">Delete</th>
+                        </tr>
+                      </thead>
+                      <!--Table head-->
+                      <!--Table body-->
+                      <tbody class="text-center">
+                        <tr>
+                          <th scope="row">1</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/2.png" alt=""></td>
+                          <td>Mark</td>
+                          <td>markmourad40</td>
+                          <td>markmourad40@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/3.png" alt=""></td>
+                          <td>Andrew</td>
+                          <td>andrewmego77</td>
+                          <td>andrewmego77@gmail.com</td>
+                           <!--<td>{{todayDate | date:'shortDate'}}</td>-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/4.png" alt=""></td>
+                          <td>Mahmoud</td>
+                          <td>abdeldayem50</td>
+                          <td>abdeldayem@gmail.com</td>
+                          <!-- <!--<td>{{todayDate | date:'shortDate'}}</td>-->-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">4</th>
+                          <td><img class="userImage" src="./../../../assets/img/candiateds/5.png" alt=""></td>
+                          <td>Walaa</td>
+                          <td>walaakhaled83</td>
+                          <td>walaakhaled@gmail.com</td>
+                         <!-- <!--<td>{{todayDate | date:'shortDate'}}</td>-->-->
+                          <td><button class="btn btnClose">Show</button></td>
+                          <td><button class="btn">Delete</button></td>
+                        </tr>
+                      </tbody>
+                      <!--Table body-->
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="tab-pane" id="tab-6">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="feature-img">
+                  <img src="images/user-img-1.jpg" alt="" class="img-fluid" />
+                </div>
+              </div>
+              <div class="col-lg-8 details">
+                <h3 class="mt-3">Why do we use it?</h3>
+                <p>
+                  It is a long established fact that a reader will be distracted
+                  by the readable content of a page when looking at its layout.
+                  The point of using Lorem Ipsum
+                </p>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

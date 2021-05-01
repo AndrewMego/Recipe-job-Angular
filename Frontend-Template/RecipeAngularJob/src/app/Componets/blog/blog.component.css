@@ -1,5 +1,6 @@
 section{
   background-color: #F5F7FA;
+  height: 100%;
 }
 .require {
   color: #666;
@@ -45,4 +46,6 @@ label small {
 label {
   margin: .4rem 0;
 } */
+
+
 

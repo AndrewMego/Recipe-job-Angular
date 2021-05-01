@@ -7,3 +7,17 @@ section{
 .blog-author{
   background-color: #F5F7FA;
 }
+.profile-pic {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  vertical-align: middle;
+  text-align: center;
+  color: transparent;
+ 
+  text-decoration: none;
+  
+}
