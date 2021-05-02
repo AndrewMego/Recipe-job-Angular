@@ -51,13 +51,13 @@ export class JobsComponent implements OnInit {
         , (err) => {
           console.log(err);
         })
-    if (localStorage.getItem('getID')) {
-      let getID = localStorage.getItem('getID');
+    if (sessionStorage.getItem('getID')) {
+      let getID = sessionStorage.getItem('getID');
       this._apiFindServ.getJobrelatedCategory(
         parseInt(getID)).subscribe((res) => {
 
           this.listJob = res
-          localStorage.removeItem('getID');
+          sessionStorage.removeItem('getID');
         }, (err) => { console.log(err) })
     }else{
       this._apiHomeServ.allJobs()
@@ -120,7 +120,29 @@ export class JobsComponent implements OnInit {
 
   jobInfoId(item){
     console.log(item)
-    localStorage.setItem('jobInfo' ,item)
+    sessionStorage.setItem('jobInfo' ,item)
+  }
+
+  
+  selectT(val) {
+    console.log(val)
+    this.findForm.patchValue({
+      typeJob: val
+    })
+
+  }
+  selectG(val) {
+    console.log(val)
+    this.findForm.patchValue({
+      gender: val
+    })
+  }
+  selectE(val) {
+    console.log(val)
+    this.findForm.patchValue({
+      Ex: val
+    })
+
   }
   btnSearch() {
     this.getData = this.findForm.value

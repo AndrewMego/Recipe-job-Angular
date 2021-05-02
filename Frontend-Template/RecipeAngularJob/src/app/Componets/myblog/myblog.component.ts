@@ -16,13 +16,19 @@ export class MyblogComponent implements OnInit {
   UploadMsg: String = "Upload image"
   blogsList: Iblog[]
   arrImage: any = []
+  myLike: any
   blogIDdelete: number
   blogIDUbdate: number
+  loggedIn :boolean=true
+  userID:number
   myDate: Date = new Date();
   @ViewChild('textareaUpdate') elem: ElementRef;
   constructor(private _router: Router, private _apiFindServ: JobServiceService, private http: HttpClient, private formbuilder: FormBuilder, public datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    let getInfoUserSession = JSON.parse(sessionStorage.getItem('userInfo'))
+  
+    this.userID = getInfoUserSession['userId']
     this.getblogs();
   }
 
@@ -122,13 +128,71 @@ export class MyblogComponent implements OnInit {
     );
   }
 
+  likeBlog(elem, liked) {
+
+    if (liked == true) {
+      let obj = { 'blogID': elem, 'userID': this.userID, 'liked': '1' }
+
+      this.http.post('http://127.0.0.1:8000/Blog/Like/', obj).subscribe(
+        data => {
+          console.log(data)
+
+          this.getblogs()
+
+        },
+        error => console.log(error)
+      );
+    } else {
+      let obj = { 'blogID': elem, 'userID': this.userID, 'liked': '0' }
+
+      this.http.post('http://127.0.0.1:8000/Blog/Like/', obj).subscribe(
+        data => {
+          console.log(data)
+          this.getblogs()
+
+        },
+        error => console.log(error)
+      );
+    }
+
+
+  }
   getblogs() {
     let getInfoUserSession = JSON.parse(sessionStorage.getItem('userInfo'))
     this._apiFindServ.getBlog_with_related_company(
       parseInt(getInfoUserSession['userId'])).subscribe((res) => {
         console.log(res)
-
         this.alllistBlog = res;
+        this.http.post('http://127.0.0.1:8000/Blog/getlikesBlog_belongUser/', this.userID).subscribe(
+          data => {
+            console.log(data)
+  
+  
+            this.myLike = data
+            if (this.myLike.length > 0) {
+              for (let j = 0; j < this.alllistBlog.length; j++) {
+                for (let i = 0; i < this.myLike.length; i++) {
+  
+  
+                  if (this.alllistBlog[j].blogID == data[i] && this.alllistBlog[j].myLiked != true) {
+                    console.log(this.alllistBlog[j])
+                    this.alllistBlog[j].myLiked = true
+                    break;
+                  } else { this.alllistBlog[j].myLiked = false }
+                }
+              }
+            }else{
+              for (let j = 0; j < this.alllistBlog.length; j++) {
+                this.alllistBlog[j].myLiked  = false}
+            }
+            console.log(this.alllistBlog)
+  
+            this._router.navigateByUrl('/blog');
+          },
+          error => console.log(error)
+        );
+
+
 
       }, (err) => { console.log(err) })
   }

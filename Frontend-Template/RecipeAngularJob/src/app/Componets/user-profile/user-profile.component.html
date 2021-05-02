@@ -797,7 +797,7 @@
                     </div>
                   </div>
                   <div class="jobs_right">
-                    <div class="apply_now">
+                    <div class="apply_now"  *ngIf="UserInfo.typeUser == 'Company'">
                       <a *ngIf="job.locID"
                         class="boxed-btn3 mr-1 mb-2"
                         data-toggle="modal"
@@ -1419,7 +1419,7 @@
                     role="dialog"
                     aria-labelledby="exampleModalScrollableTitle"
                     aria-hidden="true"
-                  >
+                   >
                     <div
                       class="modal-dialog modal-dialog-scrollable"
                       role="document"
@@ -1502,7 +1502,7 @@
                     role="dialog"
                     aria-labelledby="exampleModalScrollableTitle"
                     aria-hidden="true"
-                  >
+                   >
                     <div
                       class="modal-dialog modal-dialog-scrollable"
                       role="document"
@@ -1572,6 +1572,19 @@
                           ><i class="fa fa-user"></i>{{ blog.first_name }}</a
                         >
                       </li>
+                       <li
+                    *ngIf="loggedIn == true && blog.myLiked == true"
+                    (click)="likeBlog(blog.blogID, false)"
+                  >
+                    <i class="fa fa-thumbs-up text-danger"> {{blog.numLike}} </i>
+                  </li>
+
+                 <li
+                    *ngIf="loggedIn == true && blog.myLiked == false"
+                    (click)="likeBlog(blog.blogID, true)"
+                  >
+                    <i class="fa fa-thumbs-up "> {{blog.numLike}} </i>
+                  </li>
                       <li>
                         <a [routerLink]="['/single-blog']"
                           ><i class="fa fa-comments"></i> 0{{

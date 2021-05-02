@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
     this.loggedIn = false
     this.userType = ""
     sessionStorage.clear()
-    localStorage.clear()
+   // localStorage.clear()
     this._router.navigateByUrl('/home');
   }
 

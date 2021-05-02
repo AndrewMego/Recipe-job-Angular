@@ -35,6 +35,7 @@ export class JobDetailsComponent implements OnInit {
   jobAplaying:Iaplay[]
   companyName :string
   acceptApplay : any
+
   constructor(private http: HttpClient,public datePipe: DatePipe, private _apiFindServ: JobServiceService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -45,10 +46,27 @@ export class JobDetailsComponent implements OnInit {
       this.usertype =  JSON.parse(sessionStorage.getItem('userInfo')).typeUser
       this.companyName =  JSON.parse(sessionStorage.getItem('userInfo')).first_name
       this.loggedIn = true
+      this.getjobID = sessionStorage.getItem('jobInfo')
+      this._apiFindServ.getjob_with_related_ApplayingUser(
+        parseInt(this.userID)).subscribe((res) => {
+          console.log(res)
+          if (res.length > 0) {
+            for(let i = 0 ; i< res.length ; i++) {
+              if(res[i].jobID ==  this.getjobID)
+              {
+                this.applaying = true
+                this.applayingmsg="you already have aplying"
+              }
+            }
+          }
+
+
+
+        }, (err) => { console.log(err) })
     }else{this.loggedIn = false}
    
     console.log(this.userID)
-    this.getjobID = localStorage.getItem('jobInfo')
+    this.getjobID = sessionStorage.getItem('jobInfo')
     console.log(this.getjobID)
     this._apiFindServ.getJobInfo(
       parseInt(this.getjobID)).subscribe((res) => {

@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Idata } from 'src/app/models/interfaces/idata';
 import { Ifind } from 'src/app/models/interfaces/ifind';
 import { Ijob } from 'src/app/models/interfaces/ijob';
@@ -23,7 +24,9 @@ export class HomeComponent implements OnInit {
   getLastJob: Ijob[]
   categoryList: Idata[]
   findForm: FormGroup
-  constructor(private _apiTagServ: JobServiceService, private _apiHomeServ: HomeServiceService, private _apiFindServ: JobServiceService, private formbuilder: FormBuilder) { }
+
+  @Output() searchevent: EventEmitter<any> = new EventEmitter;
+  constructor(private _router: Router,private _apiTagServ: JobServiceService, private _apiHomeServ: HomeServiceService, private _apiFindServ: JobServiceService, private formbuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this._apiHomeServ.getData()
@@ -109,7 +112,7 @@ export class HomeComponent implements OnInit {
     //     console.log(res)
 
     //   }, (err) => { console.log(err) })
-    localStorage.setItem('getID' , item)
+    sessionStorage.setItem('getID' , item)
 
   }
   selectlocation(item) {
@@ -133,7 +136,9 @@ export class HomeComponent implements OnInit {
     this._apiFindServ.findJob(
       this.getData).subscribe((res) => {
 
-        //alert(res['msg'])
+       this.searchevent.emit(res);
+
+       this._router.navigateByUrl('/jobs');
         console.log(res)
 
       }, (err) => { console.log(err) })

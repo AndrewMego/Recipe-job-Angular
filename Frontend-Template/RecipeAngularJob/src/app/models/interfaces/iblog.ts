@@ -1,7 +1,7 @@
 import { Icomment } from "./icomment";
 
 export interface Iblog {
-    idBlog?: number;
+    blogID?: number;
     bodyBlog?: string;
     imgBlog?: any;
     userID?: number;
@@ -11,4 +11,5 @@ export interface Iblog {
     picOwnerBlog?: string
     description?: string
     comments?: Icomment[]
+    myLiked?: boolean
 }

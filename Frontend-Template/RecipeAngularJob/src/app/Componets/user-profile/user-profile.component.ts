@@ -35,7 +35,7 @@ export class UserProfileComponent implements OnInit {
   isJob: boolean = false
   listBlog: Iblog[]
   moreBlog: boolean = false
-
+  myLike: any
   isBlog: boolean = false
   alllistBlog: Iblog[]
   formEditProfile: FormGroup
@@ -66,7 +66,7 @@ export class UserProfileComponent implements OnInit {
   TypeEx: any;
   TypeJob: any;
   TypeGender: any
-
+ loggedIn :boolean=true
   _Ex: String
   _typejob: String
   _gender: String
@@ -87,41 +87,11 @@ export class UserProfileComponent implements OnInit {
     this.ttype = getInfoUserSession['typeUser']
     this.userID = getInfoUserSession['userId']
     if (getInfoUserSession['typeUser'] == 'Company') {
-
-      console.log(getInfoUserSession['userId'])
-      this._apiFindServ.getjob_with_related_company(
-        parseInt(getInfoUserSession['userId'])).subscribe((res) => {
-          console.log(res)
-          if (res.length > 0) {
-            this.isJob = true
-
-            let sliced_array = res.slice(0, 4);
-            this.listJob = sliced_array
-            if (res.length > 5) {
-              //this.alllistBlog = res;
-              this.moreJob = true
-            }
-          }
-
-        }, (err) => { console.log(err) })
-
-      this._apiFindServ.getBlog_with_related_company(
-        parseInt(getInfoUserSession['userId'])).subscribe((res) => {
-          console.log(res)
-          if (res.length > 0) {
-            this.isBlog = true
-
-            let sliced_array = res.slice(0, 4);
-            this.listBlog = sliced_array
-            if (res.length > 5) {
-              this.alllistBlog = res;
-              this.moreBlog = true
-            }
-          }
+      this.getMy_likes(this.userID)
+      this.getjobs(getInfoUserSession['userId']);
+      this.getblogs(getInfoUserSession['userId']);
 
 
-
-        }, (err) => { console.log(err) })
 
 
     } else {
@@ -183,6 +153,27 @@ export class UserProfileComponent implements OnInit {
 
   }
 
+  getblogs(userID) {
+   
+    this.getMy_likes(userID);
+  }
+  getjobs(userID) {
+    this._apiFindServ.getjob_with_related_company(
+      parseInt(userID)).subscribe((res) => {
+        console.log(res)
+        if (res.length > 0) {
+          this.isJob = true
+
+          let sliced_array = res.slice(0, 4);
+          this.listJob = sliced_array
+          if (res.length > 5) {
+            //this.alllistBlog = res;
+            this.moreJob = true
+          }
+        }
+
+      }, (err) => { console.log(err) })
+  }
   selectT(val) {
     console.log(val)
     this._typejob = val
@@ -258,10 +249,12 @@ export class UserProfileComponent implements OnInit {
 
   }
   sureDelete() {
-    this.http.post('http://127.0.0.1:8000/Job/deleteJob', this.jobIDDelete).subscribe(
+    this.http.post('http://127.0.0.1:8000/Job/deleteJob/', this.jobIDDelete).subscribe(
       data => {
         if (data['msg'] == 'success') {
-          this._router.navigateByUrl('/profile');
+          //this.getjobs(this.userID)
+          window.location.href = 'http://localhost:4200/profile'; 
+          //this._router.navigateByUrl('/profile');
         }
       },
       error => console.log(error)
@@ -281,7 +274,7 @@ export class UserProfileComponent implements OnInit {
 
   jobInfoId(item) {
     console.log(item)
-    localStorage.setItem('jobInfo', item)
+    sessionStorage.setItem('jobInfo', item)
   }
 
 
@@ -454,6 +447,81 @@ export class UserProfileComponent implements OnInit {
       },
       error => console.log(error)
     );
+  }
+
+  likeBlog(elem, liked) {
+
+    if (liked == true) {
+      let obj = { 'blogID': elem, 'userID': this.userID, 'liked': '1' }
+
+      this.http.post('http://127.0.0.1:8000/Blog/Like/', obj).subscribe(
+        data => {
+          console.log(data)
+
+          this.getMy_likes(this.userID)
+
+        },
+        error => console.log(error)
+      );
+    } else {
+      let obj = { 'blogID': elem, 'userID': this.userID, 'liked': '0' }
+
+      this.http.post('http://127.0.0.1:8000/Blog/Like/', obj).subscribe(
+        data => {
+          console.log(data)
+          this.getMy_likes(this.userID)
+
+        },
+        error => console.log(error)
+      );
+    }
+
+
+  }
+  getMy_likes(userid) {
+
+    this._apiFindServ.getBlog_with_related_company(
+      parseInt(userid)).subscribe((res) => {
+        console.log(res)
+        if (res.length > 0) {
+          this.isBlog = true
+
+          this.http.post('http://127.0.0.1:8000/Blog/getlikesBlog_belongUser/', userid).subscribe(
+            data => { 
+              this.myLike = data
+              if (this.myLike.length > 0) {
+                for (let j = 0; j < res.length; j++) {
+                  for (let i = 0; i < this.myLike.length; i++) {
+    
+    
+                    if (res[j].blogID == data[i] && res[j].myLiked != true) {
+                      console.log(res[j])
+                      res[j].myLiked = true
+                      break;
+                    } else { res[j].myLiked = false }
+                  }
+                }
+              }else{
+                for (let j = 0; j < res.length; j++) {
+                  res[j].myLiked  = false}
+              }
+             },
+            error => console.log(error)
+          );
+
+          let sliced_array = res.slice(0, 4);
+          this.listBlog = sliced_array
+          if (res.length > 5) {
+            this.alllistBlog = res;
+            this.moreBlog = true
+          }
+        }
+
+
+
+      }, (err) => { console.log(err) })
+
+
   }
 }
 

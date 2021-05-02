@@ -45,7 +45,7 @@ sureDelete() {
   }
  jobInfoId(item) {
     console.log(item)
-    localStorage.setItem('jobInfo', item)
+    sessionStorage.setItem('jobInfo', item)
   }
 
 }

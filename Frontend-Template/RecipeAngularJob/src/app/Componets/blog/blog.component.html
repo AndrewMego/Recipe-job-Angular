@@ -91,12 +91,25 @@
                       ><i class="fa fa-user"></i>{{ blog.first_name }}</a
                     >
                   </li>
+
+                  <li
+                    *ngIf="loggedIn == true && blog.myLiked == true"
+                    (click)="likeBlog(blog.blogID, false)"
+                  >
+                    <i class="fa fa-thumbs-up text-danger"> {{blog.numLike}} </i>
+                  </li>
+
+                 <li
+                    *ngIf="loggedIn == true && blog.myLiked == false"
+                    (click)="likeBlog(blog.blogID, true)"
+                  >
+                    <i class="fa fa-thumbs-up "> {{blog.numLike}} </i>
+                  </li>
+
                   <li>
                     <a [routerLink]="['/single-blog']"
-                      ><i class="fa fa-comments"></i> 0{{
-                        blog.comments.length
-                      }}
-                      Comments</a
+                      ><i class="fa fa-comments" style="font-size: 20px"></i>
+                      0{{ blog.comments.length }} Comments</a
                     >
                   </li>
                   <li>
