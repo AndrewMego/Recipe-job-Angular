@@ -1175,7 +1175,7 @@
                                 class="form-control"
                                 placeholder="Edit title"
                                 id="user-name"
-                                #editTitle
+                                #editTitleOther
                               />
                             </div>
                             <div class="row">
@@ -1189,7 +1189,7 @@
                                   placeholder="Edit vacancy"
                                   id="first-name"
                                   min="1"
-                                  #vacancy
+                                  #vacancyOther
                                 />
                               </div>
                               <div class="form-group col-6">
@@ -1202,7 +1202,7 @@
                                   placeholder="Edit salary"
                                   id="last-name"
                                   min="1"
-                                  #salary
+                                  #salaryOther
                                 />
                               </div>
                             </div>
@@ -1215,7 +1215,7 @@
                               <textarea
                                 type="text"
                                 class="form-control"
-                                placeholder="Edit benefits"
+                                placeholder="Edit Requirements"
                                 id="benefits"
                                 #Requirements
                               ></textarea>
@@ -1382,7 +1382,7 @@
         <div class="job_listing_area" *ngIf="UserInfo.typeUser == 'Company'">
           <div class="job_lists m-0">
             <div class="row" *ngIf="isBlog == true">
-              <div class="col-lg-12 col-md-12" *ngFor="let blog of listBlog">
+              <div class="col-lg-12 col-md-12" *ngFor="let blog of listBlog" (click)="blogID(blog.blogID)" [routerLink]="['/single-blog']">
                 <article class="blog_item bg-white p-0 col-12">
                   <div class="blog_item_img text-right">
                     <img
@@ -1397,6 +1397,7 @@
                         class="fa fa-edit p-2"
                         data-toggle="modal"
                         data-target="#exampleModalEditBlog"
+                         (click)="updateIDBlog(blog.blogID)"
                       >
                       </i>
                       <i
@@ -1455,7 +1456,7 @@
                                 </div>
                                 <textarea
                                   placeholder="Write blog ..."
-                                  #textarea
+                                  #textareaUpdate
                                   class="form-control"
                                   aria-label="With textarea"
                                 ></textarea>
@@ -1484,7 +1485,7 @@
                                 <span
                                   class="input-group-text boxed-btn3 btn"
                                   id="inputGroupFileAddon01"
-                                  (click)="postBlog()"
+                                  (click)="updateBlog()"
                                   >Save</span
                                 >
                               </div>

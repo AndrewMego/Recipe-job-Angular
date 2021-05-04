@@ -7,8 +7,9 @@
         <div class="single-post">
           <div class="feature-img" *ngIf="blogItem.imgBlog.length != 0">
             <img
-              class="img-fluid card-img"
-              src="./../../../assets/img/blog/single_blog_1.png"
+            class="card-img rounded-0 w-50"
+                  height="500"
+              src="{{blogItem.imgBlog[0]}}"
               alt=""
             />
           </div>
@@ -66,7 +67,7 @@
             </div>
           </div>
         </div>
-        <div class="comment-form">
+        <div class="comment-form" *ngIf="loggedIn == true">
           <h4>Leave a Comment</h4>
           <form class="form-contact comment_form" id="commentForm">
             <div class="row">

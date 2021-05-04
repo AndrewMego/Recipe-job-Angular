@@ -6,6 +6,8 @@ import { Idata } from 'src/app/models/interfaces/idata';
 import { Ijob } from 'src/app/models/interfaces/ijob';
 import { JobServiceService } from 'src/app/services/job-service.service';
 import { DatePipe, formatDate } from '@angular/common';
+import { Router } from '@angular/router';
+import { HomeServiceService } from 'src/app/services/home-service.service';
 
 @Component({
   selector: 'app-post-job-form',
@@ -44,13 +46,13 @@ export class PostJobFormComponent implements OnInit {
   TypeJob: any;
   TypeGender: any
   myDate: Date = new Date();
-
-
+  DataLocation: any[]
+  isLoc:boolean = false
   _Ex: String
   _typejob: String
   _gender: String
 
-  constructor(public datePipe: DatePipe, private formbuilder: FormBuilder, private _apiPostCatServ: JobServiceService, private _apiPostJobServ: JobServiceService, private _apiPostTagServ: JobServiceService, private _apiTagServ: JobServiceService) {
+  constructor(private _apiHomeServ: HomeServiceService,private _router: Router,public datePipe: DatePipe, private formbuilder: FormBuilder, private _apiPostCatServ: JobServiceService, private _apiPostJobServ: JobServiceService, private _apiPostTagServ: JobServiceService, private _apiTagServ: JobServiceService) {
 
 
   }
@@ -58,6 +60,17 @@ export class PostJobFormComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this._apiHomeServ.getData()
+      .subscribe(
+        (data) => {
+          this.DataLocation = data;
+          console.log(this.DataLocation)
+        }
+        , (err) => {
+          console.log(err);
+        })
+
 
     this._apiTagServ.getTag()
       .subscribe(
@@ -99,7 +112,7 @@ export class PostJobFormComponent implements OnInit {
       userID: [''],
       ExEmail: ['', [Validators.email]],
       title: ['', [Validators.required, Validators.min(6)]],
-      location: ['', [Validators.required, Validators.min(8)]],
+      location: ['', [Validators.required]],
       jobType: [''],
       description: ['', [Validators.required, Validators.min(15)]],
       qualification: ['', [Validators.required, Validators.min(15)]],
@@ -114,6 +127,16 @@ export class PostJobFormComponent implements OnInit {
 
   }
 
+  selectlocation(item){
+    if (item != 0) {
+      this.isLoc = false
+      this.postJobForm.patchValue({
+        location: item
+      })
+    } else {
+     this.isLoc = true
+    }
+  }
   CatOther() {
 
     this.checkCatOther = !this.checkCatOther
@@ -214,26 +237,7 @@ export class PostJobFormComponent implements OnInit {
       this.isTagEmpty == false &&
       this.isCatEmpty == false) {
 
-      if (this.checkCatOther == true) {
-
-
-        this._apiPostCatServ.postCat(
-          this.newCat.nativeElement.innerText).subscribe((res) => {
-
-            alert(res['id'])
-            this.postJobForm.patchValue({
-              categoryID: res['id']
-            })
-
-            console.log(res)
-
-          }, (err) => { console.log(err) })
-
-      } else {
-        this.postJobForm.patchValue({
-          categoryID: this.selectCat
-        })
-      }
+      
 
 
       let getInfoUserSession = JSON.parse(sessionStorage.getItem('userInfo'))
@@ -253,36 +257,66 @@ export class PostJobFormComponent implements OnInit {
 
       console.log(this.postJobForm.value)
 
-      this._apiPostJobServ.postJob(
-        this.Job).subscribe((res) => {
+//////////////////////////////////////////////
+      if (this.checkCatOther == true) {
 
-          console.log(res)
+        console.log(this.newCat.nativeElement.value)
 
-          if (this.checkTagOther == false) {
+        let newcategory = {"name":this.newCat.nativeElement.value}
+        this._apiPostCatServ.postCat(newcategory
+          ).subscribe((res) => {
 
-            this.appendTagwithId = { 'name': this.selectedTag, 'jobID': res }
-            console.log(this.appendTagwithId)
+           // alert(res)
+            this.postJobForm.patchValue({
+              categoryID: parseInt(res['id'])
+            })
 
-          }
-          else {
-
-            this.appendTagwithId = { 'otherTags':this.additionTag, 'jobID': res, 'name': this.selectedTag }
-
-          }
-
-
-          this._apiPostTagServ.postTag(this.appendTagwithId).subscribe((res) => {
-            console.log(res)
-
+           // console.log(res)
+            console.log("show")
+            console.log(this.postJobForm.value)
+            this.apipostjob();
           }, (err) => { console.log(err) })
 
-
-
-        }, (err) => { console.log(err) })
+      } else {
+        this.postJobForm.patchValue({
+          categoryID: this.selectCat
+        })
+        this.apipostjob();
+      }
+      ////////////////////////////////
+      
 
     }
   }
+  apipostjob(){
+    this.Job = this.postJobForm.value
+    this._apiPostJobServ.postJob(
+     this.Job).subscribe((res) => {
 
+        console.log(res)
+
+        if (this.checkTagOther == false) {
+
+          this.appendTagwithId = { 'name': this.selectedTag, 'jobID': res }
+          console.log(this.appendTagwithId)
+
+        }
+        else {
+
+          this.appendTagwithId = { 'otherTags':this.additionTag, 'jobID': res, 'name': this.selectedTag }
+
+        }
+
+
+        this._apiPostTagServ.postTag(this.appendTagwithId).subscribe((res) => {
+          console.log(res)
+          this._router.navigateByUrl('/profile');
+        }, (err) => { console.log(err) })
+
+
+
+      }, (err) => { console.log(err) })
+  }
   postJobWithmail() {
 
     if (this.selectEx.nativeElement.value == '0') {
@@ -349,7 +383,7 @@ export class PostJobFormComponent implements OnInit {
 
         this._apiPostTagServ.postTag(this.appendTagwithId).subscribe((res) => {
           console.log(res)
-
+          this._router.navigateByUrl('/profile');
         }, (err) => { console.log(err) })
 
 

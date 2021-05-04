@@ -2,7 +2,7 @@
 <section class="blog_area section-padding">
   <div class="container">
     <div class="row">
-      <div class="col-8 border border-muted border-2 p-1">
+      <div class="col-8 border border-muted border-2 p-1" *ngIf="loggedIn == true">
         <form (ngSubmit)="postBlog()" enctype="multipart/form-data">
           <div class="input-group">
             <div class="input-group-prepend">
@@ -55,9 +55,10 @@
             <article
               class="blog_item bg-white"
               *ngFor="let blog of blogsList"
+              [routerLink]="['/single-blog']"
               (click)="blogID(blog.blogID)"
             >
-              <div class="blog_item_img" [routerLink]="['/single-blog']">
+              <div class="blog_item_img" >
                 <img
                   *ngIf="blog.imgBlog[0] != null"
                   class="card-img rounded-0 w-100"

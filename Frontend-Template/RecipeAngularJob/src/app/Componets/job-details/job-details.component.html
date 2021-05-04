@@ -72,14 +72,14 @@
             </ul>
           </div>
         </div>
-        <div class="apply_job_form" *ngIf="loggedIn == true">
+        <div class="apply_job_form" *ngIf="loggedIn == true && !JobDetail.ExEmail">
           <h4>Apply for the job</h4>
           <form
             *ngIf="usertype != 'Company' && applaying == false"
             [formGroup]="aplayForm"
             (ngSubmit)="aplay()"
             enctype="multipart/form-data"
-           >
+          >
             <div class="row">
               <div class="col-md-6">
                 <div class="input_field">
@@ -199,69 +199,6 @@
           <div *ngIf="applaying == true">
             {{ applayingmsg }}
           </div>
-          <div *ngIf="usertype == 'Company'">
-            <!--1212-->
-            <div class="row">
-              <div
-                class="col-lg-12 col-md-12"
-                *ngFor="let aplay of jobAplaying"
-                [routerLink]="['/job-details']"
-                (click)="jobInfoId(job.jobID)"
-              >
-                <div
-                  class="single_jobs white-bg d-flex justify-content-between"
-                >
-                  <div class="jobs_left d-flex align-items-center">
-                    <div
-                      class="thumb p-0 h-100 justify-content-center align-items-center offset"
-                      style="max-height: 100px; max-width: 100px"
-                    >
-                      <img
-                        src="{{ aplay.imgUser }}"
-                        class="mx-auto d-block h-100 justify-content-center align-items-center"
-                        style="max-height: 100%; max-width: 100%"
-                      />
-                    </div>
-                    <a
-                      ><h6>{{ aplay.name }}</h6></a
-                    >
-                    <div class="jobs_conetent">
-                      Name:
-                      <p>{{ aplay.name }}</p>
-                      E-Mail:
-                      <p>{{ aplay.email }}</p>
-                      Phone:
-                      <p>{{ aplay.phone }}</p>
-                    </div>
-                  </div>
-                  <div class="jobs_right text-center">
-                    <div class="apply_now mt-1" (click)="openCV(aplay.CV)">
-                      <a class="boxed-btn3">CV</a>
-                    </div>
-                    <div
-                      class="apply_now mt-1"
-                      *ngIf="aplay.certify"
-                      (click)="openCertify(aplay.certify)"
-                    >
-                      <a class="boxed-btn3">Certifications</a>
-                    </div>
-                    <div class="apply_now mt-1"
-                    data-toggle="modal"
-                        data-target="#exampleModalAccept"
-                       (click)="acceptedAplay(aplay)">
-                      <a class="boxed-btn3">Accept</a>
-                    </div>
-                    <div class="date">
-                      <p>{{ aplay.published_at | date }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-12 col-md-12" *ngIf="jobAplaying.length == 0">
-                There are no requests aplayed
-              </div>
-            </div>
-          </div>
         </div>
         <div *ngIf="loggedIn == false && !JobDetail.ExEmail">
           <h4 class="text-danger">con't aplay without login</h4>
@@ -301,7 +238,7 @@
             </ul>
           </div>
         </div>
-        <div class="share_wrap d-flex">
+        <!--<div class="share_wrap d-flex">
           <span>Share at:</span>
           <ul>
             <li>
@@ -317,9 +254,76 @@
               <a href="#"> <i class="fa fa-envelope"></i></a>
             </li>
           </ul>
-        </div>
+        </div>-->
       </div>
     </div>
+
+   
+      <div *ngIf="usertype == 'Company'">
+        <!--1212-->
+        <div class="row">
+          <div
+            class="col-lg-12 col-md-12"
+            *ngFor="let aplay of jobAplaying"
+            [routerLink]="['/job-details']"
+            (click)="jobInfoId(job.jobID)"
+            >
+            <div class="single_jobs white-bg d-flex justify-content-between">
+              <div class="jobs_left d-flex align-items-center">
+                <div
+                  class="thumb  h-100 justify-content-center align-items-center offset"
+                  style="max-height: 100px; max-width: 100px"
+                >
+                  <img
+                    src="{{ aplay.imgUser }}"
+                    class="mx-auto d-block h-100 justify-content-center align-items-center"
+                    style="max-height: 100%; max-width: 100%"
+                  />
+                </div>
+                <a
+                  ><h6>{{ aplay.name }}</h6></a
+                >
+                <div class="jobs_conetent ml-5">
+                  Name:
+                  <p>{{ aplay.name }}</p>
+                  E-Mail:
+                  <p>{{ aplay.email }}</p>
+                  Phone:
+                  <p>{{ aplay.phone }}</p>
+                </div>
+              </div>
+              <div class="jobs_right text-center">
+                <div class="apply_now mt-1" (click)="openCV(aplay.CV)">
+                  <a class="boxed-btn3">CV</a>
+                </div>
+                
+                <div
+                  class="apply_now mt-1"
+                  data-toggle="modal"
+                  data-target="#exampleModalAccept"
+                  (click)="acceptedAplay(aplay)"
+                >
+                  <a class="boxed-btn3">Accept</a>
+                </div>
+                <div
+                  class="apply_now mt-1"
+                  *ngIf="aplay.certify.length > 0"
+                  (click)="openCertify(aplay.certify)"
+                >
+                  <a class="boxed-btn3">Certifications</a>
+                </div>
+                <div class="date">
+                  <p>{{ aplay.published_at | date }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12" *ngIf="jobAplaying.length == 0">
+            There are no requests aplayed
+          </div>
+        </div>
+      </div>
+   
   </div>
 </div>
 

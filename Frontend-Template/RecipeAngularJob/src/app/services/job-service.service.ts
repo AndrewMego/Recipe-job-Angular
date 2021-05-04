@@ -77,7 +77,7 @@ export class JobServiceService {
     return this.http.post<Idata>('http://127.0.0.1:8000/Job/addJob/jobDetails/', objTag, httpOptions)
   }
 
-  postCat(objCat: Idata): Observable<Idata> {
+  postCat(objCat) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ export class JobServiceService {
       })
     };
     
-    return this.http.post<Ijob>('http://127.0.0.1:8000/Job/addJob/addCat', objCat, httpOptions)
+    return this.http.post('http://127.0.0.1:8000/Job/addCat/', objCat, httpOptions)
   }
 
   findJob(objFind: Ifind): Observable<Ijob[]> {

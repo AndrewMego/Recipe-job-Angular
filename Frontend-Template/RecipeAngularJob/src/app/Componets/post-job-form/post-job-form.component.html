@@ -84,25 +84,35 @@
                           </div>
 
                           <div class="col">
-                            <div class="input_field">
-                              <input
-                                formControlName="location"
-                                type="text"
-                                placeholder="Company location"
-                              />
-                              <div
+                            <div class="single_field">
+                              <div class="nice-select wide" tabindex="0">
+                                <span class="current">Location</span>
+                                <ul class="list list-group">
+                                  <li
+                                    data-value="0"
+                                    (click)="selectlocation(0)"
+                                    data-display="Location"
+                                    class="option selected list-group-item"
+                                  >
+                                    Location
+                                  </li>
+                                  <li
+                                    class="option list-group-item"
+                                    *ngFor="let d of DataLocation"
+                                    (click)="selectlocation(d.id)"
+                                    data-value="{{ d.id }}"
+                                  >
+                                    {{ d.name }}
+                                  </li>
+                                </ul>
+                              </div>
+                               <div
                                 class="alert alert-danger"
                                 role="alert"
-                                *ngIf="
-                                  postJobForm.controls['location'].invalid &&
-                                  postJobForm.controls['location'].touched
-                                "
+                                *ngIf="isLoc==true"
                               >
                                 <strong
-                                  *ngIf="
-                                    postJobForm.controls['location'].errors
-                                      .required
-                                  "
+                                 
                                 >
                                   Location is required
                                 </strong>
@@ -395,7 +405,7 @@
                               </div>
                             </div>
                           </div>
-                         <div class="col-4">
+                          <div class="col-4">
                             <!--<div class="form-group">-->
                             <div class="single_input">
                               <div class="nice-select wide" tabindex="0">
@@ -405,7 +415,7 @@
                                 <ul class="list list-group">
                                   <li
                                     data-value="0"
-                                     (click)="selectT(0)"
+                                    (click)="selectT(0)"
                                     data-display="Select Type Job"
                                     class="option selected list-group-item"
                                   >
@@ -464,7 +474,7 @@
                                 >
                                 <ul class="list list-group">
                                   <li
-                                   (click)="selectE(0)"
+                                    (click)="selectE(0)"
                                     data-value="0"
                                     data-display="Select years of experiences"
                                     class="option selected list-group-item"
@@ -515,7 +525,7 @@
                             </div>-->
                           </div>
                           <div class="col-4">
-                           <div class="single_input">
+                            <div class="single_input">
                               <div class="nice-select wide" tabindex="0">
                                 <span class="current" #selectGender
                                   >Select gender</span
@@ -523,7 +533,7 @@
                                 <ul class="list list-group">
                                   <li
                                     data-value="0"
-                                     (click)="selectG(0)"
+                                    (click)="selectG(0)"
                                     data-display="Select gender"
                                     class="option selected list-group-item"
                                   >
@@ -532,23 +542,22 @@
                                   <li
                                     class="option list-group-item"
                                     *ngFor="let e of TypeGender"
-                                    (click)="selectG( e.gender)"
-                                   
-                                  value="{{ e.gender }}"
-                                >
-                                  {{ e.gender }}
+                                    (click)="selectG(e.gender)"
+                                    value="{{ e.gender }}"
+                                  >
+                                    {{ e.gender }}
                                   </li>
                                 </ul>
                               </div>
                             </div>
                             <div
-                                class="alert alert-danger m-3"
-                                role="alert"
-                                *ngIf="checkSelectGender == false"
-                              >
-                                <strong> Gender is required </strong>
-                              </div>
-                           <!---- <div class="form-group">
+                              class="alert alert-danger m-3"
+                              role="alert"
+                              *ngIf="checkSelectGender == false"
+                            >
+                              <strong> Gender is required </strong>
+                            </div>
+                            <!---- <div class="form-group">
                               <select
                                 class="form-control"
                                 #selectGender
@@ -781,7 +790,8 @@
                                 </strong>
                                 <strong
                                   *ngIf="
-                                    postJobForm.controls['ExEmail'].errors.ExEmail
+                                    postJobForm.controls['ExEmail'].errors
+                                      .ExEmail
                                   "
                                 >
                                   Email not contain Ex: @,.com
@@ -828,7 +838,7 @@
                                 <ul class="list list-group">
                                   <li
                                     data-value="0"
-                                     (click)="selectT(0)"
+                                    (click)="selectT(0)"
                                     data-display="Select Type Job"
                                     class="option selected list-group-item"
                                   >
@@ -887,7 +897,7 @@
                                 >
                                 <ul class="list list-group">
                                   <li
-                                   (click)="selectE(0)"
+                                    (click)="selectE(0)"
                                     data-value="0"
                                     data-display="Select years of experiences"
                                     class="option selected list-group-item"
@@ -938,7 +948,7 @@
                             </div>-->
                           </div>
                           <div class="col-4">
-                           <div class="single_input">
+                            <div class="single_input">
                               <div class="nice-select wide" tabindex="0">
                                 <span class="current" #selectGender
                                   >Select gender</span
@@ -946,7 +956,7 @@
                                 <ul class="list list-group">
                                   <li
                                     data-value="0"
-                                     (click)="selectG(0)"
+                                    (click)="selectG(0)"
                                     data-display="Select gender"
                                     class="option selected list-group-item"
                                   >
@@ -955,23 +965,22 @@
                                   <li
                                     class="option list-group-item"
                                     *ngFor="let e of TypeGender"
-                                    (click)="selectG( e.gender)"
-                                   
-                                  value="{{ e.gender }}"
-                                >
-                                  {{ e.gender }}
+                                    (click)="selectG(e.gender)"
+                                    value="{{ e.gender }}"
+                                  >
+                                    {{ e.gender }}
                                   </li>
                                 </ul>
                               </div>
                             </div>
                             <div
-                                class="alert alert-danger m-3"
-                                role="alert"
-                                *ngIf="checkSelectGender == false"
-                              >
-                                <strong> Gender is required </strong>
-                              </div>
-                           <!---- <div class="form-group">
+                              class="alert alert-danger m-3"
+                              role="alert"
+                              *ngIf="checkSelectGender == false"
+                            >
+                              <strong> Gender is required </strong>
+                            </div>
+                            <!---- <div class="form-group">
                               <select
                                 class="form-control"
                                 #selectGender

@@ -16,9 +16,17 @@ blogItem :Iblog
 @ViewChild('textComment') elem: ElementRef;
 getsingleBlog:Icomment
 myDate: Date = new Date();
+loggedIn :boolean = false
   constructor(private _router: Router, private _apiBlogCatServ: JobServiceService , public datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem('userInfo')) {
+   
+      this.loggedIn = true
+    
+    } else {
+  
+      this.loggedIn = false }
    this.getobj();
    
   }

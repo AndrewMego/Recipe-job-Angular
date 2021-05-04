@@ -54,11 +54,14 @@ export class UserProfileComponent implements OnInit {
   ///////////////
   @ViewChild('editTitle') editTitle: ElementRef;
   @ViewChild('salary') salary: ElementRef;
+  @ViewChild('editTitleOther') editTitleOther: ElementRef;
+  @ViewChild('salaryOther') salaryOther: ElementRef;
   @ViewChild('desc') desc: ElementRef;
   @ViewChild('qualifi') qualifi: ElementRef;
   @ViewChild('benefit') benefit: ElementRef;
   @ViewChild('respons') respons: ElementRef;
   @ViewChild('vacancy') vacancy: ElementRef;
+  @ViewChild('vacancyOther') vacancyOther: ElementRef;
   @ViewChild('Requirements') Requirements: ElementRef;
   jobIDUpdate: number;
   blogIDUbdate: number
@@ -78,7 +81,7 @@ export class UserProfileComponent implements OnInit {
 
     let getInfoUserSession = JSON.parse(sessionStorage.getItem('userInfo'))
     this.UserInfo = getInfoUserSession
-    if (this.UserInfo.skills !== undefined && getInfoUserSession['typeUser'] != 'Company') {
+    if (this.UserInfo.skills !== null && getInfoUserSession['typeUser'] != 'Company') {
 
       this.arrSkills = this.UserInfo.skills.split(",");
       this.addtionSkill = this.arrSkills
@@ -284,7 +287,10 @@ export class UserProfileComponent implements OnInit {
     this.blogIDUbdate = element
   }
 
-
+  blogID(element) {
+    console.log(element)
+    sessionStorage.setItem('singleBlog', element)
+  }
   updateBlog() {
 
     const uploadData = new FormData();
@@ -295,7 +301,7 @@ export class UserProfileComponent implements OnInit {
     for (let i = 0; i < this.arrImage.length; i++) {
       uploadData.append('images', this.arrImage[i]);
     }
-    console.log(this.elem.nativeElement.value)
+    console.log(this.blogIDUbdate )
     uploadData.append('blogID', this.blogIDUbdate + "");
     uploadData.append('description', this.elem.nativeElement.value);
 
@@ -416,17 +422,21 @@ export class UserProfileComponent implements OnInit {
 
   saveOther() {
 
-    if (this.editTitle.nativeElement.value != '' &&
-      this.salary.nativeElement.value != '' &&
+    console.log(this.editTitleOther.nativeElement.value)
+    console.log(this.salaryOther.nativeElement.value)
+    console.log(this.Requirements.nativeElement.value)
+    console.log(this.vacancyOther.nativeElement.value)
+    if (this.editTitleOther.nativeElement.value != '' &&
+      this.salaryOther.nativeElement.value != '' &&
       this.Requirements.nativeElement.value != '' &&
-      this.vacancy.nativeElement.value != '') {
-
+      this.vacancyOther.nativeElement.value != '') {
+        this.isEdit = true
       let newObj = {
         'jobID': this.jobIDUpdate,
-        'title': this.editTitle.nativeElement.value,
-        'salary': this.salary.nativeElement.value,
+        'title': this.editTitleOther.nativeElement.value,
+        'salary': this.salaryOther.nativeElement.value,
         'description': this.Requirements.nativeElement.value,
-        'qualifi': this.qualifi.nativeElement.value,
+        'vacancy': this.vacancyOther.nativeElement.value,
       }
 
       this.apiSave(newObj);
@@ -438,7 +448,7 @@ export class UserProfileComponent implements OnInit {
 
   apiSave(obj) {
 
-    this.http.post('http://127.0.0.1:8000/Users/updateJob', obj).subscribe(
+    this.http.post('http://127.0.0.1:8000/Job/updateJob/', obj).subscribe(
       data => {
         if (data['msg'] == 'success') {
 

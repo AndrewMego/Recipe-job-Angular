@@ -41,7 +41,11 @@ export class BlogComponent implements OnInit {
       this.loggedIn = true
       this.userID = getInfoUserSession["userId"]
       this.getMy_likes(this.userID)
-    } else { this.loggedIn = false }
+    } else {
+      this._apiBlogCatServ.getBlogs().subscribe((res) => {
+        console.log(res)
+        this.blogsList = res }, (err) => { console.log(err) })
+      this.loggedIn = false }
 
 
 
@@ -161,7 +165,8 @@ export class BlogComponent implements OnInit {
     this.http.post('http://127.0.0.1:8000/Blog/create/', uploadData).subscribe(
       data => {
         console.log(data)
-
+        window.location.href = 'http://localhost:4200/blog';
+        //this._router.navigateByUrl('/blog');
       },
       error => console.log(error)
     );
